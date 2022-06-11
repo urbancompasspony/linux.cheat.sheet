@@ -59,5 +59,4 @@ tmpfs /var/tmp tmpfs defaults 0 0
 curl -k -T ARQUIVO_LOCAL -u "ID_DA_PASTA:SENHA_DE_USUÁRIO" -H 'X-Requested-With: XMLHttpRequest' https://cs.unixuniverse.com.br/cloud/public.php/webdav/NOME_DO_ARQUIVO_NO_SERVIDOR
 
 ## DOS with Ping (Ping of Death
-
-sudo ping <ip address> -s 65500 -t 1 -n 1
+ WIP
