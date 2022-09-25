@@ -58,5 +58,8 @@ tmpfs /var/tmp tmpfs defaults 0 0
 
 curl -k -T ARQUIVO_LOCAL -u "ID_DA_PASTA:SENHA_DE_USUÁRIO" -H 'X-Requested-With: XMLHttpRequest' https://cs.unixuniverse.com.br/cloud/public.php/webdav/NOME_DO_ARQUIVO_NO_SERVIDOR
 
-## DOS with Ping (Ping of Death
- WIP
+## Mount .RAW disks from QEMU KVM!
+
+sudo apt install guestfs-tools
+
+sudo guestmount --add /path/to/disk.img --mount /dev/sda2 /mnt/temp
