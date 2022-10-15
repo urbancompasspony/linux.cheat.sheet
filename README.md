@@ -64,10 +64,16 @@ sudo apt install guestfs-tools
 
 sudo guestmount --add /path/to/disk.img --mount /dev/sda2 /mnt/temp
 
-## X11 connection rejected because of wrong authentication
+## X11 connection rejected because of wrong authentication...
 
 export DISPLAY=localhost:10.0
 
 xauth add ${HOST}:10 . $(xxd -l 16 -p /dev/urandom)
 
 sudo xauth merge ~/.Xauthority
+
+## Resize EXT4
+
+sudo e2fsck -f /dev/sdf
+
+sudo resize2fs /dev/sdf 404G
