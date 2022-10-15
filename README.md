@@ -63,3 +63,11 @@ curl -k -T ARQUIVO_LOCAL -u "ID_DA_PASTA:SENHA_DE_USUÁRIO" -H 'X-Requested-With
 sudo apt install guestfs-tools
 
 sudo guestmount --add /path/to/disk.img --mount /dev/sda2 /mnt/temp
+
+## X11 connection rejected because of wrong authentication
+
+export DISPLAY=localhost:10.0
+
+xauth add ${HOST}:10 . $(xxd -l 16 -p /dev/urandom)
+
+sudo xauth merge ~/.Xauthority
