@@ -93,3 +93,10 @@ sudo ping -f -s 56500
 # Reboot to BIOS!
 
 systemctl reboot --firmware-setup
+
+# AutoSet Crontab
+
+sudo crontab -l > /tmp/crontab
+echo "# AutoRenew and Nextcloud Maintenance" | tee -a /tmp/crontab
+echo "*/5 * * * * bash something" | tee -a /tmp/crontab
+sudo crontab /tmp/crontab
