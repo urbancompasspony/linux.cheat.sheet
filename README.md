@@ -100,3 +100,8 @@ sudo crontab -l > /tmp/crontab
 echo "# AutoRenew and Nextcloud Maintenance" | tee -a /tmp/crontab
 echo "*/5 * * * * bash something" | tee -a /tmp/crontab
 sudo crontab /tmp/crontab
+
+# Check what is mounted
+
+sudo fuser -vm /mnt/backupi/
+lsof /mnt/dir
