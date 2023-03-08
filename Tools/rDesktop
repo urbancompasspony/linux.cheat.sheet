@@ -1,0 +1,57 @@
+#!/bin/bash
+
+pathmount="/tmp/pathmount"
+
+function start {
+[ -f  "$pathmount" ] && {
+  VALUE1=$(sed -n '1p' "$pathmount")
+  VALUE2=$(sed -n '2p' "$pathmount")
+  VALUE3=$(sed -n '3p' "$pathmount") 
+  VALUE4=$(sed -n '4p' "$pathmount")  
+
+} || {
+  touch "$pathmount"
+
+  VALUE1=""
+  VALUE2=""
+  VALUE3=""
+  VALUE4="-d WORKGROUP"
+  
+  echo "$VALUE1" > "$pathmount"
+  echo "$VALUE2" >> "$pathmount"
+  echo "$VALUE3" >> "$pathmount"
+  echo "$VALUE4" >> "$pathmount"
+}
+
+
+VALUE0=$(dialog --ok-label "Conectar" --title " " --form "Conexão RDP" 12 50 0 \
+"IP: " 1 1 "$VALUE1" 1 10 34 0 \
+"USER:" 2 1 "$VALUE2" 2 10 34 0 \
+"PASS:" 3 1 "$VALUE3" 3 10 34 0 \
+"DOM:" 4 1 "$VALUE4" 4 10 34 0 \
+3>&1 1>&2 2>&3 3>&- > /dev/tty)
+[ $? -ne 0 ] && exit
+IP1=$(echo "$VALUE0" | sed -n 1p)
+user2=$(echo "$VALUE0" | sed -n 2p)
+pass2=$(echo "$VALUE0" | sed -n 3p)
+dmn2=$(echo "$VALUE0" | sed -n 4p)
+
+[ -z "$IP1" ] || [ -z "$user2" ] || [ -z "$pass2" ] || [ -z "$dmn2" ] && {
+  dialog --title "ERRO" --msgbox "Não deixe nenhum campo vazio!" 8 40
+  #rm "$pathmount"
+  exit
+} || {
+  echo "$IP1" > "$pathmount"
+  echo "$user2" >> "$pathmount"
+  echo "$pass2" >> "$pathmount"
+  echo "$dmn2" >> "$pathmount"
+  
+  echo "rdesktop -u '$user2' -p '$pass2' '$dmn2' '$IP1'" > /tmp/.rdesktop
+  chmod +x /tmp/.rdesktop
+  /tmp/.rdesktop
+  
+  start
+  }
+}
+
+start
