@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Nmap Vuln v1.0"
+
+echo " "
+read -p "Insira o IP (ou faixas de IP): " IP
+read -p "Insira a Porta (ou faixas de Portas): " porta
+echo " "
+
+if [ -z "$porta" ]; then
+  nmap -sT -p- $IP
+else
+  nmap -sT -p- $IP -p "$porta"
+fi
+
+exit 0
