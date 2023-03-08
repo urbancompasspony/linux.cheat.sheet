@@ -1,0 +1,64 @@
+#!/bin/bash
+
+function start {
+VALUE1=""
+VALUE2=""
+VALUE3=""
+VALUE4="0"
+VALUE5="0"
+
+VALUE0=$(dialog --ok-label "Check" --title "SMART" --form "SSD/HDD Health" 12 33 0 \
+"IP      : " 1 1 "$VALUE1" 1 10 15 0 \
+"USER    :" 2 1 "$VALUE2" 2 10 15 0 \
+"PASS    :" 3 1 "$VALUE3" 3 10 15 0 \
+"MegaRAID:" 4 1 "$VALUE4" 4 10 1 0 \
+"Local   :" 5 1 "$VALUE5" 5 10 1 0 \
+3>&1 1>&2 2>&3 3>&- > /dev/tty)
+[ $? -ne 0 ] && exit
+ipssh=$(echo "$VALUE0" | sed -n 1p)
+user=$(echo "$VALUE0" | sed -n 2p)
+pass=$(echo "$VALUE0" | sed -n 3p)
+megaraid=$(echo "$VALUE0" | sed -n 4p)
+raidlocal=$(echo "$VALUE0" | sed -n 5p)
+[ -z "$ipssh" ] || [ -z "$user" ] || [ -z "$pass" ] || [ -z "$pass" ] && {
+  dialog --title "ERRO" --msgbox "Não deixe nenhum campo vazio!" 7 30; start; }
+  smartdump "$user" "$ipssh" "$pass" "$megaraid" "$raidlocal"
+}
+
+function smartdump {
+
+  # Clear SMART_DUMP File
+  ssh-keygen -f "/home/nathandrake/.ssh/known_hosts" -R "$1"
+  sshpass -p "$3" ssh -o StrictHostKeyChecking=accept-new "$1"@"$2" "echo '' > SMART_DUMP"
+  
+  # Check SMART of block devices /dev/sdX
+  for i in a b c d e f g h
+    do
+      sshpass -p "$3" ssh -o StrictHostKeyChecking=accept-new "$1"@"$2" "echo "$3" | sudo -S skdump /dev/sd$i >> SMART_DUMP"
+    done
+
+  # Check if there is NVME
+  [ -b /dev/nvme0n1 ] && {
+    for i in 1 2 3 4
+      do
+        sshpass -p "$3" ssh -o StrictHostKeyChecking=accept-new "$1"@"$2" "echo "$3" | sudo -S smartctl -a /dev/nvme0n1p$i >> SMART_DUMP"
+      done
+  } || {
+    echo "NVME not present."
+    }
+
+  # Check if there is MegaRAID
+  [ $4 = 1 ] && {
+    for i in 0 1 2 3 4 5 6 7
+      do
+        sshpass -p "$3" ssh -o StrictHostKeyChecking=accept-new "$1"@"$2" "echo "$3" | sudo -S smartctl -d megaraid,$i -a /dev/sg$5 >> SMART_DUMP"
+      done
+    } || {
+      echo "MegaRAID not present."
+    }
+
+  # Catch the SMART_DUMP file!
+  sshpass -p "$3" scp -o StrictHostKeyChecking=accept-new "$1"@"$2":/home/administrador/SMART_DUMP .
+}
+
+start
