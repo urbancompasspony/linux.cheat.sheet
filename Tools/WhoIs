@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function start {
+site=$(dialog --title 'WhoIs' --backtitle "$bktitle" --inputbox "Digite o site que deseja localizar informações. Use o seguinte modelo: exemplo.com.br" 10 40 2>&1 > /dev/tty)
+dialog --title "WhoIs" --msgbox "Pressione Enter para iniciar o teste e aguarde!" 0 0
+wis=$(whois "$site")
+dialog --title "WhoIs" --msgbox "$wis" 0 0
+}
+
+start
