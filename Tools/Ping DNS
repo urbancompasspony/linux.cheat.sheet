@@ -1,0 +1,71 @@
+#!/bin/bash
+
+function ping1 {
+  ping -c 1 "$1" | awk 'NR==2{print $7,$8}'
+}
+
+function gauge1 {
+  echo  "$1" | dialog --title "Testando Ping..." --gauge "Aguarde a conclusão!" 8 40
+}
+
+function start {
+Google_P=$(ping1 "8.8.4.4")
+gauge1 "8"
+Google_S=$(ping1 "8.8.8.8")
+gauge1 "14"
+OpenDNS_P=$(ping1 "208.67.222.222")
+gauge1 "19"
+OpenDNS_S=$(ping1 "208.67.220.220")
+gauge1 "22"
+Level3_P=$(ping1 "4.2.2.1")
+gauge1 "24"
+Level3_S=$(ping1 "4.2.2.2")
+gauge1 "28"
+Comodo_P=$(ping1 "8.26.56.26")
+gauge1 "32"
+Comodo_S=$(ping1 "8.20.247.20")
+gauge1 "36"
+DNSWATCH_P=$(ping1 "84.200.69.80")
+gauge1 "42"
+DNSWATCH_S=$(ping1 "84.200.70.40")
+gauge1 "46"
+Quad9_P=$(ping1 "9.9.9.9")
+gauge1 "50"
+Quad9_S=$(ping1 "149.112.112.112")
+gauge1 "57"
+Cloudflare_P=$(ping1 "1.1.1.1")
+gauge1 "67"
+Cloudflare_S=$(ping1 "1.0.0.1")
+gauge1 "74"
+Algar_P=$(ping1 "200.225.197.34")
+gauge1 "79"
+Algar_S=$(ping1 "200.225.197.37")
+gauge1 "85"
+GIGA_P=$(ping1 "189.38.95.95")
+gauge1 "96"
+GIGA_S=$(ping1 "189.38.95.96")
+gauge1 "100"
+
+TEXTAO14="Google 8.8.4.4: $Google_P
+Google 8.8.8.8: $Google_S
+OpenDNS 208.67.222.222: $OpenDNS_P
+OpenDNS 208.67.220.220: $OpenDNS_S
+Level3 4.2.2.1: $Level3_P
+Level3 4.2.2.2: $Level3_S
+Comodo 8.26.56.26: $Comodo_P
+Comodo 8.20.247.20: $Comodo_S
+DNSWATCH 84.200.69.80: $DNSWATCH_P
+DNSWATCH 84.200.70.40: $DNSWATCH_S
+Quad9 9.9.9.9: $Quad9_P
+Quad9 149.112.112.112: $Quad9_S
+Cloudflare 1.1.1.1: $Cloudflare_P
+Cloudflare 1.0.0.1: $Cloudflare_S
+Algar 200.225.197.34: $Algar_P
+Algar 200.225.197.37: $Algar_S
+GigaDNS 189.38.95.95: $GIGA_P
+GigaDNS 189.38.95.96: $GIGA_S"
+
+dialog --title 'Resultados do Ping:' --msgbox "$TEXTAO14" 0 0
+}
+
+start
