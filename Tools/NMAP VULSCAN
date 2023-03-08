@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo "Nmap Vulscan v1.0"
+
+echo " "
+read -p "Insira o IP (ou faixas de IP): " IP
+read -p "Insira a Porta (ou faixas de Portas): " porta
+echo " "
+
+if [ -z "$porta" ]; then
+  nmap --script vulscan -Pn $IP
+else
+  nmap --script vulscan -Pn $IP -p "$porta"
+fi
