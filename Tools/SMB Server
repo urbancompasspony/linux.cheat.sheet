@@ -1,0 +1,39 @@
+#!/bin/bash
+
+function start {
+sahred1=$(dialog --title 'SAMBA' --backtitle "$bktitle" --inputbox "Digite o caminho que deseja compartilhar ou criar:" 10 40 2>&1 > /dev/tty)
+sahred2=$(dialog --title 'SAMBA' --backtitle "$bktitle" --inputbox "Digite o nome que deseja usar no compartilhamento:" 10 40 2>&1 > /dev/tty)
+
+case $? in
+  1) exit ;;
+  2) mntshow2=$(ls /mnt); dialog --title 'MNTs' --msgbox "$mntshow2" 0 0 ; start ;;
+esac
+
+[ -z "$sahred1" ] || [ -z "$sahred2" ] && { dialog --title "Informação" --msgbox "Nao deixe em branco!" 6 20; start; }
+
+echa2=$(cat "/etc/samba/smb.conf" | grep "$sahred1" 1> /dev/null 2> /dev/null && echo "sim" || echo "nao")
+echa3=$(cat "/etc/samba/smb.conf" | grep "$sahred2" 1> /dev/null 2> /dev/null && echo "sim" || echo "nao")
+
+[ "$echa2" = "sim" ] || [ "$echa3" = "sim" ] && { dialog --title "Informação" --msgbox "Esta pasta ou este nome já foi compartilhado! Escolha outro." 7 30; start; }
+
+sudo bash -c "echo '[$sahred2]
+path = $sahred1
+valid users = $USER
+admin users = $USER
+guest ok = no
+writable = yes
+browsable = yes
+create mask = 0777
+force create mode = 0777
+directory mask = 0777
+force directory mode = 0777
+' >> /etc/samba/smb.conf"
+
+  [ -d "$sahred1" ] || { sudo mkdir "$sahred1"; }
+  sudo chmod 777 -R "$sahred1"
+  sudo systemctl restart smbd nmbd
+  dialog --title "Informação" --msgbox "Caminho compartilhado!" 6 20
+  exit
+}
+
+start
