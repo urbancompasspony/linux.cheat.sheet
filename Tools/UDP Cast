@@ -1,0 +1,16 @@
+#!/bin/bash
+
+function start {
+var2=$(dialog --title 'UDPCast' --backtitle "$bktitle" --menu "Escolha o modo!" 0 0 0 \
+A 'Client' \
+B 'Server' \
+X 'Sair' 2>&1 > /dev/tty )
+[ $? -ne 0 ] && {start}
+case "$var2" in
+A) echo "Modo Cliente. Para sair, precione CTRL + C!" ; udp-receiver --file=/dev/null ;;
+B) echo "Modo Servidor. Para sair, precione CTRL + C!" ; udp-sender --file=/dev/zero ;;
+X) exit ;;
+esac
+}
+
+start
