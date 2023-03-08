@@ -1,0 +1,8 @@
+#!/bin/bash
+
+function start {
+ipneigh1=$(ip neigh)
+dialog --title 'IP Neigh' --msgbox "$ipneigh1" 0 0
+}
+
+start
