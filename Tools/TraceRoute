@@ -1,0 +1,12 @@
+#!/bin/bash
+
+function start {
+site=$(dialog --title 'TraceRoute' --backtitle "Identificador de hops/saltos que um computador efetua até acessar um site especificado." --inputbox "Digite o site que deseja analisar os Saltos. Use o seguinte modelo: \n
+exemplo.com.br \n
+A identificação estará concluída quando um (END) surgir no final." 14 40 2>&1 > /dev/tty)
+dialog --title "Traceroute" --msgbox "Pressione Enter para iniciar o teste e aguarde!" 0 0
+trot=$(traceroute "$site")
+dialog --title "Traceroute" --msgbox "$trot" 0 0
+}
+
+start
