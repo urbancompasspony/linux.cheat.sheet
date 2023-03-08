@@ -1,0 +1,46 @@
+#!/bin/bash
+
+function start {
+VALUE1="//172.20.0.2/backup"
+VALUE2="/mnt/backup"
+VALUE3="admin"
+VALUE4=""
+VALUE5=",domain=WORKGROUP"
+
+VALUE0=$(dialog --help-button --help-label 'Show' --ok-label "Montar" --title "Mounting" --form "Pastas de Redes" 15 50 0 \
+"PATH: " 1 1 "$VALUE1" 1 10 34 0 \
+"MNT:" 2 1 "$VALUE2" 2 10 34 0 \
+"USER:" 3 1 "$VALUE3" 3 10 34 0 \
+"PASS:" 4 1 "$VALUE4" 4 10 34 0 \
+"DOM:" 5 1 "$VALUE5" 5 10 34 0 \
+3>&1 1>&2 2>&3 3>&- > /dev/tty)
+
+case $? in
+  1) exit ;;
+  2) mntshow1=$(ls /mnt); dialog --title 'MNTs' --msgbox "$mntshow1" 0 0 ; menu19 ;;
+esac
+
+path1=$(echo "$VALUE0" | sed -n 1p)
+mntpt1=$(echo "$VALUE0" | sed -n 2p)
+user1=$(echo "$VALUE0" | sed -n 3p)
+pass1=$(echo "$VALUE0" | sed -n 4p)
+dmn1=$(echo "$VALUE0" | sed -n 5p)
+
+[ -z "$path1" ] || [ -z "$mntpt1" ] || [ -z "$user1" ] || [ -z "$pass1" ] && {
+  dialog --title "ERRO" --msgbox "Não deixe os campos PATH, MNT, USER ou PASS vazios!" 7 30; start; }
+
+echa1=$(grep "$mntpt1" -qs /proc/mounts && echo "sim" || echo "nao")
+[ "$echa1" = "sim" ] && {
+  dialog --title "Informação" --msgbox "Caminho em uso! Escolha outro." 7 30
+  menu19
+} || {
+  sudo mkdir -p "$VALUE2"
+  sudo mount -t cifs -o user="$user1",password="$pass1""$dmn1",iocharset=utf8,file_mode=0777,dir_mode=0777,noperm "$path1" "$mntpt1"
+  mntshow2=$(df -hT)
+  dialog --title "Caminho montado!" --msgbox "$mntshow2" 25 60
+  exit
+  }
+
+}
+
+start
