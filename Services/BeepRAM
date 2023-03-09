@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# If Used RAM bigger or equal to 1, run beep every second
+
+while True:
+  memoryused=$(free -h | awk {'print $3'} | awk 'NR==2' | sed 's/....$//')
+  [ $memoryused -gt 2 ] && echo "$memoryused yes" || echo "$memoryused no"
+  sleep 1
+  sudo env -u SUDO_GID -u SUDO_COMMAND -u SUDO_USER -u SUDO_UID beep
+
+exit 1
