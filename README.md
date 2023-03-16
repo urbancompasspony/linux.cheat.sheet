@@ -1,5 +1,8 @@
 # Linux-Scripts
 
+## Find something inside files, EXACT matching pattern:
+grep -rnw '/path/to/somewhere/' -e 'pattern'
+
 ## Speedup pendrives:
 
 sudo modprobe ehci_hcd
