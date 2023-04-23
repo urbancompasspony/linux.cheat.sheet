@@ -1,0 +1,22 @@
+# Auto Login when just CLI!
+
+Create:
+
+/etc/systemd/system/getty@tty1.service.d/override.conf
+
+Content:
+
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --noissue --autologin ubuntu %I $TERM
+Type=idle
+
+# For ROOT:
+
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --noissue --autologin root %I $TERM
+Type=idle
+
+The option Type=idle found in the default getty@.service will delay the service startup until all jobs
+(state change requests to units) are completed in order to avoid polluting the login prompt with boot-up messages.
