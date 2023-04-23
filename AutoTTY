@@ -20,3 +20,10 @@ Type=idle
 
 The option Type=idle found in the default getty@.service will delay the service startup until all jobs
 (state change requests to units) are completed in order to avoid polluting the login prompt with boot-up messages.
+
+To run a program after login on a specific TTY, put on .profile:
+
+if [[ "$(tty)" == "/dev/tty1" ]]
+ then
+  # do whatever you want here
+fi
