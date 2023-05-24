@@ -99,13 +99,13 @@ sudo crontab /tmp/crontab
 sudo fuser -vm /mnt/backupi/
 lsof /mnt/dir
 
-## Issues with “signature is marginal trust”, “signature is unknown trust”, or “invalid or corrupted package”
+# Issues with “signature is marginal trust”, “signature is unknown trust”, or “invalid or corrupted package”
 
-# At first, try:
+## At first, try:
 sudo pacman -Sy archlinux-keyring endeavouros-keyring
 yay -Syu
 
-# If keep giving errors, re-do the keyring structure:
+## If keep giving errors, re-do the keyring structure:
 
 sudo rm -R /var/cache/pacman/pkg/*
 sudo mv /etc/pacman.d/gnupg /root/pacman-key.bak
@@ -114,5 +114,6 @@ sudo pacman-key --populate archlinux endeavouros
 sudo pacman -Syy archlinux-keyring endeavouros-keyring
 yay -Syyu
 
-At the end, if still giving errors, force the package installation:
+## At the end, if still giving errors, force the package installation:
+
 sudo pacman -U /var/cache/pacman/pkg/{archlinux,endeavouros}-keyring*.pkg.tar.zst
