@@ -77,6 +77,8 @@ xauth add ${HOST}:10 . $(xxd -l 16 -p /dev/urandom)
 
 sudo xauth merge ~/.Xauthority
 
+COPY .XAUTH FILE FROM NON-SUDO USER TO ROOT!
+
 ## Resize EXT4
 
 First: Check if there is a partition table! If disk was made with mkfs.xxx /dev/sdX, then will not be a partition table. Not possible to resize.
