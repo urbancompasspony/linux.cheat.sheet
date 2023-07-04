@@ -69,6 +69,8 @@ sudo guestmount --add /path/to/disk.img --mount /dev/sda2 /mnt/temp
 
 ## X11 connection rejected because of wrong authentication...
 
+sudo -i and without sudo too!
+
 export DISPLAY=localhost:10.0
 
 xauth add ${HOST}:10 . $(xxd -l 16 -p /dev/urandom)
