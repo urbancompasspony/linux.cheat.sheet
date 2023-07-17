@@ -1,0 +1,5 @@
+for number in $(find /sys/class/scsi_host/host* -maxdepth 0); do
+  echo "Scanning on $number!"
+  echo "0 0 0" > $number/scan
+  echo "Scan Ok"
+done
