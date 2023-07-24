@@ -3,6 +3,10 @@
 ## Find something inside files, EXACT matching pattern:
 grep -rnw '/path/to/somewhere/' -e 'pattern'
 
+## Backup without RSYNC
+
+ssh "tar -I "zstd -T0f3c" -cpf - origem" > arquivo.tar.zst
+
 ## Speedup pendrives:
 
 sudo modprobe ehci_hcd
