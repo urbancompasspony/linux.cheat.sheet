@@ -1,5 +1,15 @@
 # Linux-Scripts
 
+## BASE64
+
+Convert and revert any .tar, .zip, .jpg, .txt, .doc, .etc from file to string and back to file!
+
+Convert:
+$ base64 input.jpg > text.txt
+
+Revert:
+$ cat text.txt | base64 -d > output.jpg
+
 ## Find something inside files, EXACT matching pattern:
 grep -rnw '/path/to/somewhere/' -e 'pattern'
 
