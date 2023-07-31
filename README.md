@@ -1,5 +1,9 @@
 # Linux-Scripts
 
+## TAR COMPLETO
+
+tar --xattrs --xattrs-include='*' --numeric-owner -cp
+
 ## BASE64
 
 Convert and revert any .tar, .zip, .jpg, .txt, .doc, .etc from file to string and back to file!
