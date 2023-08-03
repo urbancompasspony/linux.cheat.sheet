@@ -1,5 +1,11 @@
 # Linux-Scripts
 
+## Turn On an PC!
+
+sudo echo 0 > /sys/class/rtc/rtc0/wakealarm
+
+sudo echo `date '+%s' -d '+ 10 minutes'` > /sys/class/rtc/rtc0/wakealarm
+
 ## TAR COMPLETO
 
 tar --xattrs --xattrs-include='*' --numeric-owner -cp
