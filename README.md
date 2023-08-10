@@ -1,5 +1,17 @@
 # Linux-Scripts
 
+## Desabilitar funções e hardwares
+
+xinput --list
+
+sudo xinput set-int-prop 6 "Device Enabled" 8 0 (disable)
+
+sudo xinput set-int-prop 6 "Device Enabled" 8 1 (enable)
+
+Onde "6" é o codigo do dispositivo.
+
+Teclado: 13
+
 ## Turn On an PC!
 
 sudo echo 0 > /sys/class/rtc/rtc0/wakealarm
