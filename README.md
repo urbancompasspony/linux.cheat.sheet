@@ -1,5 +1,9 @@
 # Linux-Scripts
 
+## Driver WiFi TL-WN8200ND
+
+https://github.com/clnhub/rtl8192eu-linux
+
 ## Desabilitar funções e hardwares
 
 xinput --list
