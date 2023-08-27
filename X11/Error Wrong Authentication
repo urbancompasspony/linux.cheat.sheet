@@ -1,0 +1,10 @@
+
+sudo -i and without sudo too!
+
+export DISPLAY=localhost:10.0
+
+xauth add ${HOST}:10 . $(xxd -l 16 -p /dev/urandom)
+
+sudo xauth merge ~/.Xauthority
+
+COPY .XAUTH FILE FROM NON-SUDO USER TO ROOT!
