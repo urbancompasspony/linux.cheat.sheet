@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Crontab
+# 30 16 * * 1-5 bash /home/path/scripts/thisone
+
+data=$(date +"%Y_%m_%d_%H:%M")
+
+echo "Derrubando a Conexao Local"
+/sbin/ifdown em1 &&
+
+if /sbin/blkid | grep backup > /dev/null 2>&1; then
+    echo "Montado!"
+    echo "Fazendo Backup"
+    /bin/gbak -user sysdba -pas masterkey -b /path/to/database.fdb /root/database_$data.fbk &&
+    echo "Montando Backup"
+    /bin/mount -U d2596b59-2e24-493a-8108-9d5f8f45a320 /mnt/pen &&
+    echo "Copiando para o Backup Local"
+    cp /root/database_$data.fbk /home/path/to/local/BACKUP &&
+    echo "Movendo para o Backup Externo"
+    mv /root/database_$data.fbk /mnt/pen &&
+    echo "Sincronizando os Discos"
+    sync
+    echo "Desmontando Backup"
+    /bin/umount /mnt/pen &&
+    echo "Ultima Sincronia dos Discos"
+    sync
+    echo "Conexao Local no Ar"
+    /sbin/ifup em1 &&
+    echo "Concluído"
+else
