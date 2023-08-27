@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# crontab -e:
+#@reboot sleep 120; curl -u admin:5V06auso -d "$(bash /home/administrador/.init)" http://172.20.0.6/$HOSTNAME
+#@reboot sleep 120; curl -u admin:5V06auso -d "$(bash /home/administrador/.init)" http://cs.linuxuniverse.com.br:9090/$HOSTNAME
+
 # ############################### #
 
 # DEFINIÇÕES
