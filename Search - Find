@@ -1,0 +1,21 @@
+## Search Something!
+
+USE * BECAUSE IT IS REGEX!
+
+cd /folder/
+sudo find . -name "*NAMETOFIND or nametofind*"
+sudo find . -type d -name "*NAMETOFIND or nametofind*"
+
+# FILES:
+
+cd /folder/
+sudo find . -name "*NAMETOFIND or nametofind*"
+sudo find . -type f -name "*NAMETOFIND or nametofind*"
+
+# Something inside files, exact pattern
+grep -rnw '/path/to/somewhere/' -e 'pattern'
+
+# INSIDE FILES (-i not case sensitive):
+
+cd /folder/
+sudo grep -rinw '.' -e 'NAMETOFIND or nametofind'
