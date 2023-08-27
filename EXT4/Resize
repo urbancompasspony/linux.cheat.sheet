@@ -1,0 +1,6 @@
+
+First: Check if there is a partition table! If disk was made with mkfs.xxx /dev/sdX, then will not be a partition table. Not possible to resize.
+
+sudo e2fsck -f /dev/sdf
+
+sudo resize2fs /dev/sdf 404G
