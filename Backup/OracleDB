@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# COLD backup script for Oracle Express 21c!
+
+# Crontab
+# 40 12 * * 1-5 bash /home/administrador/Scripts/Backup
+# 40 16 * * 1-5 bash /home/administrador/Scripts/Backup
+
+################################################################################
+# Control Panel #
+
+data=$(date +"%Y_%m_%d_%H_%M")
+
+getpath="/home/administrador/Shared/"
+bacpath="/mnt/disk01/BKP_Oracle/"
+logs="/home/administrador/Logs_Backup"
+# RM bellow with complete path to prevent problems!
+
+################################################################################
+
+touch "$logs"
+touch -m "$getpath"*
+
+echo "$data - Apagando backups mais antigos" | tee -a "$logs"
+find "$bacpath" -type d -mtime +45 -exec rm -rf {} \;
+find "$bacpath" -type f -mtime +45 -delete
+find "$bacpath" -type d -empty -delete
+
+echo "$data - Iniciando backups!" | tee -a "$logs"
+
+echo "$data - Fazendo backup local" | tee -a "$logs"
+rsync -a "$getpath" "$bacpath"
+
+echo "$data - 1/2 Sincronia dos discos" | tee -a "$logs"
+sync
+
+echo "$data - Tentando montar o HDD externo" | tee -a "$logs"
+
+disk2=$(/bin/mount -U YOUR_UUID_HERE /mnt/externo && echo "sim" || echo "nao")
+
+[ "$disk2" = "sim" ] && {
+  extpath="/mnt/externo/Oracle/"
+
+  echo "$data - HDD externo montado com sucesso!" | tee -a "$logs"
+  echo "$data - Copiando para o HDD externo" | tee -a "$logs"
+  rsync -a "$getpath" "$extpath"
+  
+  echo "$data - 2/2 Sincronia dos Discos" | tee -a "$logs"
+  sync
+
+  echo "$data - Desmontando o HDD externo" | tee -a "$logs"
+  /bin/umount /mnt/externo
+
+  echo "$data - Apagando diretório temporário" | tee -a "$logs"
+  rm -R /home/administrador/Shared/*
+
+  echo "$data - TRIM" | tee -a "$logs"
+  fstrim -a
+
+  echo " " | tee -a "$logs"
+} || {
+
+  echo "$data - ERRO: Disco externo ausente!" | tee -a "$logs"
+  echo "$data - ERRO: Apenas o backup local foi executado." | tee -a "$logs"
+  echo " " | tee -a "$logs"
+}
+
+data=$(date +"%Y_%m_%d_%H_%M")
+echo "Concluído em $data" | tee -a "$logs"
+echo " " | tee -a "$logs"
+
+exit 0
