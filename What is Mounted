@@ -1,0 +1,3 @@
+
+sudo fuser -vm /mnt/backupi/
+lsof /mnt/dir
