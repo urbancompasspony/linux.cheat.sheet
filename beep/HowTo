@@ -1,0 +1,13 @@
+sudo modprobe pcspkr snd-pcsp
+Or edit: /etc/modprobe.d/blacklist.conf
+Removing line #blacklist pcspkr
+
+Then:
+sudo env -u SUDO_GID -u SUDO_COMMAND -u SUDO_USER -u SUDO_UID beep
+
+Or:
+sudo chmod 777 /dev/input/by-path/platform-pcspkr-event-spkr
+beep
+
+CustomBeeps:
+https://raw.githubusercontent.com/Cqoicebordel/mid2beep/master/mid2beep
