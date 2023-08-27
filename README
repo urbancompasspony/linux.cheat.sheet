@@ -1,4 +1,23 @@
-# Linux-Scripts
+# Linux Cheat Sheet
+
+## Search Something!
+
+USE * BECAUSE IT IS REGEX!
+
+cd /folder/
+sudo find . -name "*NAMETOFIND or nametofind*"
+sudo find . -type d -name "*NAMETOFIND or nametofind*"
+
+# FILES:
+
+cd /folder/
+sudo find . -name "*NAMETOFIND or nametofind*"
+sudo find . -type f -name "*NAMETOFIND or nametofind*"
+
+# INSIDE FILES (-i not case sensitive):
+
+cd /folder/
+sudo grep -rinw '.' -e 'NAMETOFIND or nametofind'
 
 ## Driver WiFi TL-WN8200ND
 
