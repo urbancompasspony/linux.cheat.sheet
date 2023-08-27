@@ -1,0 +1,10 @@
+## Tips to Fix hard disks:
+
+sudo smartctl -t short /dev/sdX
+
+sudo smartctl -l selftest /dev/sdX
+
+sudo hdparm --write-sector 187175297 --yes-i-know-what-i-am-doing /dev/sdX
+
+# For NTFS
+sudo ntfsfix -d -b /dev/sdXY
