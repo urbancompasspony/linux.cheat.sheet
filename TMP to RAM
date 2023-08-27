@@ -1,0 +1,6 @@
+# Can be used to create a folder inside RAM!
+
+tmpfs /tmp tmpfs defaults 0 0
+
+tmpfs /var/tmp tmpfs defaults 0 0
+
