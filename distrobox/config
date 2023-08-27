@@ -1,0 +1,33 @@
+sudo apt install fuse-overlayfs
+
+mkdir -p $HOME/.local/Distrobox/Volumes
+mkdir -p $HOME/.local/Distrobox/Storage
+
+# On Terminal:
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh -s -- --prefix $HOME/.local/Distrobox
+
+TO BASHRC:
+export PATH=$HOME/.local/Distrobox/bin:$PATH
+xhost +si:localuser:$USER 1> /dev/null
+
+. .bashrc
+
+# Setup subuid/subgid
+sudo touch /etc/subuid
+sudo touch /etc/subgid
+sudo chmod 664 /etc/subuid /etc/subgid
+
+sudo usermod --add-subuids 10000-75535 $USER 
+sudo usermod --add-subgids 10000-75535 $USER
+
+sudo nano /etc/containers/storage.conf
+
+[storage]
+graphroot = "$HOME/.local/Distrobox/Volumes"
+runroot = "$HOME/.local/Distrobox/Storage"
+driver = "overlay"
+[storage.options.overlay]
+mount_program = "/usr/bin/fuse-overlayfs"
+mountopt = "nodev,index=off"
+
+That's all folks!
