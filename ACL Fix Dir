@@ -1,0 +1,3 @@
+chmod g+rwxs /path/to/parent
+
+setfacl -dm u::rwx,g::rwx,o::rwx /shared/directory
