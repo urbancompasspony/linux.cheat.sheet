@@ -1,0 +1,37 @@
+#!/bin/bash
+
+killall plugplay.exe &
+
+killall wineserver.exe &
+
+killall control.exe &
+
+killall winedevice.exe &
+
+killall services.exe &
+
+killall explorer.exe &
+
+killall upc.exe &
+
+killall winedbg.exe &
+
+killall wineserver64.exe
+
+killall plugplay &
+
+killall wineserver &
+
+killall control &
+
+killall winedevice &
+
+killall services &
+
+killall explorer &
+
+killall upc &
+
+killall winedbg &
+
+killall wineserver64 &
