@@ -1,0 +1,120 @@
+#!/bin/bash
+
+# ############################### #
+
+# DEFINIÇÕES
+
+# Empresa
+enterprise0="Servidor"
+# Servidor
+server0="$HOSTNAME"
+
+# ############################### #
+
+# Data e hora
+datetime=$(date)
+# OOM Default
+oom2="Nenhum OOM detectado!"
+
+# Boot time
+[ -d "/sys/firmware/efi/" ] && {
+  sysd1=$(systemd-analyze | awk 'NR==1{print $5,$4,$8,$7}')
+  sysd2=$(systemd-analyze | awk 'NR==1{print $11,$10,$14,$13}')
+  sysd3=$(systemd-analyze | awk 'NR==1{print $15,$16}')
+} || {
+  sysd1=$(systemd-analyze | awk 'NR==1{print $5,$4,$8,$7}')
+  sysd3=$(systemd-analyze | awk 'NR==1{print $9,$10}')
+  }
+
+samba1=$(systemctl is-active --quiet smbd && echo "Executando" || echo "Parado ou Ausente")
+domain1=$(systemctl is-active --quiet samba-ad-dc && echo "Executando" || echo "Parado ou Ausente")
+
+# Motivo do desligamento:
+pk=$(journalctl -b -1 | grep "Power key")
+motive2="Causa não identificada."
+
+[ "$pk" == "" ] && {
+    motive="Desligamento causado por fator externo."
+  } || {
+    motive="Algo ou alguém pressionou o botão Power!"
+    motive2="Log: $pk"
+  }
+
+# OOM Detect
+oom1=$(journalctl -b 1 | grep "Out of memory" 1> /dev/null && echo sim || echo nao)
+[ "$oom1" = "sim" ] && {
+  oom2="OOM detectado: 
+"+$(journalctl -b 1 | grep oom)
+}
+
+# Reboots
+reboots=$(last reboot | head -2)
+# Logged Users
+logged=$(last | head -2)
+# Who is logged
+whoa=$(w)
+# LAN IP
+ip=$(hostname -I | awk '{print $1}')
+
+# Containers
+containerss=$(docker ps -a)
+# Maquinas virtuais
+vmss=$(virsh list --all)
+
+Mensagem="
+# ############################### #
+
+Sistema de Monitoria de Inicialização de Servidores 2.0!
+ - Powered by ntfy.sh
+
+O sistema $server0 sob o IP $ip inicializou 
+$datetime.
+
+$sysd1
+$sysd2
+Tempo total do último boot: $sysd3
+
+$motive
+$motive2
+
+# ############################### #
+Logs de Eventos para Depuração:
+# ############################### #
+
+Ultimos Reboots:
+
+$reboots
+
+Usuarios que logaram recentemente:
+
+$logged
+
+Usuarios atualmente logados:
+
+$whoa
+
+Detector de Out of Memory: 
+
+$oom2
+
+# ############################### #
+Status do Servidor Atualmente:
+# ############################### #
+
+Status do SAMBA: $samba1
+Status do DOMINIO: $domain1
+
+Status de todos os Containers:
+
+$containerss
+
+Status de todas as Maquinas Virtuais:
+
+$vmss
+
+# ############################### #
+"
+
+# COMANDO FINAL
+
+echo "$Mensagem"
