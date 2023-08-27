@@ -1,0 +1,6 @@
+sudo apt install icoutils
+
+Extract Icon:
+
+wrestool -x -t 14 source.exe > output.ico
+
