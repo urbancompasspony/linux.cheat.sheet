@@ -1,0 +1,7 @@
+# Edit /etc/default/grub:
+
+GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
+
+# Run:
+sudo update-grub2
+reboot
