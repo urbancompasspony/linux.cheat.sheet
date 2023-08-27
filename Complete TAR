@@ -1,1 +1,4 @@
-tar --xattrs --xattrs-include='*' --numeric-owner -cp
+# tar --xattrs --xattrs-include='*' --numeric-owner -cp
+
+# Backup through SSH
+ssh "tar -I "zstd -T0f3c" -cpf - origem" > arquivo.tar.zst
