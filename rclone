@@ -1,0 +1,21 @@
+RCLONE:
+
+rclone config
+n
+name
+7 / google drive
+etc
+
+MOUNT LOCALLY:
+
+mkdir ~/drive
+
+rclone mount mygoogledrive: ~/drive/
+or
+rclone mount remote:path/to/files /path/to/local/mount
+
+COPY FROM LOCAL TO REMOTE:
+rclone copy /home/sk/senthil mygoogledrive:ostechnix
+
+to umount:
+fusermount -u ~/drive
