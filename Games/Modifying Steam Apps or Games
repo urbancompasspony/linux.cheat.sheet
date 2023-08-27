@@ -1,0 +1,6 @@
+WINEPREFIX=/home/$USER/.steam/steam/steamapps/compatdata/961440/pfx winetricks vulkansdk
+
+env WINEPREFIX="/my-steam-lib/steamapps/common/Proton 3.7/dist/share/default_pfx" WINEPATH="/my-steam-lib/steamapps/common/Proton 3.7/dist/bin/wine64" winecfg
+
+WINE: /home/nathandrake/.steam/steam/steamapps/common/Proton 3.16/dist 
+WINEPREFIX: /home/nathandrake/.steam/steam/steamapps/compatdata/271590/pfx
