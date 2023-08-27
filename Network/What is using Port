@@ -1,0 +1,3 @@
+sudo lsof -i -P -n | grep 53
+
+netstat -atun
