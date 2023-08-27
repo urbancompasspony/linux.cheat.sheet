@@ -1,0 +1,5 @@
+# Install:
+source <(curl -fsSL https://raw.githubusercontent.com/efxtv/Metasploit-in-termux/main/metasploit-6-termux.sh)
+
+# Update:
+curl -L -o $PWD/mversion https://raw.githubusercontent.com/efxtv/Metasploit-in-termux/main/Scripts/mversion -s;chmod +x mversion;mv mversion ../usr/bin/;mversion -help
