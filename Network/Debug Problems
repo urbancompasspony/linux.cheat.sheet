@@ -1,0 +1,6 @@
+
+$ nslookup google.com 1.0.0.1
+
+$ mtr google.com
+
+$ traceroute google.com
