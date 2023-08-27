@@ -1,0 +1,4 @@
+
+sudo apt install guestfs-tools
+
+sudo guestmount --add /path/to/disk.img --mount /dev/sda2 /mnt/temp
