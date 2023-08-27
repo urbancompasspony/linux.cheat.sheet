@@ -1,0 +1,8 @@
+
+apt install sshfs
+
+On fstab:
+
+user@host:/remote/dir  /local/mountpoint  fuse.sshfs  defaults  0  0
+
+Adjust sshd.conf to keep it alive!
