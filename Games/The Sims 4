@@ -1,0 +1,18 @@
+Mantenha o mesmo WINEPREFIX.
+Mantenha tudo em Meus Documentos.
+
+Apenas apague o conteudo de program files/"the sims 4"
+E instale normalmente.
+
+Após instalar, aplique a tradução (senao dá erro)
+E aplique o crack mais atual (e-ou alternativo) do KnySims (senao dá erro tambem)
+
+Nao preocupa com VCRUN ou outra coisa.
+Apenas com a tradução correta e o crack correto o jogo vai abrir.
+
+(E claro o caminho certo do jogo no wine.sh, o lançador)
+
+===============================================================================
+
+No Windows, alem do citado acima, precisa do VCRUN 2005, 2010, 2015 e 2019!
+Se algum deles estiver mal instalado/inadequado, o jogo não abre.
