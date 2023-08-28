@@ -1,12 +1,30 @@
 #!/bin/bash
 
-function start {
-VALUE1="//172.20.0.2/backup"
-VALUE2="/mnt/backup"
-VALUE3="admin"
-VALUE4=""
-VALUE5=",domain=WORKGROUP"
+pathmount="/tmp/smbclient"
 
+[ -f  "$pathmount" ] && {
+  VALUE1=$(sed -n '1p' "$pathmount")
+  VALUE2=$(sed -n '2p' "$pathmount")
+  VALUE3=$(sed -n '3p' "$pathmount") 
+  VALUE4=$(sed -n '4p' "$pathmount")  
+  VALUE5=$(sed -n '5p' "$pathmount") 
+} || {
+  touch "$pathmount"
+
+  VALUE1="//172.20.0.2/backup"
+  VALUE2="/mnt/backup"
+  VALUE3="admin"
+  VALUE4=""
+  VALUE5=",domain=WORKGROUP"
+
+  echo "$VALUE1" > "$pathmount"
+  echo "$VALUE2" >> "$pathmount"
+  echo "$VALUE3" >> "$pathmount"
+  echo "$VALUE4" >> "$pathmount"
+  echo "$VALUE5" >> "$pathmount"
+}
+
+function start {
 VALUE0=$(dialog --help-button --help-label 'Show' --ok-label "Montar" --title "Mounting" --form "Pastas de Redes" 15 50 0 \
 "PATH: " 1 1 "$VALUE1" 1 10 34 0 \
 "MNT:" 2 1 "$VALUE2" 2 10 34 0 \
@@ -34,6 +52,12 @@ echa1=$(grep "$mntpt1" -qs /proc/mounts && echo "sim" || echo "nao")
   dialog --title "Informação" --msgbox "Caminho em uso! Escolha outro." 7 30
   menu19
 } || {
+  echo "$path1" > "$pathmount"
+  echo "$mntpt1" >> "$pathmount"
+  echo "$user1" >> "$pathmount"
+  echo "$pass1" >> "$pathmount"
+  echo "$dmn1" >> "$pathmount"
+
   sudo mkdir -p "$VALUE2"
   sudo mount -t cifs -o user="$user1",password="$pass1""$dmn1",iocharset=utf8,file_mode=0777,dir_mode=0777,noperm "$path1" "$mntpt1"
   mntshow2=$(df -hT)
