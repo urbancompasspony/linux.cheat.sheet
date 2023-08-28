@@ -1,0 +1,8 @@
+ssh user@first_server_ip -N -L 2222:another_server_on_same_lan_of_first_one:22
+
+-N non-interactive
+-f to hide the tunnel
+
+Once it is connected, then you can just access on another terminal:
+
+ssh username@another_server_on_same_lan_of_first_one -p 2222
