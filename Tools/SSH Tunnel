@@ -61,6 +61,7 @@ porttgt=$(echo "$VALUE0" | sed -n 6p)
 
   scpoptions="-o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null -o ServerAliveInterval=60 -o ServerAliveCountMax=5"
   sshpass -p "$password0" ssh $scpoptions "$username0"@"$iporhostname" -N -L "$porttgt":"$targetip":"$portsrc"
+  start
 }
 
 start
