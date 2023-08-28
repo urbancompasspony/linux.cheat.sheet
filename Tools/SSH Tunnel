@@ -1,0 +1,66 @@
+#!/bin/bash
+
+pathmount="/tmp/sshtunnel"
+
+function start {
+
+[ -f  "$pathmount" ] && {
+  VALUE1=$(sed -n '1p' "$pathmount")
+  VALUE2=$(sed -n '2p' "$pathmount")
+  VALUE3=$(sed -n '3p' "$pathmount") 
+  VALUE4=$(sed -n '4p' "$pathmount")  
+  VALUE5=$(sed -n '5p' "$pathmount")  
+  VALUE6=$(sed -n '6p' "$pathmount")  
+} || {
+  touch "$pathmount"
+
+  VALUE1=""
+  VALUE2=""
+  VALUE3=""
+  VALUE4=""
+  VALUE5="22"
+  VALUE6="2222"
+
+  echo "$VALUE1" > "$pathmount"
+  echo "$VALUE2" >> "$pathmount"
+  echo "$VALUE3" >> "$pathmount"
+  echo "$VALUE4" >> "$pathmount"
+  echo "$VALUE5" >> "$pathmount"
+  echo "$VALUE6" >> "$pathmount"
+}
+
+VALUE0=$(dialog --ok-label "Conectar" --title "Tunneling" --form "SSH Tunnel" 13 35 0 \
+"Username:" 1 1 "$VALUE1" 1 10 34 0 \
+"Password:" 2 1 "$VALUE2" 2 10 34 0 \
+"IPServer:" 3 1 "$VALUE3" 3 10 34 0 \
+"IPTarget:" 4 1 "$VALUE4" 4 10 34 0 \
+"Port Src:" 5 1 "$VALUE5" 5 10 34 0 \
+"Port Tnn:" 6 1 "$VALUE6" 6 10 34 0 \
+3>&1 1>&2 2>&3 3>&- > /dev/tty)
+
+case $? in
+  1) exit ;;
+esac
+
+username0=$(echo "$VALUE0" | sed -n 1p)
+password0=$(echo "$VALUE0" | sed -n 2p)
+iporhostname=$(echo "$VALUE0" | sed -n 3p)
+targetip=$(echo "$VALUE0" | sed -n 4p)
+portsrc=$(echo "$VALUE0" | sed -n 5p)
+porttgt=$(echo "$VALUE0" | sed -n 6p)
+
+[ -z "$username0" ] || [ -z "$password0" ] || [ -z "$iporhostname" ] || [ -z "$targetip" ] && {
+  dialog --title "ERRO" --msgbox "Não deixe nenhum campo vazio!" 7 30; start; }
+
+  echo "$username0" > "$pathmount"
+  echo "$password0" >> "$pathmount"
+  echo "$iporhostname" >> "$pathmount"
+  echo "$targetip" >> "$pathmount"
+  echo "$portsrc" >> "$pathmount"
+  echo "$porttgt" >> "$pathmount"
+
+  scpoptions="-o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null -o ServerAliveInterval=60 -o ServerAliveCountMax=5"
+  sshpass -p "$password0" ssh $scpoptions "$username0"@"$iporhostname" -N -L "$porttgt":"$targetip":"$portsrc"
+}
+
+start
