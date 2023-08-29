@@ -1,0 +1,4 @@
+
+something="put_a_word_here"
+
+echo "$something" | md5sum | awk '{print $1}'
