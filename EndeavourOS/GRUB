@@ -1,3 +1,4 @@
-To disable ZSWAP
 
-zswap.enabled=0
+Editing anything:
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg
