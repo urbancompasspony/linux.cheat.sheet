@@ -20,5 +20,5 @@ grep -rnw '/path/to/somewhere/' -e 'pattern'
 cd /folder/
 sudo grep -rinw '.' -e 'NAMETOFIND or nametofind'
 
-  # Delete files older than 3 days
-  find "$destiny"/ -type f -mtime +3 -delete
+# Delete files older than 3 days
+find "$destiny"/ -type f -mtime +3
