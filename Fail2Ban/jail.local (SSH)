@@ -1,0 +1,13 @@
+# INSIDE:
+
+sudo nano /etc/fail2ban/jail.d/defaults-debian.conf
+
+[DEFAULT]
+bantime  = 600
+maxretry = 3
+port = 0:65535
+
+[sshd]
+enabled = true
+port    = ssh
+logpath = %(sshd_log)s
