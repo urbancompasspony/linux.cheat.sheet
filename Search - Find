@@ -2,23 +2,28 @@
 
 USE * BECAUSE IT IS REGEX!
 
+# SEARCH INSIDE, LOOKING CONTENT OF A FILE:
+
+cat /var/log/syslog | find . -name "*KEY1*WORD2*"
+
+grep -rnw '/path/to/somewhere/' -e 'pattern'
+
+(-i is for not case sensitive):
+
+cd /folder/
+sudo grep -rinw '.' -e 'NAMETOFIND or nametofind'
+
+# SEARCH INSIDE, LOOKING FOR FOLDERS:
+
 cd /folder/
 sudo find . -name "*NAMETOFIND or nametofind*"
 sudo find . -type d -name "*NAMETOFIND or nametofind*"
 
-# FILES:
+# SEARCH INSIDE, LOOKING FOR FILES:
 
 cd /folder/
 sudo find . -name "*NAMETOFIND or nametofind*"
 sudo find . -type f -name "*NAMETOFIND or nametofind*"
 
-# Something inside files, exact pattern
-grep -rnw '/path/to/somewhere/' -e 'pattern'
-
-# INSIDE FILES (-i not case sensitive):
-
-cd /folder/
-sudo grep -rinw '.' -e 'NAMETOFIND or nametofind'
-
-# Delete files older than 3 days
+# Find files older than 3 days
 find "$destiny"/ -type f -mtime +3
