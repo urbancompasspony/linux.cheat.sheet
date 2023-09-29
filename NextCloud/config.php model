@@ -1,0 +1,30 @@
+<?php
+$CONFIG = array (
+  'instanceid' => 'XXX',
+  'passwordsalt' => 'XXX',
+  'secret' => 'q+XXX',
+  'trusted_domains' => 
+  array (
+    0 => '172.20.0.XX',
+    1 => 'cs.linuxuniverse.com.br',
+    2 => 'www.cs.linuxuniverse.com.br',
+  ),
+  'datadirectory' => '/var/www/html/data',
+  'dbtype' => 'mysql',
+  'version' => '27.1.1.0',
+  'dbname' => 'nextcloud',
+  'dbhost' => 'nextcloud-mysql',
+  'dbport' => '',
+  'dbtableprefix' => 'oc_',
+  'mysql.utf8mb4' => true,
+  'dbuser' => 'XXX',
+  'dbpassword' => 'XXX',
+  'installed' => true,
+  'maintenance' => false,
+  'theme' => '',
+  'loglevel' => 0,
+  'overwriteprotocol' => 'https',
+);
+
+// If needed, extra commands:
+//  'overwrite.cli.url' => 'http://172.20.0.33/cloud',
