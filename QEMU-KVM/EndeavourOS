@@ -1,0 +1,8 @@
+
+sudo pacman -S qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq
+
+sudo systemctl enable libvirtd
+sudo systemctl start libvirtd
+
+sudo usermod -aG libvirt-qemu nathandrake
+sudo usermod -aG libvirt nathandrake
