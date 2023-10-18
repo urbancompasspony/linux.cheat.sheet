@@ -1,0 +1,1 @@
+xpra start --bind-tcp=0.0.0.0:9876,auth=password:value=P4ssw0rd --html=on --start="application_here" --daemon=no --xvfb="/usr/bin/Xvfb +extension Composite -screen 0 "1360x768"x24+32 -nolisten tcp -noreset" --pulseaudio=no --notifications=no --bell=no :100
