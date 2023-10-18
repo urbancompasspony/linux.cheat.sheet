@@ -1,0 +1,1 @@
+xfreerdp /d:WORKGROUP /u:username_or_hotmail /p:P4ssw0rd /v:ip_here /cert:ignore +auto-reconnect +clipboard +home-drive -wallpaper /dynamic-resolution /multimon /f /cert-ignore /smartcard /disp +fonts -wallpaper -window-drag -themes +async-input -aero -menu-anims +offscreen-cache -decorations -clipboard +bitmap-cache +async-update /sound:sys:pulse /audio-mode:0
