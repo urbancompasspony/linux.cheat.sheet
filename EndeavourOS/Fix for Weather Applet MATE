@@ -1,0 +1,1 @@
+sudo sed -i 's|https://www.aviationweather.gov/adds/dataserver_current/httpparam|https://www.aviationweather.gov/cgi-bin/data/dataserver.php\x0\x0\x0\x0\x0\x0|' $(readlink -f /usr/lib64/libmateweather.so.1)
