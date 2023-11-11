@@ -4,9 +4,8 @@ Mount /dev/sda2 to /mnt
 sudo mount /dev/sda2 /mnt
 
 sudo cat /mnt/etc/fstab (to check the mount point of your ESP)
-mkdir /mnt/efi
 
-sudo mount /dev/sda1 /mnt/efi
+sudo mount /dev/sda1 /mnt/boot/efi
 
 So:
 sudo arch-chroot /mnt
