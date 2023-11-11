@@ -1,0 +1,3 @@
+To re-run DRACUT:
+
+sudo dracut-rebuild
