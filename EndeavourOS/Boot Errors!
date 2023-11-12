@@ -14,5 +14,13 @@ sudo pacman -S linux
 To re-run DRACUT:
 sudo dracut-rebuild
 
+Reinstall GRUB
+sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=EndeavourOS
+
 Re-run GRUB:
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+#exit 
+#umount /mnt/boot/efi 
+#umount /mnt 
+#reboot
