@@ -17,6 +17,11 @@ sudo pacman -S linux
 To re-run DRACUT:
 sudo dracut-rebuild
 
+IF NEEDED:
+/etc/default/grub
+GRUB_DISABLE_OS_PROBER=false
+sudo pacman -S os-prober
+
 Re-run GRUB:
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
