@@ -1,0 +1,1 @@
+dd if=/dev/zero of=./USB.img bs=1k count=1000000
