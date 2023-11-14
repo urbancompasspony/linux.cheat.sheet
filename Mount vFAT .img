@@ -1,0 +1,2 @@
+
+sudo mount -t vfat USB.raw /mnt/usb -o rw,uid=$(id -u),gid=$(id -g)
