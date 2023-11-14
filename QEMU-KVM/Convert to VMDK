@@ -1,0 +1,1 @@
+qemu-img convert -f raw -O vmdk -o subformat=monolithicSparse -S 512 USB.raw ECL.vmdk
