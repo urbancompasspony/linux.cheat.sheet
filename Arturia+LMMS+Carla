@@ -1,0 +1,10 @@
+sudo pacman -S lmms carla
+
+yay -S carla-bridges-win
+yay -S carla-bridges-win32
+yay -S carla-bridges-win64
+yay -S carla-bridges-linux32 
+
+Load plugins through LMMS.
+Set on Carla path to Arturia WINEPREFIX
+Drag and Drop the .dll from Program Data to Carla AFTER openning it on LMMS
