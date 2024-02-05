@@ -1,0 +1,33 @@
+# Forçar DataHora no Windows
+net time \\dc1 /set
+
+# Verificando banco de dados
+sudo samba-tool dbcheck --cross-ncs
+
+# Corrigindo Erros:
+sudo samba-tool dbcheck --cross-ncs --fix
+
+# Deu merd@ nas correções:
+sudo samba-tool drs replicate --full-sync --sync-forced
+
+# BACKUP # 
+
+To create an online backup, use:
+
+sudo samba-tool domain backup online --targetdir=<output-dir> --server=<DC-server> -UAdministrator
+sudo samba-tool domain backup online --targetdir=/home/administrador/BACKUPSambaAD/ONLINE --server=dc1 -U Administrator
+
+This command can be run locally on the DC or remotely on another machine. 
+If running the command remotely, you may want to specify a --configfile option so that the correct smb.conf settings get included in the backup 
+(i.e. the local smb.conf file may not exist, or its settings may be different to your domain DCs).
+
+To create a offline backup, login on the DC you're backing up, and simply specify the target-directory location to write the backup-file to. E.g.
+
+sudo samba-tool domain backup offline --targetdir=<output-dir>
+sudo samba-tool domain backup offline --targetdir=/home/administrador/BACKUPSambaAD/OFFLINE/
+
+Note that despite this option's name, the DC does not actually need to be offline when running this command. 
+The tool is simply backing up the local files and it has sufficient locking in place to ensure the backup is generated safely.
+
+# Samba 4.10!
+Note that while the other backup commands are available from Samba v4.9 onwards, the offline command is not included until Samba v4.10.
