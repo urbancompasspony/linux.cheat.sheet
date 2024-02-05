@@ -1,0 +1,9 @@
+
+1) Check Inodes:
+sudo df -ih
+
+2) Check /mnt folder
+sudo du -sh /mnt
+
+3) Find biggest directories on current working directory
+du -a | sort -n -r | head -n 5
