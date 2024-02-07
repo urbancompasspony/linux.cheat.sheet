@@ -1,0 +1,7 @@
+
+# Error saving the document xxx: Error creating object. Could not create backup copy.
+
+Edit mountpoint and add nobrl!
+Like this:
+
+sudo mount -t cifs -o username=aaa,password=bbb,iocharset=utf8,uid=1000,nobrl,gid=1000,file_mode=0777,dir_mode=0777,noperm //IP/folder /mnt/folder
