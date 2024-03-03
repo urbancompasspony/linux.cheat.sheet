@@ -24,4 +24,5 @@ $CONFIG = array (
   'theme' => '',
   'loglevel' => 0,
   'overwrite.cli.url' => 'http://IP HERE',
+  'maintenance_window_start' => 1,
 );
