@@ -2,7 +2,7 @@
 $CONFIG = array (
   'instanceid' => 'XXX',
   'passwordsalt' => 'XXX',
-  'secret' => 'q+XXX',
+  'secret' => 'XXX',
   'trusted_domains' => 
   array (
     0 => '172.20.0.XX',
@@ -11,20 +11,17 @@ $CONFIG = array (
   ),
   'datadirectory' => '/var/www/html/data',
   'dbtype' => 'mysql',
-  'version' => '27.1.1.0',
+  'version' => '28.0.2.5',
   'dbname' => 'nextcloud',
   'dbhost' => 'nextcloud-mysql',
   'dbport' => '',
   'dbtableprefix' => 'oc_',
   'mysql.utf8mb4' => true,
-  'dbuser' => 'XXX',
-  'dbpassword' => 'XXX',
+  'dbuser' => 'xxx',
+  'dbpassword' => 'xxx',
   'installed' => true,
   'maintenance' => false,
   'theme' => '',
   'loglevel' => 0,
-  'overwriteprotocol' => 'https',
+  'overwrite.cli.url' => 'http://IP HERE',
 );
-
-// If needed, extra commands:
-//  'overwrite.cli.url' => 'http://172.20.0.33/cloud',
