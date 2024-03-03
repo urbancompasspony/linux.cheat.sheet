@@ -1,0 +1,3 @@
+Inside docker!
+
+cp -av /usr/src/nextcloud/core/js/mimetypelist.js core/js/
