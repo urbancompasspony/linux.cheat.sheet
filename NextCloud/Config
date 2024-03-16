@@ -1,0 +1,15 @@
+Config
+Trashbin
+
+vi /var/www/nextcloud/config/config.php
+'trashbin_retention_obligation' => '21, 28', // keep min 21 max 28 days
+sudo -u www-data php /var/www/nextcloud/occ trashbin:expire
+Install apps from the command line
+https://docs.nextcloud.com/server/20/admin_manual/configuration_server/occ_command.html#apps-commands-label
+
+sudo -u www-data php /var/www/nextcloud/occ app:list
+sudo -u www-data php /var/www/nextcloud/occ app:install files_external
+sudo -u www-data php /var/www/nextcloud/occ app:enable files_external
+Configure
+
+sudo -u www-data php /var/www/nextcloud/occ config:list
