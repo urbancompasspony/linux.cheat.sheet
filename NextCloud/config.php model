@@ -9,11 +9,15 @@ $CONFIG = array (
     1 => 'cs.linuxuniverse.com.br',
     2 => 'www.cs.linuxuniverse.com.br',
   ),
+  'trusted_proxies' =>
+  array (
+    0 => '172.20.0.xx',
+  ),
   'datadirectory' => '/var/www/html/data',
   'dbtype' => 'mysql',
   'version' => '28.0.2.5',
   'dbname' => 'nextcloud',
-  'dbhost' => 'nextcloud-mysql',
+  'dbhost' => 'IP_OF_MYSQL_SERVER!',
   'dbport' => '',
   'dbtableprefix' => 'oc_',
   'mysql.utf8mb4' => true,
@@ -25,4 +29,8 @@ $CONFIG = array (
   'loglevel' => 0,
   'overwrite.cli.url' => 'http://IP HERE',
   'maintenance_window_start' => 1,
+  'trashbin_retention_obligation' => '21, 28',
+  'htaccess.RewriteBase' => '/',
+  'ldapProviderFactory' => 'OCA\\User_LDAP\\LDAPProviderFactory',
+  'filesystem_check_changes' => 1,
 );
