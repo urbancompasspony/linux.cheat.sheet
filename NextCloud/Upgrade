@@ -1,0 +1,27 @@
+Upgrade
+sudo -u www-data php /var/www/nextcloud/occ update:check
+sudo -u www-data php /var/www/nextcloud/updater/updater.phar --no-interaction
+sudo -u www-data php /var/www/nextcloud/occ upgrade
+Turn maintenance mode on/off
+
+sudo -u www-data php /var/www/nextcloud/occ maintenance:mode --on
+sudo -u www-data php /var/www/nextcloud/occ maintenance:mode --off
+Add missing indices
+
+sudo -u www-data php /var/www/nextcloud/occ db:add-missing-indices
+Convert to bigint
+
+sudo -u www-data php /var/www/nextcloud/occ db:convert-filecache-bigint
+Add missing columns:
+
+sudo -u www-data php /var/www/nextcloud/occ db:add-missing-columns
+Add missing primary keys:
+
+sudo -u www-data php /var/www/nextcloud/occ db:add-missing-primary-keys
+Fix interupted upgrades
+
+sudo -u www-data php /var/www/nextcloud/occ maintenance:repair
+Fix stuck upgrades (Error "Step 4 is currently in process")
+
+mv /srv/nextcloud/updator-xxxx /srv/nextcloud/BROKEN-updator-xxxx
+sudo -u www-data php /var/www/nextcloud/updater/updater.phar --no-interaction
