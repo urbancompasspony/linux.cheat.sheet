@@ -1,0 +1,6 @@
+Scan files
+sudo -u www-data php /var/www/nextcloud/occ files:scan -v --all
+sudo -u www-data php /var/www/nextcloud/occ files:scan -v myusername
+sudo -u www-data php /var/www/nextcloud/occ files:scan -v --path="/myusername/files/myfolder/mysubfolder" myusername
+For external storage one has to use a user, e.g. admin
+sudo -u www-data /usr/bin/php /var/www/nextcloud/occ files:scan -v --path="/admin/files/name_of_external_storage"
