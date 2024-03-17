@@ -1,5 +1,6 @@
 Inside docker!
 
-Remove what is suposed to not exist, and:
-
 cp -av /usr/src/nextcloud/core/js/mimetypelist.js core/js/
+
+then
+Remove what is suposed to not exist
