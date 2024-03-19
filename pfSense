@@ -1,0 +1,6 @@
+
+# Can't upgrade, says it's on older version but up-to-date and status says there is another version!
+Like: Sayts 2.7.0 but there is a 2.7.2 version:
+
+ssh to it and:
+# certctl rehash
