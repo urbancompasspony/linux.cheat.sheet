@@ -1,0 +1,9 @@
+
+Recover when broken or password missing:
+
+Edit /conf/spark.xml
+
+ADD:
+<oneTimeAccessToken>secretToken</oneTimeAccessToken>
+
+after <jive> add line and set temp secretToken
