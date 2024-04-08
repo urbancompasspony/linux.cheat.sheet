@@ -1,0 +1,8 @@
+
+samba-tool ntacl get --as-sddl /var/lib/samba/sysvol/$DOMAIN/scripts/
+
+EXAMPLE:
+O:LAG:BAD:P(A;OICI;0x001f01ff;;;BA)(A;OICI;0x001200a9;;;SO)(A;OICI;0x001f01ff;;;SY)(A;OICI;0x001200a9;;;AU)
+
+samba-tool ntacl set "O:LAG:BAD:P(A;OICI;0x001f01ff;;;BA)(A;OICI;0x001200a9;;;SO)(A;OICI;0x001f01ff;;;SY)(A;OICI;0x001200a9;;;AU)" /mnt/FOLDER
+chmod 0770 /mnt/FOLDER
