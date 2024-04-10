@@ -1,0 +1,13 @@
+
+
+sudo apt-get install libnss-winbind
+
+/etc/nsswitch.conf
+hosts:          files dns wins
+
+
+[global]
+wins support = yes
+wins proxy = no
+dns proxy = no
+max wins ttl = 518400
