@@ -1,0 +1,8 @@
+# PABX! #
+
+pfSense doesn´t support SIP ALG, so:
+Change Firewall to CONSERVATIVE MODE (under System > Advanced, Firewall & NAT Tab)
+And set all phones to re-register every 30-60s or if possible to keep-alive option!
+
+That's all. And open the respective ports.
+If there is trouble, passthrough to modem.
