@@ -1,0 +1,31 @@
+
+# PABX! #
+
+pfSense doesn´t support SIP ALG, so:
+Change Firewall to CONSERVATIVE MODE (under System > Advanced, Firewall & NAT Tab)
+And set all phones to re-register every 30-60s or if possible to keep-alive option!
+That's all. And open the respective ports.
+If there is trouble, passthrough to modem.
+
+# Can't upgrade, says it's on older version but up-to-date and status says there is another version!
+Like: Sayts 2.7.0 but there is a 2.7.2 version:
+
+ssh to it and:
+# certctl rehash
+
+# IP SEC <> OPEN VPN #
+
+So Setup for this example is:
+SiteA (192.168.1.0/24)
+SiteB (192.168.2.0/24)
+OpenVPN is 72.20.50.0/24
+SiteA has the OpenVPN setup on it.
+SiteA and SiteB both have IPsecVPN setup on them.
+
+You need to add another Phase 2 entry on both sites, and you need to add the SiteB network into the OpenVPN settings.
+
+Open up IPSEC tunnels on SiteA > Copy the Phase 2 entry > Change Local Network dropdown to Network > Add in the IP range that the OpenVPN uses, for ex: 172.20.50.0/24
+Rename in Description > Save and Apply.
+Open up IPSEC tunnels on SiteB > Copy the Phase 2 entry > Change Remote Network dropdown to Network > Add in the IP that the OpenVPN uses, for ex: 172.20.50.0/24
+Rename in Description > Save and Apply
+Edit your OpenVPN server > Under IPv4 Local network(s) > Add in the network of SiteB. Separate multiple networks with a , so for example 192.168.1.0/24,192.168.2.0/24
