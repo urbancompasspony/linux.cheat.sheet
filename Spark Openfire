@@ -1,7 +1,8 @@
 
 Recover when broken or password missing:
 
-Edit /conf/spark.xml
+Edit
+/srv/containers/openfire/etc/openfire.xml
 
 ADD:
 <oneTimeAccessToken>secretToken</oneTimeAccessToken>
