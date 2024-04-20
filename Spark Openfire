@@ -1,8 +1,8 @@
 Users:
-(&(|(objectclass=person))(|(|(memberof=CN=Spark_Users,CN=Users,DC=ad,DC=DOMAINHERE,DC=local)(primaryGroupID=1106))))
+&(objectCategory=user)(memberOf=CN=Spark_Users,CN=Users,DC=ad,DC=DOMAINHERE,DC=local)
 
 Groups:
-(&(|(objectclass=group))(|(cn=Spark_Users)))
+(&(|(objectclass=group))(|(cn=Spark_Users)|(cn=brinfostore)))
 
 Recover when broken or password missing:
 
