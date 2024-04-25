@@ -1,0 +1,11 @@
+http://checkip.dyndns.org (liberar pihole)
+https://checkip.dynu.com/ (liberar pihole)
+http://ip1.dynupdate.no-ip.com:8245/
+http://ip1.dynupdate.no-ip.com/
+https://radar.cloudflare.com/ip (liberar pihole)
+
+
+System > Package Manager > Available Packages
+Services > Cron
+
+Click edit(the pencil) on the line about rc.dyndns.update. You need to change the Minute to */5 and Hour to *. 
