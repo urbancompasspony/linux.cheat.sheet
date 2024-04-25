@@ -11,4 +11,4 @@ http://ip1.dynupdate.no-ip.com:8245/
 System > Package Manager > Available Packages
 Services > Cron
 
-Click edit(the pencil) on the line about rc.dyndns.update. You need to change the Minute to */5 and Hour to *. 
+Click edit(the pencil) on the line about rc.dyndns.update. You need to change the Minute to */15 and Hour to *
