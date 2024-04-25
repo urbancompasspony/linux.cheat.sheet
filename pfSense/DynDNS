@@ -1,9 +1,9 @@
 DynDNS:
-http://checkip.dyndns.org (liberar pihole)
+checkip.dyndns.org (liberar pihole)
 DyNU:
-https://checkip.dynu.com/ (liberar pihole)
+checkip.dynu.com (liberar pihole)
 NOIP:
-http://ip1.dynupdate.no-ip.com/
+ip1.dynupdate.no-ip.com
 
 NO IP If Needed:
 http://ip1.dynupdate.no-ip.com:8245/
