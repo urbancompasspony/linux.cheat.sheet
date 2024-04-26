@@ -1,0 +1,6 @@
+
+sudo apt install xorg xinit xterm
+
+xinit APP_HERE $* -- :1 vt$XDG_VTNR
+xinit ANOTHER_APP_HERE $* -- :2 vt$XDG_VTNR
+xinit ONE_MORE_APP_HERE $* -- :3 vt$XDG_VTNR
