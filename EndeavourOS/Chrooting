@@ -9,5 +9,5 @@ Every command will be given to the disk on chroot!
 # TIPs
 sudo cat /mnt/etc/fstab (to check the mount point of your ESP
 
-#DEPRECATED
+# To fix /dev/ not found on booting:
 sudo arch-chroot /mnt
