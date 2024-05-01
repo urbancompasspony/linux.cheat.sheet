@@ -30,3 +30,7 @@ exit
 sudo umount /mnt/boot/efi 
 sudo umount /mnt 
 sudo reboot
+
+Reinstall everything under errors:
+sudo pacman -Qqn | sudo pacman -S -
+
