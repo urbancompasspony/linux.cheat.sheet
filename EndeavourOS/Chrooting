@@ -1,13 +1,8 @@
 Boot on EndeavourOS LiveUSB.
 
-Mount /dev/sda2 to /mnt
 sudo mount /dev/sda2 /mnt
+sudo mount /dev/sda1 /mnt/boot/efi (sudo cat /mnt/etc/fstab (to check the mount point of your ESP)
 
-sudo cat /mnt/etc/fstab (to check the mount point of your ESP)
-
-sudo mount /dev/sda1 /mnt/boot/efi
-
-So:
 sudo arch-chroot /mnt
 
 Every command will be given to the disk on chroot!
