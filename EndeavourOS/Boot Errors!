@@ -32,5 +32,7 @@ sudo umount /mnt
 sudo reboot
 
 Reinstall everything under errors:
-sudo pacman -Qqn | sudo pacman -S -
+sudo pacman -Qqn | sudo pacman -S - --overwrite '*'
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo dracut-rebuild
 
