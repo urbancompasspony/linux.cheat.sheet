@@ -13,3 +13,8 @@ ADD:
 <oneTimeAccessToken>secretToken</oneTimeAccessToken>
 
 after <jive> add line and set temp secretToken
+
+# If BROKEN installation:
+
+Adjust openfire.xml to INSTALATION = FALSE!
+Let it run another installation but preserving everything under the hood.
