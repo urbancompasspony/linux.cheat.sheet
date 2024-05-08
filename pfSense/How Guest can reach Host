@@ -1,0 +1,27 @@
+Save the following XML to /tmp/isolated.xml:
+
+<network>
+  <name>isolated</name>
+    <ip address='192.168.254.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.254.2' end='192.168.254.254' />
+    </dhcp>
+  </ip>
+</network>
+
+Create the network, set it to autostart, and start it:
+
+virsh net-define /tmp/isolated.xml
+virsh net-autostart isolated
+virsh net-start isolated
+
+Edit (using "virsh edit $guestname") the configuration of each guest that uses direct (macvtap) for its network connection and add a new <interface> in the <devices> section similar to the following:
+
+<interface type='network'>
+  <source network='isolated'/>
+  <model type='virtio'/> <-- This line is optional.
+</interface>
+
+shutdown, then restart each of these guests.
+
+Source: https://wiki.libvirt.org/TroubleshootMacvtapHostFail.html
