@@ -1,0 +1,6 @@
+
+SOLUTION:
+
+Install it with driver "HP LaserJet m101-m106, hpcups 3.23.12 (grayscale, 2-sided printing)"
+
+ATTENTION: check if driver is HPCUPS and not hpijs
