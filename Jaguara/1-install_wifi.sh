@@ -2,6 +2,8 @@ dname=rtl8192eu
 dver=1.0
 dusrdir=/usr/src/$dname-$dver
 ddkmsdir=/var/lib/dkms/$dname
+sudo make ARCH="arm64"
+sudo make install
 sudo rmmod 8192eu
 sudo rmmod rtl8xxxu
 sudo dkms uninstall -m $dname -v $dver
