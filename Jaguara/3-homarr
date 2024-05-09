@@ -3,7 +3,7 @@ docker pull ghcr.io/ajnart/homarr:latest
 docker stop homarr
 docker rm homarr
 
-sudo mkdir -p /srv/containers/"$NOMECONTAINER"/{configs,data,icons,backgrounds}
+sudo mkdir -p /srv/containers/homarr/{configs,data,icons,backgrounds}
 
 docker run -d \
 --name=homarr \
