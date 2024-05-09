@@ -1,4 +1,3 @@
-
 docker pull pihole/pihole:latest
 
 docker stop pihole
