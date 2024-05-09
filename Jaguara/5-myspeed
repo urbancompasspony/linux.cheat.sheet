@@ -5,6 +5,8 @@ docker rm myspeed
 
 sudo mkdir -p /srv/containers/myspeedtest/data
 
+sudo chmod 777 -R /srv/containers/myspeedtest/data
+
 docker run -d \
 --name=myspeed \
 --network host \
