@@ -1,0 +1,26 @@
+network:
+  renderer: NetworkManager
+  ethernets:
+    eth0:
+      dhcp4: true
+      dhcp6: false
+      optional: true
+  wifis:
+    wlxd037457c32f3:
+      dhcp4: true
+      dhcp6: false
+      optional: true
+      access-points:
+        "ctOS RPi 4":
+          password: "5V06auso"
+    wlxd037457c32f3:
+      dhcp4: true
+      dhcp6: false
+      addresses:
+      - 192.168.4.1/24
+      optional: true
+      access-points:
+        "PEREIRA 2":
+          password: "pereira53"
+          mode: ap
+  version: 2
