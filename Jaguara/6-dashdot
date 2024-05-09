@@ -1,0 +1,16 @@
+docker pull mauricenino/dashdot
+
+docker stop dashdot
+docker rm dashdot
+
+docker run -d \
+--name=dashdot \
+--network host \
+--hostname=dashdot \
+--no-healthcheck \
+--restart=unless-stopped \
+--privileged \
+-p 80:3001 \
+-v /etc/localtime:/etc/localtime:ro \
+-v /:/mnt/host:ro \
+mauricenino/dashdot
