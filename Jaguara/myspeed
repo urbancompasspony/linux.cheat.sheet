@@ -1,1 +1,15 @@
+docker pull germannewsmaker/myspeed
 
+docker stop myspeed
+docker rm myspeed
+
+docker run -d \
+--name=myspeed \
+--network host \
+--hostname=myspeed \
+--no-healthcheck \
+--restart=unless-stopped \
+-p 5216:5216 \
+-v /etc/localtime:/etc/localtime:ro \
+-v /srv/containers/myspeedtest/data:/myspeed/data \
+germannewsmaker/myspeed
