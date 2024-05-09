@@ -1,8 +1,8 @@
 Testing For Ubuntu 24.04 LTS!
 
-sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-6.8.0-1004-raspi linux-modules-extra-6.8.0-31-generic
+sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-6.8.0-1004-raspi linux-modules-extra-6.8.0-31-generic -y
 
-sudo apt purge dnsmasq-base; sudo killall dnsmasq
+sudo apt purge dnsmasq-base -y; sudo killall dnsmasq
 sudo systemctl stop systemd-resolved; sudo systemctl disable systemd-resolved; sudo systemctl mask systemd-resolved; sudo unlink /etc/resolv.conf
 
 sudo nano /etc/resolv.conf
@@ -12,14 +12,10 @@ nameserver 127.0.0.1
 sudo nano /etc/sysctl.conf
 net.ipv4.ip_forward=1
 
-Building WiFi Module:
-git clone https://github.com/Mange/rtl8192eu-linux-driver
-cd rtl8192eu-linux-driver
-Edit Makefile
+git clone https://github.com/Mange/rtl8192eu-linux-driver; cd rtl8192eu-linux-driver
+nano Makefile
 
-...
 CONFIG_PLATFORM_I386_PC = n
-...
 CONFIG_PLATFORM_ARM_RPI = y
 
 sudo dkms add .
