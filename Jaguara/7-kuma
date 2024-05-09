@@ -1,0 +1,19 @@
+docker pull louislam/uptime-kuma:1
+
+docker stop kuma
+docker rm kuma
+
+sudo mkdir -p /srv/containers/kuma/data
+
+docker run -d \
+--name=kuma \
+--network host \
+--hostname=kuma \
+--no-healthcheck \
+--restart=unless-stopped \
+-e UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN=true \
+-p 3001:3001 \
+-v /etc/localtime:/etc/localtime:ro \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v /srv/containers/kuma/data:/app/data \
+louislam/uptime-kuma:1
