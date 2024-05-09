@@ -20,7 +20,7 @@ CONFIG_PLATFORM_ARM_AARCH64 = y
 CONFIG_PLATFORM_ARM_RPI = n
 CONFIG_PLATFORM_I386_PC = n
 
-./install_wifi.sh
+sudo ./install_wifi.sh
 
 Reboot!
 
