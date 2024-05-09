@@ -1,0 +1,21 @@
+
+sudo apt install network-manager
+
+sudo apt purge dnsmasq-base
+
+sudo killall dnsmasq
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
+sudo systemctl mask systemd-resolved
+sudo unlink /etc/resolv.conf
+
+sudo nano /etc/resolv.conf
+nameserver 1.0.0.1
+nameserver 127.0.0.1
+
+sudo nano /etc/sysctl.conf
+net.ipv4.ip_forward=1
+
+reboot!
+
+sudo iptables -F; sudo iptables -X; sudo iptables -A OUTPUT -j ACCEPT -m comment --comment "Accept all outgoing"; sudo iptables -A INPUT -j ACCEPT -m comment --comment "Accept all incoming"; sudo iptables -A FORWARD -j ACCEPT -m comment --comment "Accept all forwarded"
