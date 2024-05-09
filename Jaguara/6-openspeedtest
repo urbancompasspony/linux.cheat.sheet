@@ -1,3 +1,6 @@
+docker stop openspeedtest
+docker rm openspeedtest
+
 docker run -d \
 --name=openspeedtest \
 --network host \
