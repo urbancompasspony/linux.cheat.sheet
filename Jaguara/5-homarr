@@ -1,0 +1,21 @@
+docker pull ghcr.io/ajnart/homarr:latest
+
+docker stop homarr
+docker rm homarr
+
+sudo mkdir -p /srv/containers/"$NOMECONTAINER"/{configs,data,icons,backgrounds}
+
+docker run -d \
+--name=homarr \
+--network host \
+--hostname=homarr \
+--no-healthcheck \
+--restart=unless-stopped \
+-p 7575:7575 \
+-v /etc/localtime:/etc/localtime:ro \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v /srv/containers/homarr/data:/data \
+-v /srv/containers/homarr/icons:/app/public/icons \
+-v /srv/containers/homarr/configs:/app/data/configs \
+-v /srv/containers/homarr/backgrounds:/app/public/imgs/backgrounds \
+ghcr.io/ajnart/homarr:latest
