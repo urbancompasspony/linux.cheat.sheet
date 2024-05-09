@@ -20,9 +20,7 @@ CONFIG_PLATFORM_ARM_RPI = y
 
 sudo dkms add .
 make ARCH="arm64"
-sudo dkms install rtl8192eu/1.0 ?ARCH="arm64"
-sudo update-grub; sudo update-initramfs -u
+sudo make install ARCH="arm64"
+sudo update-initramfs -u
 
-sudo iptables -F; sudo iptables -X; sudo iptables -A OUTPUT -j ACCEPT -m comment --comment "Accept all outgoing"; sudo iptables -A INPUT -j ACCEPT -m comment --comment "Accept all incoming"; sudo iptables -A FORWARD -j ACCEPT -m comment --comment "Accept all forwarded"
-
-reboot!
+Reboot!
