@@ -1,4 +1,4 @@
-Testing For Ubuntu 24.04 LTS!
+For Ubuntu 24.04 LTS!
 
 sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-6.8.0-1004-raspi linux-modules-extra-6.8.0-31-generic -y
 
