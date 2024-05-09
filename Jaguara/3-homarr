@@ -9,7 +9,6 @@ sudo chmod 777 -R /srv/containers/homarr/
 
 docker run -d \
 --name=homarr \
---network host \
 --hostname=homarr \
 --no-healthcheck \
 --restart=unless-stopped \
@@ -21,3 +20,5 @@ docker run -d \
 -v /srv/containers/homarr/configs:/app/data/configs \
 -v /srv/containers/homarr/backgrounds:/app/public/imgs/backgrounds \
 ghcr.io/ajnart/homarr:latest
+
+# --network host \
