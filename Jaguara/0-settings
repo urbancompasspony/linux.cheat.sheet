@@ -1,5 +1,5 @@
 
-sudo apt install network-manager
+sudo apt install network-manager linux-headers-6.8.0-1004-raspi linux-modules-extra-raspi linux-modules-extra-6.8.0-31-generic (for ubuntu server 24.04, try all, some may have erros not found, its normal kkkkkk)
 
 sudo apt purge dnsmasq-base
 
@@ -15,6 +15,20 @@ nameserver 127.0.0.1
 
 sudo nano /etc/sysctl.conf
 net.ipv4.ip_forward=1
+
+Building WiFi Module:
+git clone https://github.com/Mange/rtl8192eu-linux-driver
+cd rtl8192eu-linux-driver
+Edit Makefile
+
+...
+CONFIG_PLATFORM_I386_PC = n
+...
+CONFIG_PLATFORM_ARM_RPI = y
+
+sudo dkms add .
+sudo dkms install rtl8192eu/1.0
+sudo update-grub; sudo update-initramfs -u
 
 reboot!
 
