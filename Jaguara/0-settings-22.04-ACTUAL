@@ -1,4 +1,5 @@
 For Ubuntu 22.04 LTS!
+And for Raspberry Pi 4!
 
 sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-raspi -y
 
@@ -15,26 +16,23 @@ net.ipv4.ip_forward=1
 git clone https://github.com/Mange/rtl8192eu-linux-driver; cd rtl8192eu-linux-driver
 nano Makefile
 
-CONFIG_PLATFORM_ARM_RPI = y
+CONFIG_PLATFORM_ARM_AARCH64 = y
+CONFIG_PLATFORM_ARM_RPI = n
 CONFIG_PLATFORM_I386_PC = n
 
 sudo make ARCH="arm64"
+sudo make install
 ./install_wifi.sh
 
 Reboot!
+
+
 
 
 IF NEEDED:
 
 Source:
 https://github.com/Mange/rtl8192eu-linux-driver
-
-make ARCH="arm64"
-sudo make install ARCH="arm64"
-sudo dkms add .
-sudo dkms install rtl8192eu/1.0
-
-sudo update-initramfs -u
 
 echo "blacklist rtl8xxxu" | sudo tee /etc/modprobe.d/rtl8xxxu.conf
 echo -e "8192eu\n\nloop" | sudo tee /etc/modules
