@@ -1,1 +1,26 @@
 
+docker pull pihole/pihole:latest
+
+docker stop pihole
+docker rm pihole
+
+docker run -d \
+--name=pihole \
+--network host \
+--dns 1.0.0.1 \
+--dns 8.8.4.4 \
+--hostname=pihole \
+--no-healthcheck \
+--restart=unless-stopped \
+--cap-add=NET_ADMIN \
+--privileged \
+-e INTERFACE=wlxd03745867865 \
+-e DNSMASQ_LISTENING=single \
+-e SERVERIP=127.0.0.1 \
+-e WEBPASSWORD="5V06auso" \
+-v /etc/localtime:/etc/localtime:ro \
+-v /srv/containers/pihole/etc/:/etc/pihole \
+-v /srv/containers/pihole/dnsmasq.d/:/etc/dnsmasq.d \
+pihole/pihole:latest
+
+sudo iptables -F; sudo iptables -X; sudo iptables -A OUTPUT -j ACCEPT -m comment --comment "Accept all outgoing"; sudo iptables -A INPUT -j ACCEPT -m comment --comment "Accept all incoming"; sudo iptables -A FORWARD -j ACCEPT -m comment --comment "Accept all forwarded"
