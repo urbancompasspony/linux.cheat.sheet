@@ -1,1 +1,12 @@
 
+docker run -d \
+--name=kuma \
+--network host \
+--hostname=kuma \
+--no-healthcheck \
+--restart=unless-stopped \
+-p 3001:3001 \
+-v /etc/localtime:/etc/localtime:ro \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v /srv/containers/kuma/data:/app/data \
+louislam/uptime-kuma:1
