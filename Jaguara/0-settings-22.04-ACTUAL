@@ -1,5 +1,4 @@
-For Ubuntu 22.04 LTS!
-And for Raspberry Pi 4!
+For Ubuntu 22.04 LTS and Raspberry Pi 4 (NOT 3!)
 
 sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-raspi -y
 
@@ -22,19 +21,6 @@ CONFIG_PLATFORM_I386_PC = n
 
 sudo ./install_wifi.sh
 
-Reboot!
+sudo lshw -c network | grep "driver=8192eu"
 
-
-
-
-IF NEEDED:
-
-Source:
-https://github.com/Mange/rtl8192eu-linux-driver
-
-echo "blacklist rtl8xxxu" | sudo tee /etc/modprobe.d/rtl8xxxu.conf
-echo -e "8192eu\n\nloop" | sudo tee /etc/modules
-echo "options 8192eu rtw_power_mgnt=0 rtw_enusbss=0" | sudo tee /etc/modprobe.d/8192eu.conf
-
-sudo lshw -c network
-You should see the line driver=8192eu
+If ok, reboot!
