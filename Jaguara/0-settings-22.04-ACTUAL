@@ -1,0 +1,35 @@
+For Ubuntu 22.04 LTS!
+
+sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-raspi linux-modules-extra-generic -y
+
+sudo apt purge dnsmasq-base -y; sudo killall dnsmasq
+sudo systemctl stop systemd-resolved; sudo systemctl disable systemd-resolved; sudo systemctl mask systemd-resolved; sudo unlink /etc/resolv.conf
+
+sudo nano /etc/resolv.conf
+nameserver 1.0.0.1
+nameserver 127.0.0.1
+
+sudo nano /etc/sysctl.conf
+net.ipv4.ip_forward=1
+
+git clone https://github.com/Mange/rtl8192eu-linux-driver; cd rtl8192eu-linux-driver
+nano Makefile
+
+CONFIG_PLATFORM_I386_PC = n
+CONFIG_PLATFORM_ARM_RPI = y
+
+make ARCH="arm64"
+sudo make install ARCH="arm64"
+sudo dkms add .
+sudo dkms install rtl8192eu/1.0
+
+sudo update-initramfs -u
+
+echo "blacklist rtl8xxxu" | sudo tee /etc/modprobe.d/rtl8xxxu.conf
+echo -e "8192eu\n\nloop" | sudo tee /etc/modules
+echo "options 8192eu rtw_power_mgnt=0 rtw_enusbss=0" | sudo tee /etc/modprobe.d/8192eu.conf
+
+sudo lshw -c network
+You should see the line driver=8192eu
+
+Reboot!
