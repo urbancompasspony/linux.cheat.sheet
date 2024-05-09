@@ -25,6 +25,9 @@ Reboot!
 
 IF NEEDED:
 
+Source:
+https://github.com/Mange/rtl8192eu-linux-driver
+
 make ARCH="arm64"
 sudo make install ARCH="arm64"
 sudo dkms add .
