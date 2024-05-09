@@ -1,3 +1,7 @@
+
+# REMEMBER TO CREATE A DHCP SERVER INSIDE PIHOLE WEB ACCESS!
+############################################################
+
 docker pull pihole/pihole:latest
 
 docker stop pihole
