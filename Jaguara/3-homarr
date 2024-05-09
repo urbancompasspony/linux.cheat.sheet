@@ -5,6 +5,8 @@ docker rm homarr
 
 sudo mkdir -p /srv/containers/homarr/{configs,data,icons,backgrounds}
 
+sudo chmod 777 -R /srv/containers/homarr/
+
 docker run -d \
 --name=homarr \
 --network host \
