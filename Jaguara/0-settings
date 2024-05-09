@@ -1,5 +1,7 @@
+FOR NOW, UBUNTU 22.04 ONLY!!!
+Erro GCC when building Wifi module.
 
-sudo apt install network-manager linux-headers-6.8.0-1004-raspi linux-modules-extra-raspi linux-modules-extra-6.8.0-31-generic (for ubuntu server 24.04, try all, some may have erros not found, its normal kkkkkk)
+sudo apt install network-manager linux-modules-extra-raspi
 
 sudo apt purge dnsmasq-base
 
