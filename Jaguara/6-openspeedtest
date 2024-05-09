@@ -3,7 +3,6 @@ docker run -d \
 --network host \
 --no-healthcheck \
 -p 3000:3000 \
--p 3001:3001 \
 -v /etc/localtime:/etc/localtime:ro \
 --restart unless-stopped \
 openspeedtest/latest
