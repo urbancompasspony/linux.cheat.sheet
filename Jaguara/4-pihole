@@ -24,4 +24,7 @@ docker run -d \
 -v /srv/containers/pihole/dnsmasq.d/:/etc/dnsmasq.d \
 pihole/pihole:latest
 
-sudo iptables -F; sudo iptables -X; sudo iptables -A OUTPUT -j ACCEPT -m comment --comment "Accept all outgoing"; sudo iptables -A INPUT -j ACCEPT -m comment --comment "Accept all incoming"; sudo iptables -A FORWARD -j ACCEPT -m comment --comment "Accept all forwarded"
+sudo iptables -F; sudo iptables -X
+sudo iptables -A OUTPUT -j ACCEPT -m comment --comment "Accept all outgoing"
+sudo iptables -A INPUT -j ACCEPT -m comment --comment "Accept all incoming"
+sudo iptables -A FORWARD -j ACCEPT -m comment --comment "Accept all forwarded"
