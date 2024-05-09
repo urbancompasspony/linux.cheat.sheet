@@ -1,7 +1,7 @@
 FOR NOW, UBUNTU 22.04 ONLY!!!
 Erro GCC when building Wifi module.
 
-sudo apt install network-manager linux-modules-extra-raspi git raspberrypi-kernel-headers build-essential dkms
+sudo apt install network-manager linux-modules-extra-raspi git linux-headers-generic build-essential dkms
 
 sudo apt purge dnsmasq-base
 
