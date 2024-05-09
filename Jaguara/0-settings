@@ -27,6 +27,8 @@ CONFIG_PLATFORM_I386_PC = n
 CONFIG_PLATFORM_ARM_RPI = y
 
 sudo dkms add .
+sudo make
+sudo make install
 sudo dkms install rtl8192eu/1.0
 sudo update-grub; sudo update-initramfs -u
 
