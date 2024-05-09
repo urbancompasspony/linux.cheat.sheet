@@ -3,6 +3,8 @@ docker pull pihole/pihole:latest
 docker stop pihole
 docker rm pihole
 
+sudo mkdir -p /srv/containers/pihole/{dnsmasq.d,etc}
+
 docker run -d \
 --name=pihole \
 --network host \
