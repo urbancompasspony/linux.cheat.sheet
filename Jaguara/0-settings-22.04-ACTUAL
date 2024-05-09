@@ -18,6 +18,13 @@ nano Makefile
 CONFIG_PLATFORM_I386_PC = n
 CONFIG_PLATFORM_ARM_RPI = y
 
+RUN install_wifi.sh!
+
+Reboot!
+
+
+IF NEEDED:
+
 make ARCH="arm64"
 sudo make install ARCH="arm64"
 sudo dkms add .
@@ -31,5 +38,3 @@ echo "options 8192eu rtw_power_mgnt=0 rtw_enusbss=0" | sudo tee /etc/modprobe.d/
 
 sudo lshw -c network
 You should see the line driver=8192eu
-
-Reboot!
