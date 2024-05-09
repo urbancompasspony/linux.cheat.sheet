@@ -15,8 +15,11 @@ net.ipv4.ip_forward=1
 git clone https://github.com/Mange/rtl8192eu-linux-driver; cd rtl8192eu-linux-driver
 nano Makefile
 
-CONFIG_PLATFORM_I386_PC = n
 CONFIG_PLATFORM_ARM_RPI = y
+CONFIG_PLATFORM_I386_PC = n
+
+
+sudo make ARCH="arm64"
 
 RUN install_wifi.sh!
 
