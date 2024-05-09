@@ -20,8 +20,6 @@ CONFIG_PLATFORM_ARM_AARCH64 = y
 CONFIG_PLATFORM_ARM_RPI = n
 CONFIG_PLATFORM_I386_PC = n
 
-sudo make ARCH="arm64"
-sudo make install
 ./install_wifi.sh
 
 Reboot!
