@@ -18,4 +18,5 @@ sudo depmod -a
 echo "blacklist rtl8xxxu" | sudo tee /etc/modprobe.d/blacklist-rtl8xxxu.conf
 echo "options 8192eu rtw_power_mgnt=0 rtw_enusbss=0" | sudo tee /etc/modprobe.d/8192eu.conf
 echo -e "8192eu\n\nloop" | sudo tee /etc/modules
+sudo update-initramfs -u
 sudo modprobe 8192eu
