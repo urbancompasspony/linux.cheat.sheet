@@ -1,9 +1,7 @@
 
-ERRORS WHEN RUNNING WIFI BUILD!
+For Ubuntu 24.04 LTS and Raspberry Pi 4 (NOT 3!)
 
-For Ubuntu 24.04 LTS!
-
-sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-6.8.0-1004-raspi linux-modules-extra-6.8.0-31-generic -y
+sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-$(uname -r)-raspi linux-modules-extra-$(uname -r)-generic -y
 
 sudo apt purge dnsmasq-base -y; sudo killall dnsmasq
 sudo systemctl stop systemd-resolved; sudo systemctl disable systemd-resolved; sudo systemctl mask systemd-resolved; sudo unlink /etc/resolv.conf
@@ -18,8 +16,17 @@ net.ipv4.ip_forward=1
 git clone https://github.com/Mange/rtl8192eu-linux-driver; cd rtl8192eu-linux-driver
 nano Makefile
 
+CONFIG_PLATFORM_ARM_RPI = n
+CONFIG_PLATFORM_ARM_AARCH64 = y
 CONFIG_PLATFORM_I386_PC = n
-CONFIG_PLATFORM_ARM_RPI = y
+
+sudo ./install_wifi.sh
+
+sudo lshw -c network | grep "driver=rtl8192eu"
+
+
+
+
 
 sudo dkms add .
 make ARCH="arm64"
