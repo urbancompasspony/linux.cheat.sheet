@@ -1,6 +1,9 @@
+#!/bin/bash
 
 # REMEMBER TO CREATE A DHCP SERVER INSIDE PIHOLE WEB ACCESS!
 ############################################################
+
+device0="wlxd037457c32f3"
 
 docker pull pihole/pihole:latest
 
@@ -19,7 +22,7 @@ docker run -d \
 --restart=unless-stopped \
 --cap-add=NET_ADMIN \
 --privileged \
--e INTERFACE=wlxd037457c32f3 \
+-e INTERFACE="$device0" \
 -e DNSMASQ_LISTENING=single \
 -e SERVERIP=127.0.0.1 \
 -e WEBPASSWORD="5V06auso" \
@@ -32,6 +35,8 @@ sudo iptables -F; sudo iptables -X
 sudo iptables -A OUTPUT -j ACCEPT -m comment --comment "Accept all outgoing"
 sudo iptables -A INPUT -j ACCEPT -m comment --comment "Accept all incoming"
 sudo iptables -A FORWARD -j ACCEPT -m comment --comment "Accept all forwarded"
+
+############################################################
 
 docker pull ghcr.io/ajnart/homarr:latest
 
@@ -59,6 +64,8 @@ docker run -d \
 ghcr.io/ajnart/homarr:latest
 # --network host \
 
+############################################################
+
 docker pull germannewsmaker/myspeed
 
 docker stop myspeed
@@ -79,6 +86,8 @@ docker run -d \
 -v /srv/containers/myspeedtest/data:/myspeed/data \
 germannewsmaker/myspeed
 
+############################################################
+
 docker stop openspeedtest
 docker rm openspeedtest
 
@@ -90,6 +99,8 @@ docker run -d \
 -v /etc/localtime:/etc/localtime:ro \
 --restart unless-stopped \
 openspeedtest/latest
+
+############################################################
 
 docker pull louislam/uptime-kuma:1
 
@@ -111,3 +122,18 @@ docker run -d \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v /srv/containers/kuma/data:/app/data \
 louislam/uptime-kuma:1
+
+############################################################
+
+IPRPi=$(ip route get 1.1.1.1 | grep -oP 'src \K\S+')
+
+clear
+echo "Services Access:"
+echo ""
+echo "Homarr: $IPRPi:7575"
+echo ""
+echo "PiHole: $IPRPi/admin"
+echo "MySpeed: $IPRPi:5126"
+echo "OpenSpeedTest: $IPRPi:3000"
+echo "Kuma: $IPRPi:3002"
+echo " "
