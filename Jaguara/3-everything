@@ -4,9 +4,9 @@
 ############################################################
 
 defaultinterface="wlan0"
-extrainterface1="wlxd037457c32f3"
-extrainterface2="wlx18d6c70d6149"
-extrainterface3="wlxd03745867865"
+extrainterface1="interface=wlxd037457c32f3"
+extrainterface2="interface=wlx18d6c70d6149"
+extrainterface3="interface=wlxd03745867865"
 
 docker pull pihole/pihole:latest
 
