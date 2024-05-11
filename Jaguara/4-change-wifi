@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo netplan apply
+
+docker restart pihole
