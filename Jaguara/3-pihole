@@ -19,7 +19,7 @@ docker run -d \
 --restart=unless-stopped \
 --cap-add=NET_ADMIN \
 --privileged \
--e INTERFACE=wlxd03745867865 \
+-e INTERFACE=wlxd037457c32f3 \
 -e DNSMASQ_LISTENING=single \
 -e SERVERIP=127.0.0.1 \
 -e WEBPASSWORD="5V06auso" \
