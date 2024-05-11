@@ -4,6 +4,7 @@
 ############################################################
 
 defaultinterface="wlan0"
+
 extrainterface1="interface=wlxd037457c32f3"
 extrainterface2="interface=wlx18d6c70d6149"
 extrainterface3="interface=wlxd03745867865"
@@ -15,9 +16,9 @@ docker rm pihole
 
 sudo mkdir -p /srv/containers/pihole/{dnsmasq.d,etc}
 
-echo "$extrainterface1" | sudo tee /srv/containers/pihole/etc/dnsmasq.d/99-interfaces.conf
-echo "$extrainterface2" | sudo tee -a /srv/containers/pihole/etc/dnsmasq.d/99-interfaces.conf
-echo "$extrainterface3" | sudo tee -a /srv/containers/pihole/etc/dnsmasq.d/99-interfaces.conf
+echo "$extrainterface1" | sudo tee /srv/containers/pihole/dnsmasq.d/99-interfaces.conf
+echo "$extrainterface2" | sudo tee -a /srv/containers/pihole/dnsmasq.d/99-interfaces.conf
+echo "$extrainterface3" | sudo tee -a /srv/containers/pihole/dnsmasq.d/99-interfaces.conf
 
 docker run -d \
 --name=pihole \
