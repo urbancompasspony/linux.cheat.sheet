@@ -7,6 +7,8 @@ sudo mkdir -p /srv/containers/homarr/{configs,data,icons,backgrounds}
 
 sudo chmod 777 -R /srv/containers/homarr/
 
+sudo systemctl restart docker
+
 docker run -d \
 --name=homarr \
 --hostname=homarr \
