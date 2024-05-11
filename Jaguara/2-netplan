@@ -16,4 +16,14 @@ network:
         "PEREIRA 2":
           password: "pereira53"
           mode: ap
+    wlx18d6c70d6149:
+      dhcp4: true
+      dhcp6: false
+      addresses:
+      - 192.168.4.1/24
+      optional: true
+      access-points:
+        "PEREIRA 3":
+          password: "pereira53"
+          mode: ap
   version: 2
