@@ -6,6 +6,16 @@ network:
       dhcp6: false
       optional: true
   wifis:
+    wlan0:
+      dhcp4: true
+      dhcp6: false
+      addresses:
+      - 192.168.5.1/24
+      optional: true
+      access-points:
+        "Jaguara Suporte":
+          password: "5V06auso"
+          mode: ap
     wlxd037457c32f3:
       dhcp4: true
       dhcp6: false
@@ -13,7 +23,17 @@ network:
       - 192.168.4.1/24
       optional: true
       access-points:
-        "PEREIRA 2":
+        "Jaguara":
+          password: "pereira53"
+          mode: ap
+    wlxd03745867865:
+      dhcp4: true
+      dhcp6: false
+      addresses:
+      - 192.168.4.1/24
+      optional: true
+      access-points:
+        "Jaguara":
           password: "pereira53"
           mode: ap
     wlx18d6c70d6149:
@@ -23,7 +43,7 @@ network:
       - 192.168.4.1/24
       optional: true
       access-points:
-        "PEREIRA 3":
+        "Jaguara":
           password: "pereira53"
           mode: ap
   version: 2
