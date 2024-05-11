@@ -3,8 +3,6 @@
 # REMEMBER TO CREATE A DHCP SERVER INSIDE PIHOLE WEB ACCESS!
 ############################################################
 
-defaultinterface="wlan0"
-
 extrainterface1="interface=wlxd037457c32f3"
 extrainterface2="interface=wlx18d6c70d6149"
 extrainterface3="interface=wlxd03745867865"
@@ -30,7 +28,7 @@ docker run -d \
 --restart=unless-stopped \
 --cap-add=NET_ADMIN \
 --privileged \
--e INTERFACE="$defaultinterface" \
+-e INTERFACE="wlan0" \
 -e DNSMASQ_LISTENING=single \
 -e SERVERIP=127.0.0.1 \
 -e WEBPASSWORD="5V06auso" \
