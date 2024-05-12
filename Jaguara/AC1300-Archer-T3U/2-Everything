@@ -144,6 +144,23 @@ mauricenino/dashdot
 
 ############################################################
 
+docker pull wettyoss/wetty
+
+docker stop wetty
+docker rm wetty
+
+docker run -d \
+--name=wetty \
+--network host \
+--hostname=wetty \
+--no-healthcheck \
+--restart=unless-stopped \
+-v /etc/localtime:/etc/localtime:ro \
+-p 3004:3004 \
+wettyoss/wetty --bypass-helmet --allow-iframe --force-ssh --port="3004" --ssh-host="127.0.0.1" --ssh-user="administrador"
+
+############################################################
+
 IPRPi=$(ip route get 1.1.1.1 | grep -oP 'src \K\S+')
 
 clear
@@ -157,5 +174,6 @@ echo "MySpeed: $IPRPi:5216"
 echo "OpenSpeedTest: $IPRPi:3000"
 echo "Kuma: $IPRPi:3002"
 echo "Dashdot: $IPRPi:3003"
+echo "Wetty: $IPRPi:3004/wetty"
 
 echo " "
