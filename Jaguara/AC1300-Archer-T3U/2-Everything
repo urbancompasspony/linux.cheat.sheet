@@ -124,9 +124,30 @@ louislam/uptime-kuma:1
 
 ############################################################
 
+docker pull mauricenino/dashdot
+
+docker stop dashdot
+docker rm dashdot
+
+docker run -d \
+--name=dashdot \
+--network host \
+--hostname=dashdot \
+--no-healthcheck \
+--restart=unless-stopped \
+--privileged \
+-e DASHDOT_PORT=3003 \
+-p 80:3003 \
+-v /etc/localtime:/etc/localtime:ro \
+-v /:/mnt/host:ro \
+mauricenino/dashdot
+
+############################################################
+
 IPRPi=$(ip route get 1.1.1.1 | grep -oP 'src \K\S+')
 
 clear
+
 echo "Services Access:"
 echo ""
 echo "Homarr: $IPRPi:7575"
@@ -135,4 +156,6 @@ echo "PiHole: $IPRPi/admin"
 echo "MySpeed: $IPRPi:5216"
 echo "OpenSpeedTest: $IPRPi:3000"
 echo "Kuma: $IPRPi:3002"
+echo "Dashdot: $IPRPi:3003"
+
 echo " "
