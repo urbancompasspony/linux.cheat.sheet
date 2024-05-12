@@ -165,15 +165,14 @@ IPRPi=$(ip route get 1.1.1.1 | grep -oP 'src \K\S+')
 
 clear
 
-echo "Services Access:"
 echo ""
 echo "Homarr: $IPRPi:7575"
 echo ""
-echo "PiHole: $IPRPi/admin"
-echo "MySpeed: $IPRPi:5216"
+echo "PiHole:        $IPRPi/admin"
+echo "MySpeed:       $IPRPi:5216"
 echo "OpenSpeedTest: $IPRPi:3000"
-echo "Kuma: $IPRPi:3002"
-echo "Dashdot: $IPRPi:3003"
-echo "Wetty: $IPRPi:3004/wetty"
+echo "Kuma:          $IPRPi:3002"
+echo "Dashdot:       $IPRPi:3003"
+echo "Wetty:         $IPRPi:3004/wetty"
 
 echo " "
