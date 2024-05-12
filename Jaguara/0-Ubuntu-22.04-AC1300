@@ -24,3 +24,5 @@ sudo dkms build -m rtl88x2bu -v ${VER} # Takes ~3-minutes on a 3B+
 sudo dkms install -m rtl88x2bu -v ${VER}
 
 If ok, reboot!
+
+SOURCE: https://github.com/cilynx/rtl88x2bu
