@@ -11,3 +11,5 @@ nameserver 127.0.0.1
 
 sudo nano /etc/sysctl.conf
 net.ipv4.ip_forward=1
+
+Driver wifi above on apt install!
