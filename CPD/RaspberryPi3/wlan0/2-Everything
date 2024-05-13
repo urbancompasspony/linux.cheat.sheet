@@ -10,7 +10,7 @@ docker rm pihole
 
 sudo mkdir -p /srv/containers/pihole/{dnsmasq.d,etc}
 
-echo "interface=wlxf0a73129a73f" | sudo tee /srv/containers/pihole/dnsmasq.d/99-interfaces.conf
+echo "interface=wlan0" | sudo tee /srv/containers/pihole/dnsmasq.d/99-interfaces.conf
 
 docker run -d \
 --name=pihole \
