@@ -1,3 +1,5 @@
+DEPRECATED!
+
 For Ubuntu 22.04 LTS and Raspberry Pi 4 (NOT 3!)
 
 sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-raspi -y
