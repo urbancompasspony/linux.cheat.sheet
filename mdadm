@@ -9,7 +9,7 @@ sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
 sudo update-initramfs -u
 
 sudo nano /etc/fstab
-/dev/disk/by-uuid/XXX /mnt/md0 ext4 defaults,nofail 0 0
+/dev/disk/by-uuid/XXX /mnt/md0 ext4 defaults,noatime 0 0
 
 # RAID 1 (Disk01 = Disk 02)
 
@@ -21,4 +21,4 @@ sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
 sudo update-initramfs -u
 
 sudo nano /etc/fstab
-/dev/disk/by-uuid/XXX /mnt/md0 ext4 defaults,nofail 0 0
+/dev/disk/by-uuid/XXX /mnt/md0 ext4 defaults,noatime 0 0
