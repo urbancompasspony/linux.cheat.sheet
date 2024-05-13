@@ -1,6 +1,6 @@
 For Ubuntu 22.04 LTS and Raspberry Pi 3
 
-sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-raspi -y
+sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-raspi firmware-ath9k-htc -y
 
 sudo apt purge dnsmasq-base -y; sudo killall dnsmasq
 sudo systemctl stop systemd-resolved; sudo systemctl disable systemd-resolved; sudo systemctl mask systemd-resolved; sudo unlink /etc/resolv.conf
