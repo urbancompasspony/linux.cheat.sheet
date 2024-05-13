@@ -9,11 +9,8 @@ echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
 sudo apt install network-manager git linux-headers-generic build-essential dkms linux-headers-raspi firmware-ath9k-htc -y
 
 sudo apt purge dnsmasq-base -y; sudo killall dnsmasq
-sudo systemctl stop systemd-resolved; sudo systemctl disable systemd-resolved; sudo systemctl mask systemd-resolved; sudo unlink /etc/resolv.conf
+sudo systemctl stop systemd-resolved; sudo systemctl disable systemd-resolved; sudo systemctl mask systemd-resolved; sudo unlink /etc/resolv.conf; echo -e "nameserver 1.0.0.1\nnameserver 127.0.0.1" | sudo tee /etc/resolv.conf
 
-sudo nano /etc/resolv.conf
-nameserver 1.0.0.1
-nameserver 127.0.0.1
 
 sudo nano /etc/sysctl.conf
 net.ipv4.ip_forward=1
