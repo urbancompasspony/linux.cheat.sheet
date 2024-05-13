@@ -1,9 +1,8 @@
 For Ubuntu 22.04 LTS and Raspberry Pi 3
 
 sudo dd if=/dev/zero of=/swapfile bs=1k count=2000000
-sudo chmd 0600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
+sudo chmod 0600 /swapfile
+sudo mkswap /swapfile; sudo swapon /swapfile
 echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
 
 sudo apt purge dnsmasq-base -y; sudo killall dnsmasq
