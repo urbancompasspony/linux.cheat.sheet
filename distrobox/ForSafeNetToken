@@ -1,0 +1,11 @@
+Base: ArchLinux with AUR
+DistroBox: Ubuntu 20.04
+
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:rock-core/qt4
+
+sudo apt update
+sudo apt install libqt4-dev pcscd
+yay -S hal-info
+
+NAO FUNCIONOU.
