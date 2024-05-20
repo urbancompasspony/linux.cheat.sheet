@@ -18,6 +18,25 @@ wget https://www.globalsign.com/en/safenet-drivers/USB/10.7/Safenet_Linux_Instal
 unzip Safenet_Linux_Installer_DEB_x64.zip
 sudo dpkg -i safenetauthenticationclient_10.7.77_amd64.deb
 
+> CHROME:
+Feche o Navegador
+
+sudo apt -y install libnss3-tools
+
+rm -fr ~/.pki/nssdb
+mkdir -p ~/.pki/nssdb
+certutil -d ~/.pki/nssdb -N
+
+cd ~
+modutil -dbdir sql:.pki/nssdb/ -add "Safenet 5110" -libfile "/usr/lib/libeToken.so"
+modutil -dbdir sql:.pki/nssdb/ -list
+
+> FIREFOX (not Snap!):
+Abra “Editar” > “Preferencias” > “Avançado” > “Certificados” selecione a opção “Dispositivos de Segurança”
+
+Clique em “NSS Internal PKCS…” depois em “Carregar” deixe o nome como está ou coloque um de sua preferência em seguida 
+coloque o caminho da biblioteca do token “/usr/lib/libeToken.so”
+
 Baseado nos Tutoriais:
 https://gist.github.com/alexishida/05d60a2fa9c4a58ba60518a41c0464df
 https://plus.diolinux.com.br/t/instalacao-de-certificado-digital-a3-em-ubuntu-e-derivados/57842
