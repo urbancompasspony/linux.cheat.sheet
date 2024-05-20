@@ -1,33 +1,26 @@
 Base: ArchLinux with AUR
-DistroBox: Ubuntu 20.04
+DistroBox: Ubuntu 22.04
 
-sudo apt install libjbig0 libtiff5 fontconfig-config libfontconfig1 libwxbase3.0-0v5 libpcsclite1 libccid pcscd opensc
+sudo apt -y install libjbig0 libtiff5 fontconfig-config libfontconfig1 libwxbase3.0-0v5 libpcsclite1 libccid pcscd opensc unzip libssl3
 
-cd /tmp ; wget https://www.globalsign.com/en/safenet-drivers/USB/10.7/Safenet_Linux_Installer_DEB_x64.zip ; unzip Safenet_Linux_Installer_DEB_x64.zip ; sudo dpkg -i safenetauthenticationclient_10.7.77_amd64.deb ; sudo apt-get -f install
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1-1ubuntu2.1~18.04.23_amd64.deb
+sudo dpkg -i libssl1.1_1.1.1-1ubuntu2.1~18.04.23_amd64.deb
 
-sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
+wget http://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf-xlib/libgdk-pixbuf-xlib-2.0-0_2.40.2-2build4_amd64.deb
+sudo dpkg -i libgdk-pixbuf-xlib-2.0-0_2.40.2-2build4_amd64.deb
 
+wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-2build4_amd64.deb
+sudo dpkg -i libgdk-pixbuf2.0-0_2.40.2-2build4_amd64.deb
+
+cd /tmp
+wget https://www.globalsign.com/en/safenet-drivers/USB/10.7/Safenet_Linux_Installer_DEB_x64.zip
+unzip Safenet_Linux_Installer_DEB_x64.zip
+sudo dpkg -i safenetauthenticationclient_10.7.77_amd64.deb
+
+sudo ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 /usr/lib/libcrypto.so.6
+sudo ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 /usr/lib/libcrypto.so
+
+exit
 /usr/bin/SACTools
 
-sudo ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.2 /usr/lib/libcrypto.so.6
-
-
-Instale o módulo (driver) no Firefox em:
-Abrir Menu > Preferências > Privacidade e Segurança > Dispositivos de segurança… > Carregar >
-Nome do módulo = “ESCOLHA UM NOME PARA O TOKEN”
-Nome do arquivo do módulo = /usr/lib/libeToken.so
-
-https://ccd.serpro.gov.br/testeaqui/
-https://serasa.certificadodigital.com.br/teste-de-certificado/
-https://cav.receita.fazenda.gov.br/autenticacao/login/index
-
-
-
-sudo apt install software-properties-common
-sudo add-apt-repository ppa:rock-core/qt4
-
-sudo apt update
-sudo apt install libqt4-dev pcscd
-yay -S hal-info
-
-NAO FUNCIONOU.
+BUT not working...
