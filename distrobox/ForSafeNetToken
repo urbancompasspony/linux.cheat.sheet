@@ -1,6 +1,28 @@
 Base: ArchLinux with AUR
 DistroBox: Ubuntu 20.04
 
+sudo apt install libjbig0 libtiff5 fontconfig-config libfontconfig1 libwxbase3.0-0v5 libpcsclite1 libccid pcscd opensc
+
+cd /tmp ; wget https://www.globalsign.com/en/safenet-drivers/USB/10.7/Safenet_Linux_Installer_DEB_x64.zip ; unzip Safenet_Linux_Installer_DEB_x64.zip ; sudo dpkg -i safenetauthenticationclient_10.7.77_amd64.deb ; sudo apt-get -f install
+
+sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
+
+/usr/bin/SACTools
+
+sudo ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.2 /usr/lib/libcrypto.so.6
+
+
+Instale o módulo (driver) no Firefox em:
+Abrir Menu > Preferências > Privacidade e Segurança > Dispositivos de segurança… > Carregar >
+Nome do módulo = “ESCOLHA UM NOME PARA O TOKEN”
+Nome do arquivo do módulo = /usr/lib/libeToken.so
+
+
+
+
+
+
+
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:rock-core/qt4
 
