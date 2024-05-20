@@ -1,0 +1,23 @@
+
+REQUISITOS:
+Ubuntu MATE 22.04!
+
+sudo apt -y install libjbig0 libtiff5 fontconfig-config libfontconfig1 libwxbase3.0-0v5 libpcsclite1 libccid pcscd opensc unzip libssl3
+
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1-1ubuntu2.1~18.04.23_amd64.deb
+sudo dpkg -i libssl1.1_1.1.1-1ubuntu2.1~18.04.23_amd64.deb
+
+wget http://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf-xlib/libgdk-pixbuf-xlib-2.0-0_2.40.2-2build4_amd64.deb
+sudo dpkg -i libgdk-pixbuf-xlib-2.0-0_2.40.2-2build4_amd64.deb
+
+wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gdk-pixbuf-xlib/libgdk-pixbuf2.0-0_2.40.2-2build4_amd64.deb
+sudo dpkg -i libgdk-pixbuf2.0-0_2.40.2-2build4_amd64.deb
+
+cd /tmp
+wget https://www.globalsign.com/en/safenet-drivers/USB/10.7/Safenet_Linux_Installer_DEB_x64.zip
+unzip Safenet_Linux_Installer_DEB_x64.zip
+sudo dpkg -i safenetauthenticationclient_10.7.77_amd64.deb
+
+Baseado nos Tutoriais:
+https://gist.github.com/alexishida/05d60a2fa9c4a58ba60518a41c0464df
+https://plus.diolinux.com.br/t/instalacao-de-certificado-digital-a3-em-ubuntu-e-derivados/57842
