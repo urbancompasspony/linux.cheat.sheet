@@ -1,4 +1,4 @@
 
-# Allow external routes, not the default 100.x.x.x
-$ sudo tailscale up --accept-routes
+# Allow external routes:
+$ sudo tailscale up --advertise-routes=192.168.120.0/24
 
