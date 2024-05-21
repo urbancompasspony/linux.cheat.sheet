@@ -1,0 +1,4 @@
+
+# Allow external routes, not the default 100.x.x.x
+$ sudo tailscale up --accept-routes
+
