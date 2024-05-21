@@ -1,0 +1,3 @@
+
+Allow connections further than 100.x.x.x
+# sudo tailscale up --accept-routes
