@@ -1,0 +1,7 @@
+LogMe In 
+1. cd "C:\Program Files (x86)\LogMeIn\x64" 
+2. cmd 
+3. logmein.exe cert -createca "LogMeIn CA on %COMPUTERNAME%" -createsc "%COMPUTERNAME%" 
+4. net stop LogMeIn && net start LogMeIn
+
+Search for Global Certificates SHA256 G2
