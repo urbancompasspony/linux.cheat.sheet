@@ -8,7 +8,7 @@
 # The url clients will connect to.
 # Typically this will be a domain like:
 # https://myheadscale.example.com:443
-server_url: http://127.0.0.1:8080
+server_url: http://MYVAR1:8080
 
 listen_addr: 0.0.0.0:8080
 
@@ -35,14 +35,14 @@ database:
 ## Let's encrypt / ACME
 acme_url: https://acme-v02.api.letsencrypt.org/directory
 acme_email: "lalaland@lalaland.com"
-tls_letsencrypt_hostname: ""
+tls_letsencrypt_hostname: "MYVAR1"
 
 tls_letsencrypt_cache_dir: /var/lib/headscale/cache
 tls_letsencrypt_challenge_type: HTTP-01
 tls_letsencrypt_listen: ":http"
 ## Use already defined certificates:
-tls_cert_path: ""
-tls_key_path: ""
+#tls_cert_path: ""
+#tls_key_path: ""
 
 log:
   format: text
@@ -51,7 +51,7 @@ log:
 # Path to a file containing ACL policies.
 # ACLs can be defined as YAML or HUJSON.
 # https://tailscale.com/kb/1018/acls/
-acl_policy_path: ""
+#acl_policy_path: ""
 
 ## DNS
 # headscale supports Tailscale's DNS configuration and MagicDNS.
@@ -68,7 +68,7 @@ dns_config:
     - 8.8.4.4
 
   # Search domains to inject.
-  domains: []
+  #domains: []
 
   magic_dns: true
 
@@ -76,7 +76,7 @@ dns_config:
   # `base_domain` must be a FQDNs, without the trailing dot.
   # The FQDN of the hosts will be
   # `hostname.user.base_domain` (e.g., _myhost.myuser.example.com_).
-  base_domain: example.com
+  base_domain: MYVAR2
 
 unix_socket: /var/run/headscale/headscale.sock
 unix_socket_permission: "0770"
