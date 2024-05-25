@@ -1,0 +1,6 @@
+
+SERVER
+headscale apikeys create -e 9999d
+
+UI
+PASTE THE KEY!
