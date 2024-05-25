@@ -1,5 +1,5 @@
 ---
-server_url: https://MYVAR1
+server_url: https://MYVAR
 listen_addr: 0.0.0.0:8080
 metrics_listen_addr: 0.0.0.0:9090
 
