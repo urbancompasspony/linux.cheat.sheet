@@ -1,5 +1,5 @@
 
-SERVER
+SERVER meu_IP:27896
 headscale apikeys create -e 9999d
 
 UI meu_IP/manager
