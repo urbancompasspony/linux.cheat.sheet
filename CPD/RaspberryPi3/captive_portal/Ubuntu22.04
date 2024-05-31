@@ -1,0 +1,11 @@
+For Ubuntu 22.04 LTS and Raspberry Pi 3
+
+sudo dd if=/dev/zero of=/swapfile bs=1k count=2000000
+sudo chmod 0600 /swapfile
+sudo mkswap /swapfile; sudo swapon /swapfile
+echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
+
+sudo apt purge dnsmasq-base -y; sudo killall dnsmasq
+sudo systemctl stop systemd-resolved; sudo systemctl disable systemd-resolved; sudo systemctl mask systemd-resolved; sudo unlink /etc/resolv.conf; echo -e "nameserver 1.0.0.1\nnameserver 127.0.0.1" | sudo tee /etc/resolv.conf; echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+
+Let's just use the native WLAN0 interface!
