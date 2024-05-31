@@ -58,3 +58,4 @@ echo ""
 echo "OpenSpeedTest: $IPRPi:3000"
 
 echo " "
+#sudo reboot
