@@ -1,0 +1,11 @@
+swaybg = botar wallpaper
+swaylock = travar a tela
+waybar = uma bar mais bonita e mais customizável que a que vem no Sway, aí vai de tua preferência
+wofi = launcher, pra tu abrir os programas
+grim e slurp = te ajuda com selecionar uma região da tela e tirar prints
+gammastep = se quiser botar luz noturna
+xorg-xwayland = acho que não preciso explicar, kkkk
+wl-clipboard = "xclip" do wayland, um clipboard
+xdg-desktop-portal-gtk = remove anti-aliasing de programas GTK
+xdg-desktop-portal-wlr = portal do wlr, pra poder usar screencast no Sway
+pipewire-pulse = poder ter som
