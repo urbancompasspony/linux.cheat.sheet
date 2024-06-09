@@ -1,17 +1,6 @@
 sudo apt install swaybg xwayland waybar grim slurp wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-wlr pipewire-pulse
 sudo apt install polkit-kde-agent-1 --no-install-recommends
 
-# LEGENDA
-swaybg = botar wallpaper
-swaylock = travar a tela
-waybar = uma bar mais bonita e mais customizável que a que vem no Sway, aí vai de tua preferência
-wofi = launcher, pra tu abrir os programas
-grim e slurp = te ajuda com selecionar uma região da tela e tirar prints
-wl-clipboard = "xclip" do wayland, um clipboard
-xdg-desktop-portal-gtk = remove anti-aliasing de programas GTK
-xdg-desktop-portal-wlr = portal do wlr, pra poder usar screencast no Sway
-pipewire-pulse = poder ter som
-
 sudo cp /etc/sway/config ~/.config/sway/
 nano ~/.config/sway/config
 
@@ -19,6 +8,7 @@ bindsym $mod+Shift+e exec swaynag -t warning -f "Noto Sans 11" --text "#FFFFFF" 
 bindsym --release Super_L exec wofi -i -I -a --show="drun,run" -W 640 -H 480 2>&1 >/dev/null
 bindsym ctrl+mod1+t exec terminator
 floating_modifier mod1 normal
+bindsym mod1+f4 kill
 
 client.focused          #315B32 #315B32 #ffffff
 client.unfocused        #00000050 #00000050 #ffffff00
