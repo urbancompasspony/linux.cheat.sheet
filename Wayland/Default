@@ -15,5 +15,6 @@ pipewire-pulse = poder ter som
 
 sudo cp /etc/sway/config ~/.config/sway/
 
-wofi -i -I -a --show="drun,run"
+nano ~/.config/sway/config
+bindsym $mod+d exec wofi -i -I -a --show="drun,run"
 
