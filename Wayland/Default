@@ -29,6 +29,23 @@ floating_maximum_size 1250 x 720
 gaps inner 10
 
 input type:keyboard {
-    xkb_layout "br"
-	xkb_variant "abnt2"
+  xkb_layout "br"
+  xkb_variant "abnt2"
+}
+
+bindsym {
+    # Volume
+    XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+    # Brightness
+    XF86MonBrightnessUp exec brightnessctl set +1%
+    XF86MonBrightnessDown exec brightnessctl set 1%-
+    Shift+mod1+u exec brightnessctl set 5
+
+    Shift+mod1+k exec $screenshottool gui                               # Open $screenshottool
+    Shift+mod1+d exec $screenshottool gui -d 2000                       # Open $screenshottool with 2 seconds delay
+    $mod+shift+b exec terminator -e btop                                     # Open Btop on $term kitty
 }
