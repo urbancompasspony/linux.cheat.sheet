@@ -1,4 +1,4 @@
-sudo apt install swaybg waybar grim slurp wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-wlr pipewire-pulse
+sudo apt install swaybg xwayland waybar grim slurp wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-wlr pipewire-pulse
 sudo apt install polkit-kde-agent-1 --no-install-recommends
 
 # LEGENDA
@@ -44,8 +44,4 @@ bindsym {
     XF86MonBrightnessUp exec brightnessctl set +1%
     XF86MonBrightnessDown exec brightnessctl set 1%-
     Shift+mod1+u exec brightnessctl set 5
-
-    Shift+mod1+k exec $screenshottool gui                               # Open $screenshottool
-    Shift+mod1+d exec $screenshottool gui -d 2000                       # Open $screenshottool with 2 seconds delay
-    $mod+shift+b exec terminator -e btop                                     # Open Btop on $term kitty
 }
