@@ -1,5 +1,4 @@
 sudo apt install swaybg xwayland waybar grim slurp wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-wlr pipewire-pulse
-sudo apt install polkit-kde-agent-1 --no-install-recommends
 
 sudo cp /etc/sway/config ~/.config/sway/
 nano ~/.config/sway/config
