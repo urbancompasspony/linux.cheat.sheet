@@ -1,0 +1,7 @@
+
+SERVER
+Create User:
+
+Create Access:
+headscale --user nathandrake preauthkeys create --reusable
+
