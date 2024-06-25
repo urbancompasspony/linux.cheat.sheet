@@ -1,15 +1,4 @@
 
--- SERVER SIDE --
-
-Open Ports 8080, 9090 and 27896
-
-Create User:
-headscale users create nathandrake
-
-Create Key:
-headscale --user nathandrake preauthkeys create --reusable
-Copy the Key!
-
 -- CLIENT SIDE --
 
 On Ubuntu:
