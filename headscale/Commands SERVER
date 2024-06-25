@@ -7,6 +7,6 @@ Create User:
 headscale users create nathandrake
 
 Create Key:
-headscale --user nathandrake preauthkeys create --reusable
+headscale --user nathandrake preauthkeys create --reusable --expiration 24h
 Copy the Key!
 
