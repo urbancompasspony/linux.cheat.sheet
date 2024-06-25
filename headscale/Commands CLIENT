@@ -1,0 +1,25 @@
+
+-- SERVER SIDE --
+
+Open Ports 8080, 9090 and 27896
+
+Create User:
+headscale users create nathandrake
+
+Create Key:
+headscale --user nathandrake preauthkeys create --reusable
+Copy the Key!
+
+-- CLIENT SIDE --
+
+On Ubuntu:
+curl -fsSL https://tailscale.com/install.sh | sh
+
+tailscale up --login-server http://YOUR_HEADSCALE_URL:8080 --authkey <YOUR_AUTH_KEY>
+
+This will register the client!
+To re-login, use only:
+
+tailscale up --login-server <YOUR_HEADSCALE_URL>
+
+ping MACHINE.hs.server.local
