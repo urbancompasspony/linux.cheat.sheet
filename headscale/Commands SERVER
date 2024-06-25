@@ -10,3 +10,5 @@ Create Key:
 headscale --user nathandrake preauthkeys create --reusable --expiration 24h
 Copy the Key!
 
+List All Clients:
+headscale nodes list
