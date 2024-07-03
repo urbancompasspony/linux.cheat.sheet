@@ -1,0 +1,12 @@
+
+# Try formating a disk:
+sudo hdparm --yes-i-know-what-i-am-doing --sanitize-crypto-scramble /dev/sdX
+
+# SET A PASSWORD
+sudo hdparm --user-master u --security-set-pass password /dev/sdX
+
+# to ERASE DISK - 20 minutes!
+sudo hdparm --user-master u --security-erase password /dev/sdX
+
+# to ENHANCED ERASE DISK - 60 minutes!
+sudo hdparm --user-master u --security-erase-enhanced password /dev/sdX
