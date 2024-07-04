@@ -1,0 +1,19 @@
+
+Firewall RULES:
+
+IPSEC TAB
+
+RULE 1
+Interface:   IPSEC
+Protocol:    ANY
+Source:      NETWORK 192.168.121.0 / 24
+Destination: LAN SUBNETS
+
+RULE 2
+IPSEC TAB
+Interface:   IPSEC
+Protocol:    ANY
+Source:      LAN SUBNETS
+Destination: NETWORK 192.168.121.0 / 24
+
+This allows OpenVPN passing by IPSEC and vice-versa!
