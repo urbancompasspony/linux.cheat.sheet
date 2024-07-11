@@ -1,0 +1,6 @@
+
+WAYLAND:
+sudo nano /etc/default/grub
+amdgpu.sg_display=0 radeon.cik_support=0 amdgpu.cik_support=1
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg
