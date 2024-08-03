@@ -18,7 +18,7 @@ docker-buildx docker \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils cmatrix \
 torbrowser-launcher rdesktop k3b audacity wine thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp blender \
 inxi btop iotop \
-qemu-base virt-manager \
+qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
 parallel nmap \
 wine
 
@@ -33,6 +33,12 @@ sudo systemctl start cronie
 
 sudo systemctl enable docker
 sudo systemctl start docker
+
+sudo systemctl enable libvirtd
+sudo systemctl start libvirtd
+
+sudo usermod -aG libvirt-qemu $USER
+sudo usermod -aG libvirt $USER
 
 sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
 sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
