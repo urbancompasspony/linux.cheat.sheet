@@ -7,38 +7,35 @@ Ajustar DPI
 Ajustar brilho de tela
 Ajustar RedShift
 
-sudo systemctl enable sshd; sudo systemctl start sshd
-
 # PACMAN
-sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn steam qbittorrent \
+sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn steam qbittorrent nmap \
 docker-buildx docker \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils cmatrix \
 torbrowser-launcher rdesktop k3b audacity wine thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp blender \
 inxi btop iotop \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
-parallel nmap \
-wine
+parallel gparted gnome-disk-utility remmina \
+wine minetest 
 
-USE VULKAN-RADEON and lib32-vulkan-radeon
+USE VULKAN-RADEON and lib32-vulkan-radeon !
 AMDVLK is the old one.
 
 # YAY
 yay -S upscayl freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-stable-bin google-chrome opera
 
+sudo systemctl enable sshd; sudo systemctl start sshd
 sudo systemctl enable cronie; sudo systemctl start cronie
-
 sudo systemctl enable docker; sudo systemctl start docker
-
 sudo systemctl enable libvirtd; sudo systemctl start libvirtd
 
 sudo usermod -aG libvirt-qemu $USER; sudo usermod -aG libvirt $USER
 
-sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
-sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
-
 sudo nano /etc/sddm.conf.d/virtualkbd.conf
 [General]
 InputMethod=qtvirtualkeyboard
+
+sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
+sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
 
 Configuração do KDE:
 Teclado > Teclado Virtual > Habilitar Maliit
@@ -49,7 +46,12 @@ Gerenciamento de Janelas > Comportamento de Janelas > FOCO > 300ms to 150ms
 Gerenciamento de Janelas > Areas de Trabalho Virtuais ?
 Cores e Temas > Decorações de Janelas > ( ... ) > Decorações da Barra de Titulos
 
-# ROCm
+Edit Desktop
+Add RAM Monitor
+Add CPU Monitor (Multiple)
+Weather is not compatible with Plasma 6
+
+# ROCm for SteamDeck
 sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
 Edit /etc/profile:
 append_path '/opt/rocm/hip/bin'
