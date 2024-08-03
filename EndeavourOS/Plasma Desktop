@@ -20,16 +20,19 @@ torbrowser-launcher rdesktop k3b audacity wine thunderbird libreoffice libreoffi
 inxi btop iotop \
 qemu-base virt-manager \
 parallel nmap \
-wine steam
+wine
 
 USE VULKAN-RADEON and lib32-vulkan-radeon
 AMDVLK is the old one.
 
 # YAY
-yay -S freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-stable-bin google-chrome opera
+yay -S upscayl freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-stable-bin google-chrome opera
 
 sudo systemctl enable cronie
 sudo systemctl start cronie
+
+sudo systemctl enable docker
+sudo systemctl start docker
 
 sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
 sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
