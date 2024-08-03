@@ -31,6 +31,13 @@ yay -S freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-sta
 sudo systemctl enable cronie
 sudo systemctl start cronie
 
+sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
+sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
+
+sudo nano /etc/sddm.conf.d/virtualkbd.conf
+[General]
+InputMethod=qtvirtualkeyboard
+
 # ROCm
 sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
 Edit /etc/profile:
