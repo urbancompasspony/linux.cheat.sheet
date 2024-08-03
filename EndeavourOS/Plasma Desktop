@@ -1,4 +1,3 @@
-
 Instalação:
 Zoio The Green Eye - ztge
 Plasma Desktop Only
@@ -8,9 +7,7 @@ Ajustar DPI
 Ajustar brilho de tela
 Ajustar RedShift
 
-# First boot:
-sudo systemctl enable sshd
-sudo systemctl start sshd
+sudo systemctl enable sshd; sudo systemctl start sshd
 
 # PACMAN
 sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn steam qbittorrent \
@@ -28,17 +25,13 @@ AMDVLK is the old one.
 # YAY
 yay -S upscayl freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-stable-bin google-chrome opera
 
-sudo systemctl enable cronie
-sudo systemctl start cronie
+sudo systemctl enable cronie; sudo systemctl start cronie
 
-sudo systemctl enable docker
-sudo systemctl start docker
+sudo systemctl enable docker; sudo systemctl start docker
 
-sudo systemctl enable libvirtd
-sudo systemctl start libvirtd
+sudo systemctl enable libvirtd; sudo systemctl start libvirtd
 
-sudo usermod -aG libvirt-qemu $USER
-sudo usermod -aG libvirt $USER
+sudo usermod -aG libvirt-qemu $USER; sudo usermod -aG libvirt $USER
 
 sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
 sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
@@ -54,6 +47,7 @@ Multimidia > Procurar desativar procurar musicbrains e freedb
 Tablet de Desenho..... meo
 Gerenciamento de Janelas > Comportamento de Janelas > FOCO > 300ms to 150ms
 Gerenciamento de Janelas > Areas de Trabalho Virtuais ?
+Cores e Temas > Decorações de Janelas > ( ... ) > Decorações da Barra de Titulos
 
 # ROCm
 sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
