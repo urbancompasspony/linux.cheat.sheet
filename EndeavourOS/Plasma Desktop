@@ -1,0 +1,32 @@
+
+Instalação:
+Zoio The Green Eye - ztge
+Plasma Desktop Only
+Automático, BTRFS + SWAP em Arquivo
+
+Ajustar DPI
+Ajustar brilho de tela
+Ajustar RedShift
+
+# First boot:
+sudo systemctl enable sshd
+sudo systemctl start sshd
+
+# PACMAN
+sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn steam qbittorrent \
+docker-buildx docker \
+p7zip cronie zip unzip dialog btrfs-progs cifs-utils cmatrix \
+torbrowser-launcher rdesktop k3b audacity wine thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp blender \
+inxi btop iotop \
+qemu-base virt-manager \
+parallel nmap \
+wine steam
+
+USE VULKAN-RADEON and lib32-vulkan-radeon
+AMDVLK is the old one.
+
+# YAY
+yay -S freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-stable-bin google-chrome opera
+
+sudo systemctl enable cronie
+sudo systemctl start cronie
