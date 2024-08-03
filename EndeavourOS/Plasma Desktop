@@ -3,6 +3,13 @@ Zoio The Green Eye - ztge
 Plasma Desktop Only
 Automático, BTRFS + SWAP em Arquivo
 
+sudo nano /etc/sddm.conf.d/virtualkbd.conf
+[General]
+InputMethod=qtvirtualkeyboard
+
+sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
+sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
+
 Ajustar DPI
 Ajustar brilho de tela
 Ajustar RedShift
@@ -33,7 +40,7 @@ AMDVLK is the old one.
 yay -S upscayl freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-stable-bin google-chrome opera
 
 # YAY ARM:
-yay -S upscayl freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-stable-bin google-chrome opera
+yay -S freetube-bin gnome-disk-utility rpi-imager
 
 sudo systemctl enable sshd; sudo systemctl start sshd
 sudo systemctl enable cronie; sudo systemctl start cronie
@@ -41,13 +48,6 @@ sudo systemctl enable docker; sudo systemctl start docker
 sudo systemctl enable libvirtd; sudo systemctl start libvirtd
 
 sudo usermod -aG libvirt-qemu $USER; sudo usermod -aG libvirt $USER
-
-sudo nano /etc/sddm.conf.d/virtualkbd.conf
-[General]
-InputMethod=qtvirtualkeyboard
-
-sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
-sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
 
 Configuração do KDE:
 Teclado > Teclado Virtual > Habilitar Maliit
