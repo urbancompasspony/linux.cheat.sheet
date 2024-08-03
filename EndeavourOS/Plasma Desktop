@@ -38,6 +38,14 @@ sudo nano /etc/sddm.conf.d/virtualkbd.conf
 [General]
 InputMethod=qtvirtualkeyboard
 
+Configuração do KDE:
+Teclado > Teclado Virtual > Habilitar Maliit
+Teclado > Atalho > Monitor do Sistema: CTRL+ALT+DEL
+Multimidia > Procurar desativar procurar musicbrains e freedb
+Tablet de Desenho..... meo
+Gerenciamento de Janelas > Comportamento de Janelas > FOCO > 300ms to 150ms
+Gerenciamento de Janelas > Areas de Trabalho Virtuais ?
+
 # ROCm
 sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
 Edit /etc/profile:
