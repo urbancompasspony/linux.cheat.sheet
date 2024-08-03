@@ -11,16 +11,28 @@ Ajustar RedShift
 sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn steam qbittorrent nmap \
 docker-buildx docker \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils cmatrix \
-torbrowser-launcher rdesktop k3b audacity wine thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp blender \
+torbrowser-launcher rdesktop k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp blender \
 inxi btop iotop \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
 parallel gparted gnome-disk-utility remmina \
-wine minetest 
+wine minetest
 
-USE VULKAN-RADEON and lib32-vulkan-radeon !
+# pacman ARM:
+sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap \
+docker-buildx docker \
+p7zip cronie zip unzip dialog btrfs-progs cifs-utils cmatrix \
+torbrowser-launcher rdesktop k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp blender \
+inxi btop iotop \
+parallel gparted gnome-disk-utility remmina \
+minetest
+
+When AMD use VULKAN-RADEON and lib32-vulkan-radeon for Steam!
 AMDVLK is the old one.
 
 # YAY
+yay -S upscayl freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-stable-bin google-chrome opera
+
+# YAY ARM:
 yay -S upscayl freetube-bin gnome-disk-utility rpi-imager anydesk-bin microsoft-edge-stable-bin google-chrome opera
 
 sudo systemctl enable sshd; sudo systemctl start sshd
