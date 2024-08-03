@@ -63,6 +63,13 @@ Add RAM Monitor
 Add CPU Monitor (Multiple)
 Weather is not compatible with Plasma 6
 
+# Locale problems? Commonly on ARM
+Change language to PT-BR through Settings
+sudo nano /etc/locale.gen # uncomment the one you need pt_BR.UTF-8
+sudo locale-gen
+localectl list-locales
+sudo localectl set-locale LANG=pt_BR.UTF-8
+
 # ROCm for SteamDeck
 sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
 Edit /etc/profile:
