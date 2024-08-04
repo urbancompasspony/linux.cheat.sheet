@@ -13,16 +13,17 @@ sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
 Ajustar DPI
 Ajustar brilho de tela
 Ajustar RedShift
+Ajustar energia/bateria
 
 # PACMAN
-sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn steam qbittorrent nmap \
+sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap \
 docker-buildx docker \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils cmatrix \
 torbrowser-launcher rdesktop k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp blender \
 inxi btop iotop \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
 parallel gparted gnome-disk-utility remmina \
-wine minetest
+wine minetest steam
 
 # pacman ARM:
 sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap \
@@ -52,11 +53,9 @@ sudo usermod -aG libvirt-qemu $USER; sudo usermod -aG libvirt $USER
 # Configuração do Plasma:
 Teclado > Teclado Virtual > Habilitar Maliit
 Teclado > Atalho > Monitor do Sistema: CTRL+ALT+DEL
-Multimidia > Procurar desativar procurar musicbrains e freedb
-Tablet de Desenho..... meo
+Multimidia > Procurar desativar "procurar musicbrains e freedb"
 Gerenciamento de Janelas > Comportamento de Janelas > FOCO > 300ms to 150ms
-Gerenciamento de Janelas > Areas de Trabalho Virtuais ?
-Cores e Temas > Decorações de Janelas > ( ... ) > Decorações da Barra de Titulos
+Cores e Temas > Decorações de Janelas > ( ... ) > Decorações da Barra de Titulos (to close on left, like macOS)
 
 # fstab
 Add discard
