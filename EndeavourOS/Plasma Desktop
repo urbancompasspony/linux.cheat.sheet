@@ -64,6 +64,9 @@ Add discard
 # NVIDIA + GRUB + VEGA?
 GRUB_CMDLINE_LINUX_DEFAULT="nowatchdog nvme_load=YES loglevel=3 nvidia-drm.modeset=1 amdgpu.preemption=0"
 
+# Konsole
+Editar Perfil > Aparencia > Escolher Fonte (Definir tamanho 13!)
+
 # Locale problems? Commonly on ARM
 Change language to PT-BR through Settings
 sudo nano /etc/locale.gen # uncomment the one you need pt_BR.UTF-8
