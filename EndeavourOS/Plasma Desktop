@@ -1,7 +1,5 @@
-Instalação:
 Zoio The Green Eye - ztge
-Plasma Desktop Only
-Automático, BTRFS + SWAP em Arquivo
+Plasma Desktop Only! Auto, EXT4/BTRFS + SWAP em Arquivo
 
 sudo nano /etc/sddm.conf.d/virtualkbd.conf
 [General]
