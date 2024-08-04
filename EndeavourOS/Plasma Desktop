@@ -63,6 +63,13 @@ Add RAM Monitor
 Add CPU Monitor (Multiple)
 Weather is not compatible with Plasma 6
 
+# fstab
+Add discard
+//172.20.0.2/particular /mnt/particular cifs credentials=/home/ztge/.smb,iocharset=utf8,file_mode=0777,dir_mode=0777,noperm,user,vers=2.1,nofail,x-systemd.automount,x-systemd.requires=network-online.target,x-systemd.device-timeout=3 0 0
+
+# NVIDIA + GRUB + VEGA?
+GRUB_CMDLINE_LINUX_DEFAULT="nowatchdog nvme_load=YES loglevel=3 nvidia-drm.modeset=1 amdgpu.preemption=0"
+
 # Locale problems? Commonly on ARM
 Change language to PT-BR through Settings
 sudo nano /etc/locale.gen # uncomment the one you need pt_BR.UTF-8
