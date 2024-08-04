@@ -28,7 +28,7 @@ wine minetest
 sudo pacman -S iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap \
 docker-buildx docker \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils cmatrix \
-torbrowser-launcher rdesktop k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp blender \
+torbrowser-launcher rdesktop k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp blender obs-studio \
 inxi btop iotop \
 parallel gparted gnome-disk-utility remmina \
 minetest
