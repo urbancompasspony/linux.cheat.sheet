@@ -66,10 +66,6 @@ Editar Perfil > Aparencia > Escolher Fonte (Definir tamanho 13!)
 # Until fixed, use Weather applet from:
 https://github.com/blackadderkate/weather-widget-2/releases/tag/V3.0.4
 
-# Add LTS:
-sudo pacman -S linux-lts linux-lts-headers
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-
 # Locale problems? Commonly on ARM
 Change language to PT-BR through Settings
 sudo nano /etc/locale.gen # uncomment the one you need pt_BR.UTF-8
