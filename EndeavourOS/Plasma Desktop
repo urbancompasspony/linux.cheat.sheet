@@ -10,7 +10,7 @@ sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
 
 Ajustar DPI
 Ajustar brilho de tela
-Ajustar RedShift
+Ajustar RedShift (manual local)
 Ajustar energia/bateria
 
 # PACMAN
@@ -37,10 +37,7 @@ yay -S upscayl freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome 
 # YAY ARM:
 yay -S freetube-bin
 
-sudo systemctl enable --now sshd
-sudo systemctl enable --now cronie
-sudo systemctl enable --now docker
-sudo systemctl enable --now libvirtd
+sudo systemctl enable --now sshd; sudo systemctl enable --now cronie; sudo systemctl enable --now docker; sudo systemctl enable --now libvirtd
 
 sudo usermod -aG libvirt-qemu $USER; sudo usermod -aG libvirt $USER
 sudo usermod -aG docker $USER
