@@ -33,7 +33,7 @@ When AMD use VULKAN-RADEON and lib32-vulkan-radeon for Steam!
 AMDVLK is the old one.
 
 # YAY
-yay -S upscayl freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome opera drawio
+yay -S upscayl freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome opera drawio-desktop-appimage
 
 # YAY ARM:
 yay -S freetube-bin
