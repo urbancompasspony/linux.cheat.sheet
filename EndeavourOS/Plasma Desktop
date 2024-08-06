@@ -19,37 +19,39 @@ sudo pacman -S docker-buildx docker \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
 iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager \
-torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc remmina kpat gimp blender obs-studio kdenlive \
-wine minetest steam
-
-# pacman ARM:
-sudo pacman -S docker-buildx docker \
-iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
-p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager \
-torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp remmina obs-studio \
-minetest
+torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc remmina kpat gimp blender obs-studio kdenlive wine \
+minetest steam
 
 When AMD use VULKAN-RADEON and lib32-vulkan-radeon for Steam!
 AMDVLK is the old one.
 
 # YAY
-yay -S upscayl freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome opera drawio-desktop-appimage ventoy fspy
-
-# YAY ARM:
-yay -S freetube-bin
+yay -S upscayl freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome opera drawio-desktop-appimage ventoy-bin
+# If need fspy, use appimage instead, from github.
 
 sudo systemctl enable --now sshd; sudo systemctl enable --now cronie; sudo systemctl enable --now docker; sudo systemctl enable --now libvirtd
 
 sudo usermod -aG libvirt-qemu $USER; sudo usermod -aG libvirt $USER
 sudo usermod -aG docker $USER
 
-# Configuração do Plasma:
+# Configuração essencial do Plasma:
+Mouse e Touch > Bordas de Tela > Mudar a borda pra superior direita
 Teclado > Teclado Virtual > Habilitar Maliit
 Teclado > Atalho > Monitor do Sistema: CTRL+ALT+DEL
 Multimidia > Procurar desativar "procurar musicbrains e freedb"
 Cores e Temas > Decorações de Janelas > ( ... ) > Decorações da Barra de Titulos (to close on left, like macOS)
 Gerenciamento de Janelas > Comportamento de Janelas > FOCO > 300ms to 150ms
-Bloqueio de Tela > Bloquear Automaticamente NEVER
+Bloqueio de Tela > Bloquear Automaticamente NEVER, manter travado depois de acordar
+
+Dolphin:
+Lixeira > Excluir arquivos mais antigos que 7 dias
+Menu de Contexto > Add EXCLUIR
+
+Konsole:
+Geral > Mostrar titulo na barra de titulo
+Editar Perfil > Aparencia > Escolher Fonte (Definir tamanho 13!) e tema verde.
+Perfil > Aparencia > Cursor > Intermitencia ON
+Mouse > Copiar ao Selecionar
 
 Edit Desktop to add Widgets accordingly!
 
@@ -57,25 +59,33 @@ Edit Desktop to add Widgets accordingly!
 Add discard
 //172.20.0.2/particular /mnt/particular cifs credentials=/home/ztge/.smb,iocharset=utf8,file_mode=0777,dir_mode=0777,noperm,user,vers=2.1,nofail,x-systemd.automount,x-systemd.requires=network-online.target,x-systemd.device-timeout=3 0 0
 
-# NVIDIA + GRUB + VEGA?
-GRUB_CMDLINE_LINUX_DEFAULT="nowatchdog nvme_load=YES loglevel=3 nvidia-drm.modeset=1 amdgpu.preemption=0"
-
-# Konsole
-Editar Perfil > Aparencia > Escolher Fonte (Definir tamanho 13!)
-
 # Until fixed, use Weather applet from:
 https://github.com/blackadderkate/weather-widget-2/releases/tag/V3.0.4
 
-# Locale problems? Commonly on ARM
-Change language to PT-BR through Settings
-sudo nano /etc/locale.gen # uncomment the one you need pt_BR.UTF-8
-sudo locale-gen
-localectl list-locales
-sudo localectl set-locale LANG=pt_BR.UTF-8
-
-# ROCm for SteamDeck
+# ROCm for SteamDeck:
 sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
 Edit /etc/profile:
 append_path '/opt/rocm/hip/bin'
 append_path '/opt/rocm/bin'
 # reboot
+
+
+
+###################### ARM #################################################################################################################
+# pacman
+sudo pacman -S docker-buildx docker \
+iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
+p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager \
+torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp remmina obs-studio \
+minetest
+
+# yay
+yay -S freetube-bin
+
+# Locale problems?
+Change language to PT-BR through Settings
+sudo nano /etc/locale.gen # uncomment the one you need pt_BR.UTF-8
+sudo locale-gen
+localectl list-locales
+sudo localectl set-locale LANG=pt_BR.UTF-8
+############################################################################################################################################
