@@ -25,6 +25,9 @@ minetest steam
 When AMD use VULKAN-RADEON and lib32-vulkan-radeon for Steam!
 AMDVLK is the old one.
 
+# FOR DISCOVER:
+sudo pacman -S discover flatpak fwupd packagekit-qt6
+
 # YAY
 yay -S upscayl freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome opera drawio-desktop-appimage ventoy-bin
 # If need fspy, use appimage instead, from github.
