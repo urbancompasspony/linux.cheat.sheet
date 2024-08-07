@@ -73,7 +73,9 @@ append_path '/opt/rocm/hip/bin'
 append_path '/opt/rocm/bin'
 # reboot
 
-
+# Favoritos
+Spectacle
+KCalc
 
 ###################### ARM #################################################################################################################
 # pacman
