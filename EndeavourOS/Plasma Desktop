@@ -80,6 +80,9 @@ append_path '/opt/rocm/bin'
 Spectacle
 KCalc
 
+# Fonts
+Install all fonts, even MS FONTS
+
 ###################### ARM #################################################################################################################
 # pacman
 sudo pacman -S docker-buildx docker \
