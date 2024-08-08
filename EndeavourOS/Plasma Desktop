@@ -85,7 +85,7 @@ KCalc
 sudo pacman -S docker-buildx docker \
 iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager \
-torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp remmina obs-studio \
+torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp remmina \
 minetest
 
 # yay
