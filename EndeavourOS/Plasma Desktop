@@ -17,8 +17,9 @@ Ajustar energia/bateria
 # PACMAN
 sudo pacman -S docker-buildx docker \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
+filelight smb4k plasma-disks kolourpaint krdc granatier okteta kbackup krename sweeper \
 iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
-p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager filelight smb4k plasma-disks \
+p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager \
 torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc remmina kpat gimp blender obs-studio kdenlive wine \
 minetest steam
 
@@ -31,6 +32,7 @@ sudo pacman -S discover flatpak fwupd packagekit-qt6
 # YAY
 yay -S upscayl freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome opera drawio-desktop-appimage ventoy-bin
 # If need fspy, use appimage instead, from github.
+Optional: ktechlab
 
 sudo systemctl enable --now sshd; sudo systemctl enable --now cronie; sudo systemctl enable --now docker; sudo systemctl enable --now libvirtd
 
