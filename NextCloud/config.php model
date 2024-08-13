@@ -33,4 +33,5 @@ $CONFIG = array (
   'htaccess.RewriteBase' => '/',
   'ldapProviderFactory' => 'OCA\\User_LDAP\\LDAPProviderFactory',
   'filesystem_check_changes' => 1,
+  'default_phone_region' => 'BR',
 );
