@@ -8,3 +8,8 @@ Remove what is suposed to not exist
 cd ~/html/core/img/filetypes
 check names, then:
 rm wrl.svg dae.svg 3ds.svg ifc.svg off.svg stp.svg stl.svg ply.svg 3mf.svg 3dm.svg brep.svg drawio.svg mtl.svg fbx.svg obj.svg glb.svg fcstd.svg bim.svg gltf.svg dwb.svg igs.svg
+
+Restart container
+Reload page
+and click rescan button!
+/index.php/settings/integrity/rescan
