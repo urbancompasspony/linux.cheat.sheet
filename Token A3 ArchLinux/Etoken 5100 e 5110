@@ -1,4 +1,4 @@
 
 sudo pacman -S lib32-pcsclite pcsc-tools opensc
 
-yay -S  sac-gui sac-core safesignidentityclient
+yay -S  sac-gui sac-core safesignidentityclient lacuna-webpki
