@@ -5,18 +5,6 @@ NOT KERNEL LTS, not now!
 EXT4?
 sudo tune2fs -m 0 /dev/sdXY
 
-sudo nano /etc/sddm.conf.d/virtualkbd.conf
-[General]
-InputMethod=qtvirtualkeyboard
-
-sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
-sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
-
-Ajustar DPI
-Ajustar brilho de tela
-Ajustar RedShift (manual local)
-Ajustar energia/bateria
-
 # PACMAN
 sudo pacman -S docker-buildx docker \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
@@ -36,6 +24,18 @@ sudo pacman -S discover flatpak fwupd packagekit-qt6
 yay -S upscayl freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome opera drawio-desktop-appimage ventoy-bin
 # If need fspy, use appimage instead, from github.
 Optional: ktechlab
+
+sudo nano /etc/sddm.conf.d/virtualkbd.conf
+[General]
+InputMethod=qtvirtualkeyboard
+
+sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
+sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
+
+Ajustar DPI
+Ajustar brilho de tela
+Ajustar RedShift (manual local)
+Ajustar energia/bateria
 
 sudo systemctl enable --now sshd; sudo systemctl enable --now cronie; sudo systemctl enable --now docker; sudo systemctl enable --now libvirtd
 
