@@ -1,5 +1,4 @@
 
-sudo pacman -S  lib32-pcsclite pcsc-tools opensc
-sudo ln -s /usr/lib/pkcs11/opensc-pkcs11.so /usr/lib
+sudo pacman -S lib32-pcsclite pcsc-tools opensc
 
-yay -S safesign-lib safesignidentityclient
+yay -S safesignidentityclient
