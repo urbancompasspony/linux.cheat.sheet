@@ -2,6 +2,9 @@ Zoio The Green Eye - ztge
 Plasma Desktop Only! Auto, EXT4/BTRFS + SWAP em Arquivo
 NOT KERNEL LTS, not now!
 
+EXT4?
+sudo tune2fs -m 0 /dev/sdXY
+
 sudo nano /etc/sddm.conf.d/virtualkbd.conf
 [General]
 InputMethod=qtvirtualkeyboard
