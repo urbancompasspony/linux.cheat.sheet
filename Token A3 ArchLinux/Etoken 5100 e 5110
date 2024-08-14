@@ -2,6 +2,4 @@
 sudo pacman -S  lib32-pcsclite pcsc-tools opensc
 sudo ln -s /usr/lib/pkcs11/opensc-pkcs11.so /usr/lib
 
-sudo pcsc_scan
-
-sudo pkcs15-tool --list-certificates
+yay -S safesign-lib safesignidentityclient
