@@ -2,6 +2,8 @@ sudo pacman -S lib32-pcsclite pcsc-tools opensc nss
 
 yay -S  sac-gui sac-core safesignidentityclient lacuna-webpki
 
+sudo systemctl start --now pcscd
+
 $ rm -fr ~/.pki/nssdb
 $ mkdir -p ~/.pki/nssdb
 $ certutil -d ~/.pki/nssdb -N
