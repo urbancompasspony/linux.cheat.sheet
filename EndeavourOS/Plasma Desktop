@@ -8,7 +8,7 @@ sudo tune2fs -m 0 /dev/sdXY
 # PACMAN
 sudo pacman -S docker-buildx docker \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
-filelight smb4k plasma-disks kolourpaint krdc granatier okteta kbackup krename timeshift kget \
+filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget \
 iperf traceroute arp-scan speedtest-cli samba rsync rclone sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager \
 torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc remmina kpat gimp blender obs-studio kdenlive wine \
@@ -67,12 +67,19 @@ Mostrar o resultado no titulo de janela.
 
 Edit Desktop to add Widgets accordingly!
 
+# Favoritos
+Spectacle
+KCalc
+
 # fstab
 Add discard
 //172.20.0.2/particular /mnt/particular cifs credentials=/home/ztge/.smb,iocharset=utf8,file_mode=0777,dir_mode=0777,noperm,user,vers=2.1,nofail,x-systemd.automount,x-systemd.requires=network-online.target,x-systemd.device-timeout=3 0 0
 
 # Until fixed, use Weather applet from:
 https://github.com/blackadderkate/weather-widget-2/releases/tag/V3.0.4
+
+# Fonts
+Install all fonts, even MS FONTS
 
 # ROCm for SteamDeck:
 sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
@@ -81,18 +88,12 @@ append_path '/opt/rocm/hip/bin'
 append_path '/opt/rocm/bin'
 # reboot
 
-# Favoritos
-Spectacle
-KCalc
-
-# Fonts
-Install all fonts, even MS FONTS
-
 ###################### ARM #################################################################################################################
 # pacman
 sudo pacman -S docker-buildx docker \
+filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget \
 iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
-p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager filelight \
+p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager \
 torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp remmina \
 minetest
 
