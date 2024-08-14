@@ -1,4 +1,4 @@
 
 sudo pacman -S lib32-pcsclite pcsc-tools opensc
 
-yay -S safesignidentityclient
+yay -S  sac-gui sac-core safesignidentityclient
