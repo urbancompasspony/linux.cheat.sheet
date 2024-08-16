@@ -23,7 +23,7 @@ sudo pacman -S discover flatpak fwupd packagekit-qt6
 # YAY
 yay -S upscayl freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome opera drawio-desktop-appimage ventoy-bin
 # If need fspy, use appimage instead, from github.
-Optional: ktechlab
+Optional: ktechlab cura-bin
 
 sudo nano /etc/sddm.conf.d/virtualkbd.conf
 [General]
