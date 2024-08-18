@@ -1,5 +1,5 @@
 yay -Syyu
-sudo pacman -S lzip
+sudo pacman -S lzip radeontop nvtop
 yay -S binder_linux-dkms
 sudo modprobe binder-linux device=binder,hwbinder,vndbinder
 yay -S waydroid
