@@ -1,0 +1,22 @@
+# pacman
+sudo pacman -S docker-buildx docker \
+filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget \
+iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
+p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager \
+torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp remmina \
+minetest
+
+# yay
+yay -S freetube-bin box64
+
+# FOR DISCOVER:
+sudo pacman -S discover flatpak fwupd packagekit-qt6
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-ls --arch=aarch64
+
+# Locale problems?
+Change language to PT-BR through Settings
+sudo nano /etc/locale.gen # uncomment the one you need pt_BR.UTF-8
+sudo locale-gen
+localectl list-locales
+sudo localectl set-locale LANG=pt_BR.UTF-8
