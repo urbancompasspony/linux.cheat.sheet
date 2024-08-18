@@ -1,6 +1,7 @@
 ######################
 # For Waydroid:
 yay -Syyu
+sudo pacman -S lzip
 yay -S binder_linux-dkms
 sudo modprobe binder-linux device=binder,hwbinder,vndbinder
 yay -S waydroid
