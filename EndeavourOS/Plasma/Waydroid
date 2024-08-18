@@ -1,5 +1,3 @@
-######################
-# For Waydroid:
 yay -Syyu
 sudo pacman -S lzip
 yay -S binder_linux-dkms
@@ -27,12 +25,17 @@ waydroid app launch $package_name
 # This device isn't play protect certificated
 sudo waydroid shell
 ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA_ROOT=/apex/com.android.tzdata ANDROID_I18N_ROOT=/apex/com.android.i18n sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"
+Put code here: https://www.google.com/android/uncertified/?pli=1
 
 # ARM COMPAT ERRORS?
 git clone https://github.com/casualsnek/waydroid_script
 cd waydroid_script
 python3 -m venv venv
 venv/bin/pip install -r requirements.txt
+
+sudo venv/bin/python3 main.py install gapps; sudo python3 main.py google
+sudo venv/bin/python3 main.py install magisk
+
 sudo venv/bin/python3 main.py
 > Install libndk for AMD
 > Install libhoudini for Intel
@@ -42,4 +45,3 @@ sudo systemctl stop waydroid-container.service
 sudo rm -rf /var/lib/waydroid
 sudo waydroid init -s GAPPS
 sudo systemctl start waydroid-container.service
-######################
