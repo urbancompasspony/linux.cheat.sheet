@@ -1,0 +1,39 @@
+######################
+# For Waydroid:
+yay -Syyu
+yay -S binder_linux-dkms
+sudo modprobe binder-linux device=binder,hwbinder,vndbinder
+yay -S waydroid
+
+sudo firewall-cmd --zone=trusted --add-port=67/udp
+sudo firewall-cmd --zone=trusted --add-port=53/udp
+sudo firewall-cmd --zone=trusted --add-forward
+sudo firewall-cmd --zone=trusted --add-interface=waydroid0
+sudo firewall-cmd --runtime-to-permanent
+
+sudo waydroid init -s GAPPS
+sudo systemctl start waydroid-container.service
+
+# START!
+waydroid show-full-ui
+
+# Other commands:
+waydroid shell
+waydroid app install $path_to_apk
+waydroid app list
+waydroid app launch $package_name
+
+# This device isn't play protect certificated
+sudo waydroid shell
+ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA_ROOT=/apex/com.android.tzdata ANDROID_I18N_ROOT=/apex/com.android.i18n sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"
+
+# ARM COMPAT ERRORS?
+sudo python3 main.py install libndk (AMD)
+sudo python3 main.py install libhoudini (Intel)
+
+# RESET EVERYTHING:
+sudo systemctl stop waydroid-container.service
+sudo rm -rf /var/lib/waydroid
+sudo waydroid init -s GAPPS
+sudo systemctl start waydroid-container.service
+######################
