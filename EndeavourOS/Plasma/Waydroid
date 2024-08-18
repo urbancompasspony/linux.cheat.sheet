@@ -16,7 +16,7 @@ sudo systemctl start waydroid-container.service
 # START!
 waydroid show-full-ui
 
-# Other commands:
+# Other commands if needed:
 waydroid shell
 waydroid app install $path_to_apk
 waydroid app list
@@ -26,6 +26,7 @@ waydroid app launch $package_name
 sudo waydroid shell
 ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA_ROOT=/apex/com.android.tzdata ANDROID_I18N_ROOT=/apex/com.android.i18n sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"
 Put code here: https://www.google.com/android/uncertified/?pli=1
+and
 WAIT 20 MINUTES!
 
 # ARM COMPAT ERRORS?
@@ -36,14 +37,14 @@ venv/bin/pip install -r requirements.txt
 sudo venv/bin/python3 main.py
 > Install libndk for 3D AMD
 > Install libhoudini for 3D Intel or OLD AMD
+Use it to install magisck or even GAPPS if needed.
 
 # Recommended Apps:
 GFX Benchmark
 
 # RESET EVERYTHING:
-Need to re-allow gapps.
+RE-ALLOW GAPPS!
 sudo systemctl stop waydroid-container.service
 sudo rm -rf /var/lib/waydroid
 sudo waydroid init -s GAPPS
 sudo systemctl start waydroid-container.service
-RE-ALLOW GAPPS!
