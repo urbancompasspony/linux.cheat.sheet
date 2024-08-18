@@ -37,8 +37,13 @@ sudo venv/bin/python3 main.py
 > Install libndk for 3D AMD
 > Install libhoudini for 3D Intel or OLD AMD
 
+# Recommended Apps:
+GFX Benchmark
+
 # RESET EVERYTHING:
+Need to re-allow gapps.
 sudo systemctl stop waydroid-container.service
 sudo rm -rf /var/lib/waydroid
 sudo waydroid init -s GAPPS
 sudo systemctl start waydroid-container.service
+RE-ALLOW GAPPS!
