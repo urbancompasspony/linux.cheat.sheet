@@ -105,20 +105,20 @@ sudo firewall-cmd --runtime-to-permanent
 
 sudo systemctl start waydroid-container.service
 
-$ waydroid init
-$ waydroid init -s GAPPS
+sudo waydroid init
+sudo waydroid init -s GAPPS
 
-$ waydroid session start
+sudo waydroid session start
 
-$ waydroid show-full-ui
-# waydroid shell
-$ waydroid app install $path_to_apk
-$ waydroid app list
-$ waydroid app launch $package_name
+sudo waydroid show-full-ui
+sudo waydroid shell
+sudo waydroid app install $path_to_apk
+sudo waydroid app list
+sudo waydroid app launch $package_name
 
-# ARM ERRORS?
-# python3 main.py install libndk (AMD)
-# python3 main.py install libhoudini (Intel)
+# ARM COMPAT ERRORS?
+sudo python3 main.py install libndk (AMD)
+sudo python3 main.py install libhoudini (Intel)
 ######################
 
 
