@@ -90,6 +90,38 @@ append_path '/opt/rocm/hip/bin'
 append_path '/opt/rocm/bin'
 # reboot
 
+######################
+# For Waydroid:
+yay -Syyu
+yay -S binder_linux-dkms
+sudo modprobe binder-linux device=binder,hwbinder,vndbinder
+yay -S waydroid
+
+sudo firewall-cmd --zone=trusted --add-port=67/udp
+sudo firewall-cmd --zone=trusted --add-port=53/udp
+sudo firewall-cmd --zone=trusted --add-forward
+sudo firewall-cmd --zone=trusted --add-interface=waydroid0
+sudo firewall-cmd --runtime-to-permanent
+
+sudo systemctl start waydroid-container.service
+
+$ waydroid init
+$ waydroid init -s GAPPS
+
+$ waydroid session start
+
+$ waydroid show-full-ui
+# waydroid shell
+$ waydroid app install $path_to_apk
+$ waydroid app list
+$ waydroid app launch $package_name
+
+# ARM ERRORS?
+# python3 main.py install libndk (AMD)
+# python3 main.py install libhoudini (Intel)
+######################
+
+
 ###################### ARM #################################################################################################################
 # pacman
 sudo pacman -S docker-buildx docker \
