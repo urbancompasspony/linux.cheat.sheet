@@ -4,11 +4,7 @@ yay -S binder_linux-dkms
 sudo modprobe binder-linux device=binder,hwbinder,vndbinder
 yay -S waydroid
 
-sudo firewall-cmd --zone=trusted --add-port=67/udp
-sudo firewall-cmd --zone=trusted --add-port=53/udp
-sudo firewall-cmd --zone=trusted --add-forward
-sudo firewall-cmd --zone=trusted --add-interface=waydroid0
-sudo firewall-cmd --runtime-to-permanent
+sudo firewall-cmd --zone=trusted --add-port=67/udp; sudo firewall-cmd --zone=trusted --add-port=53/udp; sudo firewall-cmd --zone=trusted --add-forward; sudo firewall-cmd --zone=trusted --add-interface=waydroid0 sudo firewall-cmd --runtime-to-permanent
 
 sudo waydroid init -s GAPPS
 sudo systemctl start waydroid-container.service
