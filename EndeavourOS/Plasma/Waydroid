@@ -8,16 +8,8 @@ sudo firewall-cmd --zone=trusted --add-port=67/udp; sudo firewall-cmd --zone=tru
 
 sudo waydroid init -s GAPPS
 
-sudo systemctl start waydroid-container.service
-
 # START!
 waydroid show-full-ui
-
-# Other commands if needed:
-waydroid shell
-waydroid app install $path_to_apk
-waydroid app list
-waydroid app launch $package_name
 
 # This device isn't play protect certificated
 sudo waydroid shell
@@ -38,6 +30,12 @@ Use it to install magisck or even GAPPS if needed.
 
 # Recommended Apps:
 GFX Benchmark
+
+# Other commands if needed:
+waydroid shell
+waydroid app install $path_to_apk
+waydroid app list
+waydroid app launch $package_name
 
 # RESET EVERYTHING:
 RE-ALLOW GAPPS!
