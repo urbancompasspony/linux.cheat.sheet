@@ -37,6 +37,9 @@ waydroid app install $path_to_apk
 waydroid app list
 waydroid app launch $package_name
 
+# Bind not found /dev/bind
+sudo waydroid init -f
+
 # RESET EVERYTHING:
 RE-ALLOW GAPPS!
 sudo systemctl stop waydroid-container.service
