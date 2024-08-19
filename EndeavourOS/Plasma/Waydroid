@@ -26,12 +26,12 @@ venv/bin/pip install -r requirements.txt
 sudo venv/bin/python3 main.py
 > Install libndk for 3D AMD
 > Install libhoudini for 3D Intel or OLD AMD
-Use it to install magisck or even GAPPS if needed.
+Use it to install magisck and winedevine too!
 
 # Recommended Apps:
 GFX Benchmark
 
-# Other commands if needed:
+# To install .apk out of Stores (to install APKPure too)
 waydroid shell
 waydroid app install $path_to_apk
 waydroid app list
