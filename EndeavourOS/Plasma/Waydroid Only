@@ -1,7 +1,7 @@
 ############ #
 ##### Weston #
 
-sudo pacman -S weston
+sudo pacman -S weston konsole
 
 ~/.config/weston.ini contents:
 
