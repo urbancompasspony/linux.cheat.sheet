@@ -1,6 +1,8 @@
 ############ #
 ##### Weston #
 
+sudo pacman -S weston
+
 ~/.config/weston.ini contents:
 
 [libinput]
