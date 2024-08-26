@@ -23,7 +23,8 @@ For wine games: lib32-pipewire
 sudo pacman -S discover flatpak fwupd packagekit-qt6
 
 # YAY
-yay -S upscayl-appimage freetube-bin anydesk-bin microsoft-edge-stable-bin google-chrome opera drawio-desktop-appimage ventoy-bin 
+yay -S upscayl-appimage freetube-bin anydesk-bin drawio-desktop-appimage ventoy-bin \
+microsoft-edge-stable-bin google-chrome opera zen-browser-avx2-bin
 # If need fspy, use appimage instead, from github.
 Optional: ktechlab cura-bin yuki-iptv-bin
 
