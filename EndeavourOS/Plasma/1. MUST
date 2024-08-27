@@ -20,7 +20,7 @@ AMDVLK is the old one.
 For wine games: lib32-pipewire
 
 # FOR DISCOVER:
-sudo pacman -S discover flatpak fwupd packagekit-qt6
+sudo pacman -S discover flatpak fwupd packagekit-qt6 flatpak-kcm
 
 # YAY
 yay -S upscayl-appimage freetube-bin anydesk-bin drawio-desktop-appimage ventoy-bin \
