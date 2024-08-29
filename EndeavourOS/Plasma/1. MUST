@@ -10,7 +10,7 @@ sudo pacman -S docker-buildx docker \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
 filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget \
 iperf traceroute lib32-pipewire arp-scan speedtest-cli samba rsync rclone sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
-p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager ciano hypnotix-wayland \
+p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager ciano \
 torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc remmina kpat gimp blender obs-studio kdenlive wine \
 minetest steam
 
@@ -24,7 +24,7 @@ sudo pacman -S discover flatpak fwupd packagekit-qt6 flatpak-kcm
 
 # YAY
 yay -S upscayl-appimage freetube-bin anydesk-bin drawio-desktop-appimage ventoy-bin \
-microsoft-edge-stable-bin google-chrome opera zen-browser-avx2-bin
+microsoft-edge-stable-bin google-chrome opera zen-browser-avx2-bin onlyoffice-bin hypnotix-wayland
 # If need fspy, use appimage instead, from github.
 Optional: ktechlab cura-bin yuki-iptv-bin
 
