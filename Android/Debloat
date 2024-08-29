@@ -18,6 +18,9 @@ $ pm enable NAME_OF_APP
 
 # SOME APPS THAT CAN BE REMOVED/DISABLED #
 
+# SIM Toolkit
+com.android.stk
+
 # MI Stuff
 com.miui.compass (Compass... duh)
 com.miui.gallery (Build in Images Gallery)
