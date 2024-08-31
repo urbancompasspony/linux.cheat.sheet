@@ -1,0 +1,6 @@
+sudo nano /etc/systemd/system/multi-user.target.wants/SERVICE_HERE.service
+
+Add
+ExecStartPre=/bin/sleep 15
+
+to [service] session
