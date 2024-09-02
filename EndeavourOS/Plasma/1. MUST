@@ -9,10 +9,13 @@ sudo tune2fs -m 0 /dev/sdXY
 sudo pacman -S docker-buildx docker \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
 filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget \
-iperf traceroute lib32-pipewire arp-scan speedtest-cli samba rsync rclone sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
+iperf traceroute lib32-pipewire arp-scan speedtest-cli samba rsync rclone sshpass curl rclone openvpn qbittorrent nmap yt-dlp smartmontools \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager ciano android-tools webp-pixbuf-loader gthumb \
 torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc remmina kpat gimp blender obs-studio kdenlive wine \
 minetest steam
+
+# Update drivers for USB DISKS
+sudo update-smart-drivedb
 
 When AMD use VULKAN-RADEON and lib32-vulkan-radeon for Steam!
 AMDVLK is the old one.
