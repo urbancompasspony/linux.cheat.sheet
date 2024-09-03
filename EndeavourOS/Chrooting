@@ -22,6 +22,6 @@ reboot, start the system itfself
 
 And run this to reinstall everything if giving errors like unwind or any other kind (lightdm not working anymore)
 
-sudo pacman -Qqn | sudo pacman -S - --overwrite '*'
+sudo pacman -Qqen | sudo pacman -S - --overwrite '*'
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo dracut-rebuild
