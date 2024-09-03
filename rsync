@@ -1,0 +1,21 @@
+-v – Verbose output, displaying detailed information about the transfer.
+-r – copies data recursively (but doesn’t preserve timestamps and permission while transferring data.
+-a – archive mode, which allows copying files recursively and it also preserves symbolic links, file permissions, user & group ownerships, and timestamps.
+-z – Compress files during transfer to reduce network usage.
+-h – human-readable, output numbers in a human-readable format.
+-P – Show progress during the transfer.
+SOURCE – Specifies the source file(s) or directory to be transferred, which can be a local or a remote location.
+DESTINATION – Specifies the destination path where the files or directories will be copied. Similar to the source, it can be a local path or a remote location.
+--remove-source-files - Remove files from SOURCE after the transfer. More like a CUT command.
+
+Default:
+sudo rsync -va SOURCE DESTINATION
+
+Copy extended attributes:
+sudo rsync -vaX SOURCE DESTINATION
+
+Copy but not overwrite what exist:
+sudo rsync -vau SOURCE DESTINATION
+
+Copy deleting what noes not exist on ORIGEM:
+sudo rsync --delete -va SOURCE DESTINATION
