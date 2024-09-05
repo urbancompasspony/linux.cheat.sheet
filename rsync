@@ -17,5 +17,5 @@ sudo rsync -vaX SOURCE DESTINATION
 Copy but not overwrite what exist:
 sudo rsync -vau SOURCE DESTINATION
 
-Copy deleting what noes not exist on ORIGEM:
+Copy deleting what does not exist on ORIGEM:
 sudo rsync --delete -va SOURCE DESTINATION
