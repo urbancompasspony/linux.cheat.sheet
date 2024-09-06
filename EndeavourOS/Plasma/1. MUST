@@ -27,9 +27,9 @@ sudo pacman -S discover flatpak fwupd packagekit-qt6 flatpak-kcm
 
 # YAY
 yay -S upscayl-appimage freetube-bin anydesk-bin drawio-desktop-appimage ventoy-bin \
-microsoft-edge-stable-bin google-chrome opera zen-browser-avx2-bin onlyoffice-bin hypnotix-wayland
+microsoft-edge-stable-bin google-chrome opera zen-browser-avx2-bin woeusb-ng
 # If need fspy, use appimage instead, from github.
-Optional: ktechlab cura-bin yuki-iptv-bin
+Optionals: ktechlab cura-bin yuki-iptv-bin onlyoffice-bin hypnotix-wayland
 
 sudo nano /etc/sddm.conf.d/virtualkbd.conf
 [General]
