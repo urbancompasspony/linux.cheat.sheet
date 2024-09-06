@@ -1,0 +1,12 @@
+Formate seu pendrive. Deixe-o sem tabela de partiçãoes!
+A quem interessar o Gparted tem um menu para isso.
+Não preciso dizer nada que isso vai apagar todos os seus dados do pendrive né?!
+Não esqueça de conferir se o pendrive tem capacidade para a .ISO.
+Crie uma partição de 1 Gb no começo do pendrive em formato FAT32. Marque-o como bootável.
+A quem interessar o Gnome Disk Utiity tem um menu para isso.
+Crie uma segunda partição que use o restante do espaço do pendrive, essa será em formato NTFS.
+Extraia a ISO do Windows 10 (ou 11) para uma pasta em sua máquina.
+Dentro da .ISO tem uma pasta chamada “efi”, copie o conteúdo dela para a partição de 1 Gb FAT32 do Pendrive.
+Copie o restante do conteúdo da .ISO (exceto a pasta efi) para a partição NTFS.
+Sincronize e desmonte o pendrive.
+Comando “sync” para sincronizar.
