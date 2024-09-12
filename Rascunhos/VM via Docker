@@ -1,0 +1,41 @@
+#!/bin/sh
+set -e
+docker run \
+    --net host \
+    --annotation run.oci.keep_original_groups=1 \
+    --cgroupns host \
+    --pids-limit=-1 \
+    --user root:root \
+    -dit \
+    --name libvirt \
+    --privileged \
+    --security-opt label=disable \
+    --security-opt apparmor=unconfined \
+    -v /dev:/dev:rslave \
+    -v /sys:/sys:rslave \
+    -v libvirt-save:/var/lib/libvirt:Z \
+    -v cache-save:/var/cache/:Z \
+    --cap-add=ALL \
+    ubuntu:22.04 bash -c "
+        export DEBIAN_FRONTEND=noninteractive
+        apt-get update
+        apt-get install -y \
+            systemd \
+            ssh \
+            libvirt-daemon-system \
+            qemu-kvm \
+            virt-manager
+        sed -i \
+            -e \"s/#Port.*/Port 10100/g\" \
+            -e \"s/#PermitRoot.*/PermitRootLogin prohibit-password/g\" \
+            /etc/ssh/sshd_config
+        ssh-keygen -A
+        mkdir -pv /run/sshd
+        mkdir -pv /root/.ssh
+        echo 'sua pubkey ssh ed25519 aqui' > /root/.ssh/authorized_keys
+        chmod -R 600 /root/.ssh
+        for i in ssh libvirtd ; do
+            systemct enable $i
+        done
+        exec /usr/lib/systemd/systemd
+        sleep infinity"
