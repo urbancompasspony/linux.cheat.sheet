@@ -27,7 +27,7 @@ sudo pacman -S discover flatpak fwupd packagekit-qt6 flatpak-kcm
 
 # YAY
 yay -S upscayl-appimage freetube-bin anydesk-bin drawio-desktop-appimage ventoy-bin \
-microsoft-edge-stable-bin google-chrome opera zen-browser-avx2-bin woeusb-ng
+microsoft-edge-stable-bin google-chrome-wayland-vulkan opera zen-browser-avx2-bin woeusb-ng
 # If need fspy, use appimage instead, from github.
 Optionals: ktechlab cura-bin yuki-iptv-bin onlyoffice-bin hypnotix-wayland
 
