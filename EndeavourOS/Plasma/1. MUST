@@ -56,6 +56,7 @@ sudo usermod -aG docker $USER
 
 # Configuração essencial do Plasma:
 Mouse e Touch > Bordas de Tela > Mudar a borda pra superior direita
+Teclado > Num Lock ao Iniciar o Plasma
 Teclado > Teclado Virtual > Habilitar Maliit
 Teclado > Atalho > Monitor do Sistema: CTRL+ALT+DEL
 Multimidia > Procurar desativar "procurar musicbrains e freedb"
