@@ -2,6 +2,12 @@ Zoio The Green Eye - ztge
 Plasma Desktop Only! Auto, EXT4/BTRFS + SWAP em Arquivo
 NOT KERNEL LTS, not now!
 
+Mitigations Off?
+sudo nano /etc/default/grub
+Add: mitigations=off
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
 EXT4?
 sudo tune2fs -m 0 /dev/sdXY
 
