@@ -4,13 +4,14 @@ NOT KERNEL LTS!
 
 Want Mitigations Off?
 sudo nano /etc/default/grub
-Add: mitigations=off
+Add for all: mitigations=off
+Add for NVIDIA: nvidia_drm.modeset=1 nvidia_drm.fbdev=1
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 EXT4? Use it:
 sudo tune2fs -m 0 /dev/sdXY
 
-# Config System
+# Config System with Model:
 curl -L m.linuxuniverse.com.br | bash
 
 When AMD set VULKAN-RADEON and lib32-vulkan-radeon for Steam!
