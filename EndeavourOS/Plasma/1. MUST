@@ -75,6 +75,10 @@ sudo pacman -S discover flatpak fwupd packagekit-qt6 flatpak-kcm
 # ======================================================================================================================================================== #
 # IF NEEDED, THE AUTO-CONFIG IS
 
+# TimeZone
+sudo timedatectl set-local-rtc 1
+sudo timedatectl set-timezone Etc/GMT+3
+
 # PACMAN
 sudo pacman -S docker-buildx docker \
 qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
