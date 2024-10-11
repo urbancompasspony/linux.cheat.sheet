@@ -90,7 +90,7 @@ minetest steam
 
 # YAY
 yay -S upscayl-appimage freetube-bin anydesk-bin drawio-desktop-appimage ventoy-bin \
-microsoft-edge-stable-bin google-chrome opera zen-browser-avx2-bin woeusb-ng
+microsoft-edge-stable-bin google-chrome opera woeusb-ng
 
 sudo update-smart-drivedb
 For wine games: lib32-pipewire
