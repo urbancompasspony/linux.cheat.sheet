@@ -1,0 +1,25 @@
+
+>>> MUST HAVE <<<
+
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/abuse/urlhaus.abuse.ch/hostfile.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/abuse/blocklistproject/hosts.fork.txt
+
+
+>>> MAYBE <<<
+
+AMP:
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/amp/ente-dev/google-amp-hosts.fork.txt
+https://github.com/sefinek24/Sefinek-Blocklist-Collection/blob/main/blocklists/generated/0.0.0.0/amp/developerdan/amp-hosts-extended.fork.txt
+
+>>> SPECIFICS <<<
+
+ANIME:
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/anime/main.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/anime/myanimelist.net.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/anime/shinden.pl.txt
+
+DATING SERVICES: 
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/dating-services/sefinek.hosts.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/dating-services/ShadowWhisperer/dating.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/dating-services/developerdan/extended.fork.txt
+
