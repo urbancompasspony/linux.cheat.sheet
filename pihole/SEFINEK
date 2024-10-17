@@ -8,6 +8,13 @@ https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/he
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/fakenews/StevenBlack/hosts.fork.txt
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/fakenews/marktron/hosts.fork.txt
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/fraud/blocklistproject/hosts.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/hate-and-junk/sefinek.hosts.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/hate-and-junk/developerdan/extended.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/phishing/sefinek.hosts.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/phishing/blocklistproject/phishing.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/phishing/RPiList/Phishing-Angriffe.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/phishing/phishing.army/blocklist-extended.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/phishing/Dogino/Discord-Phishing-URLs-phishing.fork.txt
 
 >>> MAYBE <<<
 
@@ -17,6 +24,10 @@ https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/he
 https://github.com/sefinek24/Sefinek-Blocklist-Collection/blob/main/blocklists/generated/0.0.0.0/amp/developerdan/amp-hosts-extended.fork.txt
 
 >>> SPECIFICS <<<
+
+PIRACY:
+https://github.com/sefinek24/Sefinek-Blocklist-Collection/blob/main/blocklists/generated/0.0.0.0/piracy/blocklistproject/piracy.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/piracy/sefinek.hosts.txt
 
 ANIME:
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/anime/main.txt
