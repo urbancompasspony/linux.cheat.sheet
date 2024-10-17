@@ -41,6 +41,16 @@ https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/he
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/tracking-and-telemetry/frogeye/firstparty-trackers-hosts.txt
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/tracking-and-telemetry/neodevpro/host.fork.txt
 
+PORN:
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/porn/sefinek.hosts.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/porn/sefinek.hosts2.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/porn/4skinSkywalker/hosts.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/porn/ShadowWhisperer/adult.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/porn/Sinfonietta/pornography-hosts.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/porn/StevenBlack/porn.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/porn/blocklistproject/porn.fork.txt
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/porn/oisd/nsfw.fork.txt
+
 >>> OTHERS <<<
 
 AMP:
@@ -91,6 +101,15 @@ https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/he
 
 FACEBOOK:
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/social/facebook.txt
+
+DISCORD:
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/apps/discord.txt
+
+SPOTIFY:
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/apps/spotify.txt
+
+SKYPE:
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/apps/skype.txt
 
 YOUTUBE:
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/sites/youtube.txt
