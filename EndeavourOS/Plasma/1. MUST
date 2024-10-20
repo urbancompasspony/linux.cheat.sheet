@@ -17,6 +17,8 @@ curl -L m.linuxuniverse.com.br | bash
 When AMD set VULKAN-RADEON and lib32-vulkan-radeon for Steam!
 AMDVLK is the old driver for old/legacy hardware.
 
+When NVIDIA install cuda and cuda-tools packages!
+
 # If need fspy, use appimage instead, directly from github.
 Optionals: ktechlab cura-bin yuki-iptv-bin onlyoffice-bin hypnotix-wayland protonup-qt-bin
 
