@@ -55,7 +55,6 @@ ADS:
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/ads/sefinek.hosts.txt
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/ads/0Zinc/easylist.fork.txt
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/ads/FadeMind/UncheckyAds.fork.txt
-https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/ads/MajkiIT/SmartTV-ads.fork.txt
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/ads/ShadowWhisperer/Ads.fork.txt
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/ads/adaway/hosts.fork.txt
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/ads/anudeepND/adservers.fork.txt
@@ -122,6 +121,9 @@ https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/he
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/porn/oisd/nsfw.fork.txt
 
 >>> OTHERS <<<
+
+SMARTV:
+https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/ads/MajkiIT/SmartTV-ads.fork.txt
 
 AMP:
 https://raw.githubusercontent.com/sefinek24/Sefinek-Blocklist-Collection/refs/heads/main/blocklists/generated/0.0.0.0/amp/ente-dev/google-amp-hosts.fork.txt
