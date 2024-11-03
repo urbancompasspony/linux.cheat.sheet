@@ -36,7 +36,6 @@ com.xiaomi.simactivate.service (SIM Service)
 com.xiaomi.micloud.sdk (Mi Cloud SDK)
 com.miui.micloudsync (Mi Cloud Sync)
 com.miui.video (Xiaomi video)
-com.google.android.apps.wellbeing (Bem-Estar)
 
 # Google:
 com.android.chrome (chrome)
@@ -53,6 +52,8 @@ com.google.android.apps.nbu.paisa.user (google pay)
 com.google.android.calendar (google agenda)
 com.google.android.projection.gearhead (android auto)
 com.google.android.apps.maps (google maps)
+com.google.android.apps.wellbeing (Bem-Estar)
+com.google.ar.lens (Google Lens)
 
 # Printer:
 com.android.printspooler
