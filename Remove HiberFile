@@ -1,2 +1,5 @@
 
-sudo mount -t ntfs-3g -o remove_hiberfile /dev/sda5 /mnt/win
+sudo ntfsrecover /dev/sdXY
+
+sudo mount -t ntfs-3g -o remove_hiberfile /dev/sdXY /mnt/temp
+
