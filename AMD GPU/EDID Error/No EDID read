@@ -4,7 +4,7 @@ xrandr, detect monitor code
 
 Edit GRUB, add:
 
-video=DP-2:1440x900@60
+video=DP-2:1600x900@60
 
 Where DP-2 is your monitor!
 
