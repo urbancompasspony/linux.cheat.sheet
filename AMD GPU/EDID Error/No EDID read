@@ -1,0 +1,11 @@
+
+Using DP>HDMI Adapter?
+xrandr, detect monitor code
+
+Edit GRUB, add:
+
+video=DP-2:1440x900@60
+
+Where DP-2 is your monitor!
+
+Upgrade grub and, if on arch-based, re-run dracut
