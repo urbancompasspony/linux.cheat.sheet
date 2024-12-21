@@ -104,6 +104,10 @@ InputMethod=qtvirtualkeyboard
 sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
 sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
 
+# IF NEED FOR SDDM AMD GPU
+# cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
+# chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
+
 sudo systemctl enable --now sshd; sudo systemctl enable --now cronie; sudo systemctl enable --now docker; sudo systemctl enable --now libvirtd
 
 To fstab:
