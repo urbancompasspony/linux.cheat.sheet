@@ -1,3 +1,10 @@
 
 Plasma Settings, Tela de Autenticação SDDM
 APLICAR CONFIGURAÇÕES DO PLASMA....
+
+/etc/sddm.conf.d/10-endeavouros.conf
+[General]
+GreeterEnvironment=QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192
+
+# cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
+# chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
