@@ -8,3 +8,6 @@ GreeterEnvironment=QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192
 
 # cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
 # chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
+
+/usr/share/sddm/scripts/Xsetup file the following line:
+xrandr --output HDMI-0 --off
