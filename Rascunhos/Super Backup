@@ -1,0 +1,1 @@
+tar -I 'zstd --long=31 -1 -T0 -v -c -' --xattrs --xattrs-include='*' --numeric-owner -cpf /caminho/pro/hd/tarball-name.tar.zst /caminho/da/origem
