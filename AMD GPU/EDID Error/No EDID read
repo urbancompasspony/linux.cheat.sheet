@@ -1,6 +1,8 @@
 
-Using DP>HDMI Adapter?
-xrandr, detect monitor code
+Using DP>HDMI Adapter? detect monitor code
+xrandr 
+or
+kscreen-doctor --outputs
 
 Edit GRUB, add:
 
