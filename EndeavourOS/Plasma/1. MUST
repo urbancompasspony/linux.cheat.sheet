@@ -1,15 +1,44 @@
-Zoio The Green Eye - ztge
+
 Plasma Desktop Only! Auto, EXT4 or BTRFS + SWAP em Arquivo
-NOT KERNEL LTS!
+NOT USE ANY KERNEL LTS!
+
+##########
+# PACMAN #
+
+sudo pacman -S docker-buildx docker \
+qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
+filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget gnome-nettool \
+iperf traceroute lib32-pipewire lib32-libpulse arp-scan speedtest-cli samba rsync rclone sshpass curl rclone openvpn qbittorrent nmap yt-dlp smartmontools \
+p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager ciano android-tools webp-pixbuf-loader gthumb bash-language-server \
+torbrowser-launcher tree gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc remmina kpat gimp blender obs-studio kdenlive wine \
+minetest steam v4l2loopback-dkms
+
+#######
+# YAY #
+
+yay -S upscayl-appimage freetube-bin anydesk-bin drawio-desktop-appimage ventoy-bin \
+microsoft-edge-stable-bin google-chrome opera woeusb-ng
+
+###################
+# GRUB PARAMETERS #
 
 Want Mitigations Off?
 sudo nano /etc/default/grub
 Add for all: mitigations=off
+
+Using NVIDIA GPU?
 Add for NVIDIA: nvidia_drm.modeset=1 nvidia_drm.fbdev=1
+
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+###############################
+# EXT4 REMOVE RESERVED BLOCKS #
 
 EXT4? Use it:
 sudo tune2fs -m 0 /dev/sdXY
+
+#########
+# MODEL #
 
 # Config System with Model:
 curl -L m.linuxuniverse.com.br | bash
@@ -17,7 +46,20 @@ curl -L m.linuxuniverse.com.br | bash
 When AMD set VULKAN-RADEON and lib32-vulkan-radeon for Steam!
 AMDVLK is the old driver for old/legacy hardware.
 
-When NVIDIA install cuda and cuda-tools packages!
+#########################
+# UPGRADE SMART DRIVERS #
+sudo update-smart-drivedb
+
+################
+# APIs FOR GPU #
+
+When NVIDIA install: sudo pacman -S cuda cuda-tools
+
+When AMD install ROCm: sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
+And edit /etc/profile:
+append_path '/opt/rocm/hip/bin'
+append_path '/opt/rocm/bin'
+# reboot
 
 # If need fspy, use appimage instead, directly from github.
 Optionals: ktechlab cura-bin yuki-iptv-bin onlyoffice-bin hypnotix-wayland protonup-qt-bin
@@ -27,7 +69,7 @@ Ajustar brilho de tela
 Ajustar RedShift (manual local)
 Ajustar energia/bateria
 
-# Configuração essencial do Plasma:
+# Configuração essencial do Plasma
 Mouse e Touch > Bordas de Tela > Mudar a borda pra superior direita
 Teclado > Num Lock ao Iniciar o Plasma
 Teclado > Teclado Virtual > Habilitar Maliit
@@ -37,18 +79,18 @@ Cores e Temas > Decorações de Janelas > ( ... ) > Decorações da Barra de Tit
 Gerenciamento de Janelas > Comportamento de Janelas > FOCO > 300ms to 150ms
 Bloqueio de Tela > Bloquear Automaticamente NEVER, manter travado depois de acordar
 
-Dolphin:
+# Dolphin
 Lixeira > Excluir arquivos mais antigos que 7 dias
 Menu de Contexto > Add EXCLUIR
 Show thumbs for Network Folders 10mb
 
-Konsole:
+# Konsole
 Geral > Mostrar titulo na barra de titulo
 Editar Perfil > Aparencia > Escolher Fonte (Definir tamanho 13!) e tema verde.
 Perfil > Aparencia > Cursor > Intermitencia ON
 Mouse > Copiar ao Selecionar
 
-KCalc:
+# KCalc:
 Trocar fontes para 15, todas as 3.
 Mostrar o resultado no titulo de janela.
 
@@ -58,44 +100,17 @@ Edit Desktop to add Widgets accordingly!
 Spectacle
 KCalc
 
-# Until fixed, use Weather applet from:
+# Use Weather applet from:
 https://github.com/blackadderkate/weather-widget-2/releases/tag/V3.0.4
 
 # Fonts
 Install all fonts from Particular, even MS FONTS are included.
 
-# ROCm for SteamDeck:
-sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
-Edit /etc/profile:
-append_path '/opt/rocm/hip/bin'
-append_path '/opt/rocm/bin'
-# reboot
-
-# FOR DISCOVER:
+# FOR DISCOVER?
 sudo pacman -S discover flatpak fwupd packagekit-qt6 flatpak-kcm
 
-# ======================================================================================================================================================== #
-# IF NEEDED, THE AUTO-CONFIG IS
-
-# TimeZone
-sudo timedatectl set-local-rtc 1
-sudo timedatectl set-timezone Etc/GMT+3
-
-# PACMAN
-sudo pacman -S docker-buildx docker \
-qemu-full qemu-base libvirt-dbus bridge-utils virt-manager ovmf dnsmasq \
-filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget gnome-nettool \
-iperf traceroute lib32-pipewire lib32-libpulse arp-scan speedtest-cli samba rsync rclone sshpass curl rclone openvpn qbittorrent nmap yt-dlp smartmontools \
-p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager ciano android-tools webp-pixbuf-loader gthumb bash-language-server \
-torbrowser-launcher tree gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc remmina kpat gimp blender obs-studio kdenlive wine \
-minetest steam v4l2loopback-dkms
-
-# YAY
-yay -S upscayl-appimage freetube-bin anydesk-bin drawio-desktop-appimage ventoy-bin \
-microsoft-edge-stable-bin google-chrome opera woeusb-ng
-
-sudo update-smart-drivedb
-For wine games: lib32-pipewire
+####################################
+# VIRTUAL KEYBOARD FOR TOUCHSCREEN #
 
 sudo nano /etc/sddm.conf.d/virtualkbd.conf
 [General]
@@ -104,9 +119,8 @@ InputMethod=qtvirtualkeyboard
 sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
 sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
 
-# IF NEED FOR SDDM AMD GPU
-# cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
-# chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
+##############
+# FINISHING! #
 
 sudo systemctl enable --now sshd; sudo systemctl enable --now cronie; sudo systemctl enable --now docker; sudo systemctl enable --now libvirtd
 
