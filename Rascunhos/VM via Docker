@@ -1,3 +1,49 @@
+virt-manager -c qemu+ssh://libvirt-host/system
+
+docker run \
+    --net host \
+    --annotation run.oci.keep_original_groups=1 \
+    --cgroupns host \
+    --pids-limit=-1 \
+    --user root:root \
+    -d \
+    --name libvirt \
+    --privileged \
+    --security-opt label=disable \
+    --security-opt apparmor=unconfined \
+    -v /dev:/dev:rslave \
+    -v /sys:/sys:rslave \
+    -v libvirt-files-save:/var/lib/libvirt:Z \
+    -v libvirt-state-save:/etc/libvirt:Z \
+    -v libvirt-cache-save:/var/cache:Z \
+    -v libvirt-root-save:/root:Z \
+    --cap-add=ALL \
+    ubuntu:24.04 bash -c "
+      export DEBIAN_FRONTEND=noninteractive
+      apt-get update
+      apt-get install -y \
+       ssh \
+       libvirt-daemon-system \
+       qemu-kvm \
+       virt-manager
+       printf 'root\nroot' | passwd root
+      sed -i \
+       -e \"s/#Port.*/Port 10100/g\" \
+       -e \"s/#PermitRoot.*/PermitRootLogin yes/g\" \
+       /etc/ssh/sshd_config
+                        mkdir -pv /root/.ssh
+                        echo 'ssh-ed25519 my-ssh-pubkey libvirtkey' >> /root/.ssh/authorized_keys
+      ssh-keygen -A
+      mkdir -pv /run/sshd
+      /usr/sbin/sshd
+      setsid --fork /usr/sbin/virtlogd >/dev/null 2>/dev/null
+      sleep 10
+      setsid --fork /usr/sbin/virtlockd >/dev/null 2>/dev/null
+      /usr/sbin/libvirtd
+      sleep infinity"
+
+OR
+
 #!/bin/sh
 set -e
 docker run \
