@@ -1,9 +1,0 @@
-
-KABINI = SEA ISLAND
-https://www.x.org/wiki/RadeonFeature/
-
-WAYLAND:
-sudo nano /etc/default/grub
-radeon.cik_support=0 amdgpu.cik_support=1
-
-sudo grub-mkconfig -o /boot/grub/grub.cfg
