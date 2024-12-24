@@ -1,0 +1,37 @@
+
+< ATENÇÃO - Leia tudo antes de fazer qualquer bobagem! >
+Especialmente se está desesperado - como foi o caso de quando este texto foi escrito.
+
+Os métodos abaixo costumam corromper o EXT4 após as varreduras e/ou recuperações. Sem exceções.
+O comando "e2fsck -y /dev/sXY" costuma ser suficiente para corrigir se executado em sequencia até não haver mais erros no final.
+
+> Caso seja uma partição com dados incrementais rsnapshot NÃO há garantia de que a partição EXT4 volte ao estado anterior após uma varredura!
+Nesse caso tente a recuperação dos dados somente em último recurso;
+De preferencia recuperando tudo para um disco secundário caso não houver qualquer cópia secundária dos dados;
+Uma vez que os dados ficarão ilegíveis após a tentativa de resgate e o e2fsck pode demorar +12h para concluir as tentativas de restauração dos inodes modificados.
+
+> UTILIZE O STRELEC 2022+ <
+Deixe o orgulho de lado e use uma ferramenta com GUI;
+Na hora do desespero a última coisa que você quer é se confundir com comando de terminal e lembrar letra /dev/sdXY de unidade.
+Além de que as ferramentas proprietárias costumam ter maior índice de recuperação bem sucedida!
+
+> MAS LEMBRE-SE: Nem sempre há garantia de recuperação. <
+Backup é a melhor política! Se possível faça uma cópia do servidor sempre antes de qualquer manobra.
+Dependendo do grau de prejuízo, faça uma cópia disco a disco antes de qualquer tentativa de restauração.
+
+# FERRAMENTAS #
+
+ACTIVE PARTITION MASTER
+- Para tentar recuperar uma partição específica inteira.
+Aponte o tamanho/região delimitante prevista de localização do que precisa ser encontrado!
+Por exemplo, se havia uma partição de 60 Gb no final do disco, aponte os ultimos 70 Gb para cobrir a área de busca e acelerar o tempo de recuperação.
+
+# NÃO TEM PARTIÇÃO SEPARADA ou NÃO ACHOU NADA?
+
+EASEUS
+- Para tentar recuperar os arquivos de maneira avulsa.
+
+R-STUDIO
+Só em ultimo caso, uma vez que pode ser mais agressivo e não é tão organizado quanto o anterior.
+
+E boa sorte!
