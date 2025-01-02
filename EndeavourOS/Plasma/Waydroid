@@ -1,6 +1,10 @@
 yay -Syyu
 sudo pacman -S lzip radeontop nvtop
+
 yay -S binder_linux-dkms
+or 
+yay -S python-gbinder --rebuild
+
 sudo modprobe binder-linux devices=binder,hwbinder,vndbinder
 yay -S waydroid
 
