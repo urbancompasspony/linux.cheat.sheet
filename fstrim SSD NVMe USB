@@ -1,0 +1,11 @@
+lsusb
+identify device:vendor codes
+
+sudo nano /etc/udev/rules.d/50-usb-ssd-trim.rules
+
+ACTION=="add|change", ATTRS{idVendor}=="174c", ATTRS{idProduct}=="1153", SUBSYSTEM=="scsi_disk", ATTR{provisioning_mode}="unmap"
+ACTION=="add|change", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="9210", SUBSYSTEM=="scsi_disk", ATTR{provisioning_mode}="unmap"
+or more...
+
+Reload UDEV or reboot system:
+sudo udevadm control --reload-rules && sudo udevadm trigger
