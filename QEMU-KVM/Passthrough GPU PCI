@@ -5,7 +5,10 @@ Start Headless - No Monitor!
 Remote, XPRA
 Configure with PCI NVIDIA 0 and NVIDIA 1 (audio and video)
 
-Video QXL
 Server VNC
 
+Video QXL
+
 Install GUEST ADD-ONS
+
+vfio automatic
