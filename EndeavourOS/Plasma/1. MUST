@@ -16,8 +16,8 @@ luanti steam v4l2loopback-dkms
 #######
 # YAY #
 
-yay -S upscayl-appimage freetube-bin anydesk-bin drawio-desktop-appimage ventoy-bin \
-microsoft-edge-stable-bin google-chrome opera woeusb-ng
+yay -S microsoft-edge-stable-bin google-chrome anydesk-bin ventoy-bin opera \
+upscayl-appimage freetube-bin drawio-desktop-appimage woeusb-ng
 
 ###################
 # GRUB PARAMETERS #
