@@ -11,7 +11,7 @@ filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget
 iperf traceroute lib32-pipewire lib32-libpulse arp-scan speedtest-cli samba rsync rclone sshpass curl rclone openvpn qbittorrent nmap yt-dlp smartmontools \
 p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager ciano android-tools webp-pixbuf-loader gthumb bash-language-server \
 torbrowser-launcher tree gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc remmina kpat gimp blender obs-studio kdenlive wine \
-minetest steam v4l2loopback-dkms
+luanti steam v4l2loopback-dkms
 
 #######
 # YAY #
