@@ -30,6 +30,9 @@ find "$destiny"/ -type f -mtime +3
 
 MORE EXAMPLES
 
+POSITIVE VALUES equal from date to past
+NEGATIVE VALUES equal from date to now
+
 find "/mnt/diogo/storage/XX_Lixeira/" -type f -atime +30 -delete
 #find "/mnt/diogo/storage/XX_Lixeira/" -type d -atime +30 -exec rm -rf {} \;
 #find "/mnt/diogo/storage/XX_Lixeira/" -type d -empty -delete
