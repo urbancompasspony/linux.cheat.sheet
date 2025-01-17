@@ -27,3 +27,19 @@ sudo find . -type f -name "*NAMETOFIND or nametofind*"
 
 # Find files older than 3 days
 find "$destiny"/ -type f -mtime +3
+
+MORE EXAMPLES
+
+find "/mnt/diogo/storage/XX_Lixeira/" -type f -atime +30 -delete
+#find "/mnt/diogo/storage/XX_Lixeira/" -type d -atime +30 -exec rm -rf {} \;
+#find "/mnt/diogo/storage/XX_Lixeira/" -type d -empty -delete
+#find "/mnt/diogo/storage/XX_Lixeira/" -maxdepth 1 -type d -atime +30 -exec rm -rf {}
+
+#find . -mtime +0 # find files modified greater than 24 hours ago
+#find . -mtime 0 # find files modified between now and 1 day ago
+## (i.e., in the past 24 hours only)
+#find . -mtime -1 # find files modified less than 1 day ago (SAME AS -mtime 0)
+#find . -mtime 1 # find files modified between 24 and 48 hours ago
+#find . -mtime +1 # find files modified more than 48 hours ago
+#find /opt/backup -type f -mtime +5 -delete 
+#find /var/log -type d -mtime +5 -exec rm -rf {} \; 
