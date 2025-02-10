@@ -25,15 +25,20 @@ upscayl-appimage freetube-bin drawio-desktop-appimage woeusb-ng
 
 ###################
 # GRUB PARAMETERS #
+Want Mitigations Off? sudo nano /etc/default/grub
+If Systemd-boot: sudo nano /etc/kernel/cmdline
 
-Want Mitigations Off?
-sudo nano /etc/default/grub
-Add for all: mitigations=off
+Add for all:
+mitigations=off
 
 Using NVIDIA GPU?
-Add for NVIDIA: nvidia_drm.modeset=1 nvidia_drm.fbdev=1
+Add for NVIDIA: 
+nvidia_drm.modeset=1 nvidia_drm.fbdev=1
 
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+If Systemd-boot:
+sudo reinstall-kernels
 
 ###############################
 # EXT4 REMOVE RESERVED BLOCKS #
