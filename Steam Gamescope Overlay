@@ -5,3 +5,8 @@ git clone https://github.com/shahnawazshahin/steam-using-gamescope-guide
 
 cd steam-using-gamescope-guide
 sudo rsync -va usr/ /usr/
+
+sudo usermod -a -G video <your-user-name>
+
+sudo nano /etc/udev/rules.d/backlight.rules
+ACTION=="add", SUBSYSTEM=="backlight", RUN+="/bin/chgrp video $sys$devpath/brightness", RUN+="/bin/chmod g+w $sys$devpath/brightness"
