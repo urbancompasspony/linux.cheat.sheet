@@ -1,5 +1,10 @@
 
 Plasma Desktop Only! Auto, EXT4 or BTRFS + SWAP em Arquivo
+
+BTRFS put 
+discard=async
+on fstab!
+
 NOT USE ANY KERNEL LTS!
 
 sudo reflector --protocol https --verbose --latest 25 --sort rate --save /etc/pacman.d/mirrorlist
