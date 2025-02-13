@@ -70,9 +70,7 @@ sudo update-smart-drivedb
 When NVIDIA install: sudo pacman -S cuda cuda-tools
 
 When AMD install ROCm: sudo pacman -S rocm-hip-runtime rocm-opencl-runtime rocminfo opencl-headers opencl-clhpp radeontop
-And edit /etc/profile:
-append_path '/opt/rocm/hip/bin'
-append_path '/opt/rocm/bin'
+
 # reboot
 
 # If need fspy, use appimage instead, directly from github.
