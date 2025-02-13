@@ -1,5 +1,6 @@
 
 sudo pacman -S gamescope
+sudo pacman -Syu mangohud lib32-mangohud
 
 git clone https://github.com/shahnawazshahin/steam-using-gamescope-guide
 
