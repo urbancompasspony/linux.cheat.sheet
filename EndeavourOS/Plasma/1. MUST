@@ -130,8 +130,8 @@ sudo nano /etc/sddm.conf.d/virtualkbd.conf
 [General]
 InputMethod=qtvirtualkeyboard
 
-sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
-sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
+#sudo cp ~/.config/kwinoutputconfig.json /var/lib/sddm/.config/
+#sudo chown sddm:sddm /var/lib/sddm/.config/kwinoutputconfig.json
 
 ##############
 # FINISHING! #
