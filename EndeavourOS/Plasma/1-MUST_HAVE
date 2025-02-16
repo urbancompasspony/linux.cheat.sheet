@@ -139,7 +139,7 @@ InputMethod=qtvirtualkeyboard
 ##############
 # FINISHING! #
 
-sudo systemctl enable --now sshd; sudo systemctl enable --now cronie; sudo systemctl enable --now docker; sudo systemctl enable --now libvirtd
+sudo systemctl enable --now sshd cronie docker libvirtd
 
 To fstab:
 //172.20.0.2/particular /mnt/particular cifs credentials=/home/ztge/.smb,iocharset=utf8,file_mode=0777,dir_mode=0777,noperm,user,vers=2.1,nofail,x-systemd.automount,x-systemd.requires=network-online.target,x-systemd.device-timeout=3 0 0
