@@ -1,13 +1,19 @@
+sudo eos-rankmirrors --verbose
+
+sudo reflector --protocol https --verbose --latest 25 --sort rate --save /etc/pacman.d/mirrorlist
+
+yay -Syyu
+
 # pacman
 sudo pacman -S docker-buildx docker \
-filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget \
+filelight smb4k plasma-disks kolourpaint granatier okteta krename timeshift kget gnome-nettool \
 iperf traceroute arp-scan speedtest-cli samba sshpass curl rclone openvpn qbittorrent nmap yt-dlp \
-p7zip cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager \
-torbrowser-launcher gparted gnome-disk-utility k3b audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp remmina \
-minetest
+cronie zip unzip dialog btrfs-progs cifs-utils inxi btop iotop cmatrix parallel rdesktop rpi-imager webp-pixbuf-loader gthumb bash-language-server \
+torbrowser-launcher tree gparted gnome-disk-utility  audacity thunderbird libreoffice libreoffice-fresh-pt-br thunderbird-i18n-pt-br vlc kpat gimp remmina \
+luanti v4l2loopback-dkms terminator
 
 # yay
-yay -S freetube-bin box64
+yay -S box64
 
 # FOR DISCOVER:
 sudo pacman -S discover flatpak fwupd packagekit-qt6
