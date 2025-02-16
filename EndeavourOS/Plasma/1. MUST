@@ -120,6 +120,8 @@ Install all fonts from Particular, even MS FONTS are included.
 
 # FOR DISCOVER?
 sudo pacman -S discover flatpak fwupd packagekit-qt6 flatpak-kcm
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-ls --arch=aarch64
 
 ####################################
 # VIRTUAL KEYBOARD FOR TOUCHSCREEN #
