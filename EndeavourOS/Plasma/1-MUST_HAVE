@@ -15,7 +15,7 @@ yay -Syyu
 sudo pacman -S discover flatpak fwupd packagekit-qt6 flatpak-kcm
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Busca?
+# Busca e nome do org.pacote.?
 sudo flatpak remote-ls --arch=aarch64 | grep nome_do_pacote
 
 ##########
