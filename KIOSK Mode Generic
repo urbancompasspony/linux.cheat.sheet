@@ -1,44 +1,35 @@
+1. Ubuntu Server LTS - Set Default Config with Linite
 
-1. Ubuntu Server 24.04 LTS
-Default config.
+sudo wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x869689FE09306074' \
+  -O '/etc/apt/trusted.gpg.d/phd-chromium.asc'
 
-sudo apt-get install network-manager
-sudo systemctl enable NetworkManager
-sudo systemctl mask dhcpcd
+echo "deb https://freeshell.de/phd/chromium/$(lsb_release -sc) /" \
+  | sudo tee /etc/apt/sources.list.d/phd-chromium.list
 
-sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox
-sudo apt-get install --no-install-recommends chromium-browser
+sudo apt update
+sudo apt install chromium xdotool
 
-# PREPARE OPENBOX
-
+2. Preparing OpenBox
 sudo nano /etc/xdg/openbox/autostart
 
-# Disable any form of screen saver / screen blanking / power management
+setweb="https://time.is/S%C3%A3o_Paulo https://time.is/Tokyo"
+# (PT1) Disable any form of screen saver / screen blanking / power management
 xset s off
 xset s noblank
 xset -dpms
-
-# Allow quitting the X server with CTRL-ATL-Backspace
+# (PT2) Allow quitting the X server with CTRL-ATL-Backspace
 setxkbmap -option terminate:ctrl_alt_bksp
-
-# WebSite
-setweb="https://time.is/S%C3%A3o_Paulo"
-
-# Start Chromium in kiosk mode
+# (PT3) Start Chromium in kiosk mode
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
-sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
-chromium-browser --start-fullscreen --kiosk --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null  --password-store=basic --disable-pinch --overscroll-history-navigation=disabled --disable-features=TouchpadOverscrollHistoryNavigation $setweb && killall openbox
+sed -i 's/"exited_cleanly":false/"exited_cleanly" :true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
+chromium --start-fullscreen --kiosk --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null  --password-store=basic --disable-pinch --overscroll-history-navigation=disabled --disable-features=TouchpadOverscrollHistoryNavigation $setweb && killall openbox
+while true; do
+  xdotool keydown ctrl+Tab; xdotool keyup ctrl+Tab;
+  sleep 20
+done
 
-# PREPARE PROFILE
+3. Profile
+nano ~/.profile
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 
-nano .bashrc
-alias website="sudo nano /home/administrador/autostart"
-
-# TO RUN
-
-website
-startx
-
-# TO CLOSE
-
-ALT + F4
+Reboot.
