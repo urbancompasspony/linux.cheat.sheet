@@ -22,7 +22,7 @@ xset -dpms
 setxkbmap -option terminate:ctrl_alt_bksp
 
 # WebSite
-setweb="https://mysite.com.br"
+setweb="https://time.is/S%C3%A3o_Paulo"
 
 # Start Chromium in kiosk mode
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
