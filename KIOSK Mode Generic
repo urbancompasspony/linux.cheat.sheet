@@ -12,6 +12,9 @@ sudo apt install chromium xdotool
 2. Preparing OpenBox
 sudo nano /etc/xdg/openbox/autostart
 
+# (PT0) setsites
+setwebsites=$(cat ~/websites)
+
 # (PT1) Disable any form of screen saver / screen blanking / power management
 xset s off
 xset s noblank
@@ -26,7 +29,7 @@ sed -i 's/"exited_cleanly":false/"exited_cleanly" :true/; s/"exit_type":"[^"]\+"
 
 chromium --start-fullscreen --kiosk --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars \
 --disable-features=TranslateUI --disk-cache-dir=/dev/null  --password-store=basic --disable-pinch --overscroll-history-navigation=disabled \
---disable-features=TouchpadOverscrollHistoryNavigation https://time.is/S%C3%A3o_Paulo https://time.is/Tokyo && killall openbox
+--disable-features=TouchpadOverscrollHistoryNavigation $setwebsites && killall openbox
 
 3. Alternating Tabs!
 nano ~/switch-tab.sh
