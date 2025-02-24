@@ -32,4 +32,19 @@ done
 nano ~/.profile
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 
+4. AutoLogin
+sudo nano /etc/systemd/logind.conf
+
+[Login]
+NAutoVTs=6
+ReserveVT=7
+
+sudo mkdir /etc/systemd/system/getty@tty1.service.d/
+sudo nano /etc/systemd/system/getty@tty1.service.d/override.conf
+
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --noissue --autologin administrador %I $TERM
+Type=idle
+
 Reboot.
