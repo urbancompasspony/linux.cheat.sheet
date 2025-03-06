@@ -1,0 +1,16 @@
+
+On Nextcloud, configure as:
+
+ENDEREÇO DO ONLYOFFICE DOCS:
+https://seu_servidor_office.ddns.net/
+Deixe desmarcado. Use SSL.
+
+Chave ok.
+
+Authorization em branco (default)
+
+Endereço do Onlyoffice para pedidos internos:
+http://ip_interno_office/
+
+Endereço do Servidor para pedidos internos:
+Em branco (default)
