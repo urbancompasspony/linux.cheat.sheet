@@ -1,0 +1,5 @@
+MYSQL_ROOT_PASSWORD=******
+DBCONTAINER=nextcloud-mysql
+DBNAME=nextcloud
+
+docker exec -i $DBCONTAINER mysql -u root -p$MYSQL_ROOT_PASSWORD -N -e "SELECT CONCAT('ALTER TABLE ', TABLE_NAME, ' ROW_FORMAT=DYNAMIC;') FROM information_schema.tables WHERE table_schema = '$DBNAME' AND ROW_FORMAT != 'Dynamic';" | docker exec -i $DBCONTAINER mysql -u root -p$MYSQL_ROOT_PASSWORD $DBNAME
