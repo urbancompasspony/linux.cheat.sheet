@@ -1,0 +1,3 @@
+sudo pacman -S gvfs-dnssd 
+
+davs://cs.linuxuniverse.com.br/remote.php/dav/files/USERNAME/
