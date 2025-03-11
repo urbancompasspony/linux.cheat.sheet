@@ -1,4 +1,0 @@
-
-# NUT
-
-https://networkupstools.org/
