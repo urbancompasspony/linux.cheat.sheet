@@ -1,0 +1,2 @@
+
+sudo rm -r /var/lib/pacman/sync/*
