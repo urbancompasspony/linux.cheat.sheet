@@ -1,2 +1,14 @@
+sudo rm -rf /etc/pacman.d/gnupg /var/lib/pacman/sync
+sudo pacman-key --init 
+sudo pacman -Syyu
 
-sudo rm -r /var/lib/pacman/sync/*
+sudo pacman -S archlinux-keyring endeavour-keyring
+
+cp /var/cache/pacman/pkg/archlinux-keyring-20220713-1-any.pkg.tar.zst ~/tmp/
+sudo pacman -U ~/tmp/archlinux-keyring-20220713-1-any.pkg.tar.zst
+
+sudo pacman -Syu
+
+GET NEW MIRROR:
+sudo nano /etc/pacman.d/endeavouros-mirrorlist
+https://raw.githubusercontent.com/endeavouros-team/PKGBUILDS/master/endeavouros-mirrorlist/endeavouros-mirrorlist
