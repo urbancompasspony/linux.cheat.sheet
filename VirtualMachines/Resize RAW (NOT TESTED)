@@ -5,6 +5,7 @@ Note: This will create a new image newdisk.qcow2 with the given size.
 
 truncate -r olddisk.qcow2 newdisk.qcow2
 truncate -s +10G newdisk.qcow2
+
 2.2. Apply resizing
 Note: "/dev/sda2" is a partition inside the olddisk.qcow2 file which we want to resize.
 
