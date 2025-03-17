@@ -4,7 +4,7 @@ Confirm size:
 
 sudo qemu-img info /var/lib/libvirt/images/issabel100.qcow2
 
-sudo modprobe nbd max_part-10
+sudo modprobe nbd max_part=10
 
 sudo qemu-nbd -c /dev/nbd0 /var/lib/libvirt/images/issabel100.qcow2
 
@@ -12,4 +12,4 @@ With DWSERVICE sudo gparted /dev/nbd0
 
 Ate the end:
 
-sudo umount /dev/nbd0
+sudo qemu-nbd -d /dev/nbd0
