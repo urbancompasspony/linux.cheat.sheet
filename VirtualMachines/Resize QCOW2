@@ -19,4 +19,4 @@ qemu-img create -f qcow2 -o preallocation=metadata /var/lib/libvirt/images/issab
 1.3. Perform the resizing from old disk image to newdisk.qcow2
 Note: "/dev/sda2" is a partition inside the olddisk.qcow2 file which we want to resize.
 
-virt-resize --expand /dev/sda5 /var/lib/libvirt/images/issabel.qcow2 /var/lib/libvirt/images/issabel100.qcow2
+virt-resize --expand /dev/sdaX /var/lib/libvirt/images/issabel.qcow2 /var/lib/libvirt/images/issabel100.qcow2 -v
