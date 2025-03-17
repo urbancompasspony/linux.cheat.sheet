@@ -1,3 +1,5 @@
+sudo apt install guestfs-tools
+
 2.1. Extend the size of olddisk.qcow2 to the specified size (E.g +10GB)
 Note: This will create a new image newdisk.qcow2 with the given size.
 
