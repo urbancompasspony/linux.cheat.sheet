@@ -1,3 +1,5 @@
+sudo apt install guestfs-tools
+
 1.1. Verify the filesystems of olddisk.qcow2
 virt-filesystems --long -h --all -a olddisk.qcow2
 # Name       Type        VFS   Label            MBR  Size  Parent
