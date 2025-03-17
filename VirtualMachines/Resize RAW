@@ -1,0 +1,25 @@
+2.1. Extend the size of olddisk.qcow2 to the specified size (E.g +10GB)
+Note: This will create a new image newdisk.qcow2 with the given size.
+
+truncate -r olddisk.qcow2 newdisk.qcow2
+truncate -s +10G newdisk.qcow2
+2.2. Apply resizing
+Note: "/dev/sda2" is a partition inside the olddisk.qcow2 file which we want to resize.
+
+virt-resize --expand /dev/sda2 olddisk.qcow2 newdisk.qcow2
+2.3. Quick inspection of new disk image
+qemu-img info newdisk.qcow2
+# image: newdisk.qcow2
+# file format: raw
+# virtual size: 50 GiB (53693907968 bytes)
+# disk size: 36 GiB
+2.4. Verify that the filesystems have grown as expected
+virt-filesystems --long -h --all -a newdisk.qcow2
+# Name       Type        VFS   Label            MBR  Size  Parent
+# /dev/sda1  filesystem  ntfs  System Reserved  -    50M   -
+# /dev/sda2  filesystem  ntfs  -                -    49G   -
+# /dev/sda3  filesystem  ntfs  -                -    513M  -
+# /dev/sda1  partition   -     -                07   50M   /dev/sda
+# /dev/sda2  partition   -     -                07   49G   /dev/sda
+# /dev/sda3  partition   -     -                27   513M  /dev/sda
+# /dev/sda   device      -     -                -    50G   -
