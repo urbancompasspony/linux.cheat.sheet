@@ -1,0 +1,5 @@
+echo "Texto que você quer imprimir" | nc -v [IP-DA-IMPRESSORA] 9100
+
+printf "Olá, isso é um teste.\r\n\r\n\r\n\r\n\r\n\f" | nc -v [IP-DA-IMPRESSORA] 9100
+
+lpr -H [IP-DA-IMPRESSORA] -P raw texto_para_imprimir.txt
