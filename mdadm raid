@@ -1,5 +1,5 @@
 
-# RAID 0 (Disk 01 + Disk 02 working as one!)
+# RAID 0 (1+1 working as one!)
 
 sudo mdadm --create --verbose /dev/md0 --level=0 --raid-devices=2 /dev/sdX /dev/sdX
 cat /proc/mdstat
