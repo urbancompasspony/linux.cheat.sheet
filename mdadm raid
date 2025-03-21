@@ -22,3 +22,15 @@ sudo update-initramfs -u
 
 sudo nano /etc/fstab
 /dev/disk/by-uuid/XXX /mnt/md0 ext4 defaults,noatime 0 0
+
+# HOW TO DESTROY!
+
+sudo umount /dev/md0
+cat /proc/mdstat
+
+sudo mdadm --stop /dev/md0
+sudo mdadm --remove /dev/md0
+mdadm: erro ao abrir md1: Nenhum arquivo ou diretório
+
+Edit and remove
+sudo nano /etc/mdadm/mdadm.conf
