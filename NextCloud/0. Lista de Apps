@@ -1,0 +1,21 @@
+
+docker exec -t -u www-data nextcloud ./occ app:disable music
+docker exec -t -u www-data nextcloud ./occ app:disable onlyoffice
+docker exec -t -u www-data nextcloud ./occ app:disable weather_status
+docker exec -t -u www-data nextcloud ./occ app:disable contacts
+docker exec -t -u www-data nextcloud ./occ app:disable 
+docker exec -t -u www-data nextcloud ./occ app:disable
+docker exec -t -u www-data nextcloud ./occ app:disable 
+docker exec -t -u www-data nextcloud ./occ app:disable 
+docker exec -t -u www-data nextcloud ./occ app:disable 
+
+docker exec -t -u www-data nextcloud ./occ app:enable music
+docker exec -t -u www-data nextcloud ./occ app:enable onlyoffice
+docker exec -t -u www-data nextcloud ./occ app:enable weather_status
+docker exec -t -u www-data nextcloud ./occ app:enable contacts
+docker exec -t -u www-data nextcloud ./occ app:enable 
+docker exec -t -u www-data nextcloud ./occ app:enable 
+docker exec -t -u www-data nextcloud ./occ app:enable 
+docker exec -t -u www-data nextcloud ./occ app:enable 
+docker exec -t -u www-data nextcloud ./occ app:enable 
+docker exec -t -u www-data nextcloud ./occ app:enable 
