@@ -1,0 +1,4 @@
+
+SYNC command, time left:
+
+watch echo $(grep -i dirty /proc/meminfo)
