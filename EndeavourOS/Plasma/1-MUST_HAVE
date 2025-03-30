@@ -33,7 +33,7 @@ luanti steam v4l2loopback-dkms terminator missioncenter trippy oha --noconfirm -
 # YAY #
 
 yay -S microsoft-edge-stable-bin google-chrome anydesk-bin ventoy-bin opera \
-upscayl-appimage drawio-desktop-appimage woeusb-ng
+upscayl-appimage drawio-desktop-appimage woeusb-ng edex-ui-bin
 
 ###########
 # Flatpak #
