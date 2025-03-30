@@ -11,16 +11,6 @@
 # LOCAL: 40 dias!
 # EXTERNO: 90 DIAS!
 
-# Prevenir execução simultânea
-LOCKFILE="/tmp/oracle_backup.lock"
-if [ -e "${LOCKFILE}" ] && kill -0 "$(cat "${LOCKFILE}")"; then
-    echo "Backup já está em execução."
-    exit 1
-fi
-# Garantir que o lockfile será removido quando o script terminar
-trap 'rm -f "${LOCKFILE}"; exit $?' INT TERM EXIT
-echo $$ > "${LOCKFILE}"
-
 # Variáveis
 data=$(date +"%d_%m_%y_-_%H_%M")
 getpath="/home/administrador/Shared/"
@@ -29,6 +19,17 @@ extpath="/mnt/externo/Oracle/"
 logs="/srv/containers/scripts/Logs_Backup"
 max_local_days=45
 max_ext_days=90
+
+# Prevenir execução simultânea
+LOCKFILE="/tmp/oracle_backup.lock"
+if [ -e "${LOCKFILE}" ] && kill -0 "$(cat "${LOCKFILE}")"; then
+    echo "Backup já está em execução."
+    exit 1
+fi
+
+# Garantir que o lockfile será removido quando o script terminar
+trap 'rm -f "${LOCKFILE}"; exit $?' INT TERM EXIT
+echo $$ > "${LOCKFILE}"
 
 # Início do backup
 echo "Backup iniciado em ${data}" | tee -a "${logs}"
