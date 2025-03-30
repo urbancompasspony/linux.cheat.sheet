@@ -97,12 +97,6 @@ if [ "${disk2}" = "sim" ]; then
     fi
     sync
     
-    # Limpar diretório de origem após backup bem-sucedido
-    if [ -d "${getpath}" ] && [ "$(ls -A "${getpath}" 2>/dev/null)" ]; then
-        echo "Limpando diretório de origem..." | tee -a "${logs}"
-        rm -rf "${getpath}"/*
-    fi
-    
     # Otimizar uso de disco
     echo "Executando fstrim..." | tee -a "${logs}"
     fstrim -a
