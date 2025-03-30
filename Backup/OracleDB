@@ -18,6 +18,7 @@ extpath="/mnt/externo/Oracle/"
 logs="/srv/containers/scripts/Logs_Backup"
 max_local_days=45
 max_ext_days=90
+min_space=10000000  # 5GB em KB
 
 # Prevenir execução simultânea
 LOCKFILE="/tmp/oracle_backup.lock"
@@ -41,8 +42,6 @@ for dir in "${getpath}" "${bacpath}"; do
     fi
 done
 
-# Verificar espaço em disco disponível (mínimo de 5GB)
-min_space=5000000  # 5GB em KB
 avail_space=$(df -k "${bacpath}" | awk 'NR==2 {print $4}')
 if [ "${avail_space}" -lt "${min_space}" ]; then
     echo "${data} - ERRO: Espaço insuficiente em ${bacpath}. Disponível: ${avail_space}KB" | tee -a "${logs}"
@@ -112,9 +111,12 @@ else
 fi
 
 # Limpar diretório de origem após backup bem-sucedido
-if [ -d "${getpath}" ] && [ "$(ls -A "${getpath}" 2>/dev/null)" ]; then
+if [ -n "${getpath}" ] && [ "${getpath}" != "/" ]; then
     echo "Limpando diretório de origem..." | tee -a "${logs}"
-    rm -rf "${getpath}"/*
+    rm -rf "${getpath:?}/"*
+else
+    echo "${data} - ERRO: Variável getpath vazia ou inválida!" | tee -a "${logs}"
+    exit 1
 fi
 
 # Finalizar backup
