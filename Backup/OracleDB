@@ -1,72 +1,133 @@
 #!/bin/bash
-
 # COLD backup script for Oracle Express 21c!
-
+# Data da última modificação: 30/03/2025
 # Crontab
-# 40 12 * * 1-5 bash /home/administrador/Scripts/Backup
-# 40 16 * * 1-5 bash /home/administrador/Scripts/Backup
+# 00 12 * *1-5 bash /srv/containers/scripts/Backup_KVM
+# 00 16 * *1-5 bash /srv/containers/scripts/Backup_KVM
 
 ################################################################################
+
 # Control Panel #
+# LOCAL: 40 dias!
+# EXTERNO: 90 DIAS!
 
-data=$(date +"%Y_%m_%d_%H_%M")
+# Prevenir execução simultânea
+LOCKFILE="/tmp/oracle_backup.lock"
+if [ -e "${LOCKFILE}" ] && kill -0 "$(cat "${LOCKFILE}")"; then
+    echo "Backup já está em execução."
+    exit 1
+fi
+# Garantir que o lockfile será removido quando o script terminar
+trap 'rm -f "${LOCKFILE}"; exit $?' INT TERM EXIT
+echo $$ > "${LOCKFILE}"
 
+# Variáveis
+data=$(date +"%d_%m_%y_-_%H_%M")
 getpath="/home/administrador/Shared/"
 bacpath="/mnt/disk01/BKP_Oracle/"
-logs="/home/administrador/Logs_Backup"
-# RM bellow with complete path to prevent problems!
+extpath="/mnt/externo/Oracle/"
+logs="/srv/containers/scripts/Logs_Backup"
+max_local_days=45
+max_ext_days=90
 
-################################################################################
+# Início do backup
+echo "Backup iniciado em ${data}" | tee -a "${logs}"
 
-touch "$logs"
-touch -m "$getpath"*
+# Verificar se os diretórios existem
+for dir in "${getpath}" "${bacpath}"; do
+    if [ ! -d "${dir}" ]; then
+        echo "${data} - ERRO: Diretório ${dir} não existe!" | tee -a "${logs}"
+        exit 1
+    fi
+done
 
-echo "$data - Apagando backups mais antigos" | tee -a "$logs"
-find "$bacpath" -type d -mtime +45 -exec rm -rf {} \;
-find "$bacpath" -type f -mtime +45 -delete
-find "$bacpath" -type d -empty -delete
+# Verificar espaço em disco disponível (mínimo de 5GB)
+min_space=5000000  # 5GB em KB
+avail_space=$(df -k "${bacpath}" | awk 'NR==2 {print $4}')
+if [ "${avail_space}" -lt "${min_space}" ]; then
+    echo "${data} - ERRO: Espaço insuficiente em ${bacpath}. Disponível: ${avail_space}KB" | tee -a "${logs}"
+    exit 1
+fi
 
-echo "$data - Iniciando backups!" | tee -a "$logs"
+# Remover arquivos antigos no backup local
+# O -delete é mais seguro que executar rm
+if [ -d "${bacpath}" ]; then
+    echo "Removendo arquivos locais com mais de ${max_local_days} dias..." | tee -a "${logs}"
+    find "${bacpath}" -type f -mtime +"${max_local_days}" -delete
+fi
 
-echo "$data - Fazendo backup local" | tee -a "$logs"
-rsync -a "$getpath" "$bacpath"
-
-echo "$data - 1/2 Sincronia dos discos" | tee -a "$logs"
+# Executar o rsync e verificar resultado
+echo "Copiando arquivos de ${getpath} para ${bacpath}..." | tee -a "${logs}"
+rsync -a "${getpath}" "${bacpath}"
+if [ $? -ne 0 ]; then
+    echo "${data} - ERRO: Falha no rsync local!" | tee -a "${logs}"
+    exit 1
+fi
 sync
 
-echo "$data - Tentando montar o HDD externo" | tee -a "$logs"
+# Verificar e montar disco externo
+disk2=$(/bin/mount /mnt/externo 2>/dev/null && echo "sim" || echo "nao")
+if [ "${disk2}" = "sim" ]; then
+    # Verificar se o diretório de backup externo existe
+    if [ ! -d "${extpath}" ]; then
+        echo "${data} - ERRO: Diretório externo ${extpath} não existe!" | tee -a "${logs}"
+        /bin/umount /mnt/externo
+        exit 1
+    fi
+    
+    # Verificar espaço no disco externo
+    avail_ext_space=$(df -k "${extpath}" | awk 'NR==2 {print $4}')
+    if [ "${avail_ext_space}" -lt "${min_space}" ]; then
+        echo "${data} - ERRO: Espaço insuficiente em ${extpath}. Disponível: ${avail_ext_space}KB" | tee -a "${logs}"
+        /bin/umount /mnt/externo
+        exit 1
+    fi
+    
+    # Remover arquivos antigos no backup externo
+    echo "Removendo arquivos externos com mais de ${max_ext_days} dias..." | tee -a "${logs}"
+    find "${extpath}" -type f -mtime +"${max_ext_days}" -delete
+    
+    # Executar o rsync para o disco externo e verificar resultado
+    echo "Copiando arquivos de ${bacpath} para ${extpath}..." | tee -a "${logs}"
+    rsync -a "${bacpath}" "${extpath}"
+    if [ $? -ne 0 ]; then
+        echo "${data} - ERRO: Falha no rsync externo!" | tee -a "${logs}"
+        /bin/umount /mnt/externo
+        exit 1
+    fi
+    sync
+    
+    # Limpar diretório de origem após backup bem-sucedido
+    if [ -d "${getpath}" ] && [ "$(ls -A "${getpath}" 2>/dev/null)" ]; then
+        echo "Limpando diretório de origem..." | tee -a "${logs}"
+        rm -rf "${getpath}"/*
+    fi
+    
+    # Otimizar uso de disco
+    echo "Executando fstrim..." | tee -a "${logs}"
+    fstrim -a
+    
+    # Desmontar disco externo
+    /bin/umount /mnt/externo
+    if [ $? -ne 0 ]; then
+        echo "${data} - AVISO: Falha ao desmontar disco externo!" | tee -a "${logs}"
+    fi
+else
+    echo "${data} - ERRO: Disco externo ausente!" | tee -a "${logs}"
+    echo "${data} - ERRO: Apenas o backup local foi executado." | tee -a "${logs}"
+fi
 
-disk2=$(/bin/mount -U YOUR_UUID_HERE /mnt/externo && echo "sim" || echo "nao")
+# Limpar diretório de origem após backup bem-sucedido
+if [ -d "${getpath}" ] && [ "$(ls -A "${getpath}" 2>/dev/null)" ]; then
+    echo "Limpando diretório de origem..." | tee -a "${logs}"
+    rm -rf "${getpath}"/*
+fi
 
-[ "$disk2" = "sim" ] && {
-  extpath="/mnt/externo/Oracle/"
+# Finalizar backup
+data=$(date +"%d_%m_%y_-_%H_%M")
+echo "Backup concluído em ${data}" | tee -a "${logs}"
+echo " " | tee -a "${logs}"
 
-  echo "$data - HDD externo montado com sucesso!" | tee -a "$logs"
-  echo "$data - Copiando para o HDD externo" | tee -a "$logs"
-  rsync -a "$getpath" "$extpath"
-  
-  echo "$data - 2/2 Sincronia dos Discos" | tee -a "$logs"
-  sync
-
-  echo "$data - Desmontando o HDD externo" | tee -a "$logs"
-  /bin/umount /mnt/externo
-
-  echo "$data - Apagando diretório temporário" | tee -a "$logs"
-  rm -R /home/administrador/Shared/*
-
-  echo "$data - TRIM" | tee -a "$logs"
-  fstrim -a
-
-  echo " " | tee -a "$logs"
-} || {
-
-  echo "$data - ERRO: Disco externo ausente!" | tee -a "$logs"
-  echo "$data - ERRO: Apenas o backup local foi executado." | tee -a "$logs"
-  echo " " | tee -a "$logs"
-}
-
-data=$(date +"%Y_%m_%d_%H_%M")
-echo "Concluído em $data" | tee -a "$logs"
-echo " " | tee -a "$logs"
-
+# Remover arquivo de lock
+rm -f "${LOCKFILE}"
 exit 0
