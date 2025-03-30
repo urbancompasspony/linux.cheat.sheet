@@ -125,5 +125,5 @@ echo "Backup concluído em ${data}" | tee -a "${logs}"
 echo " " | tee -a "${logs}"
 
 # Remover arquivo de lock
-rm -f "${LOCKFILE}"
+rm -f "${LOCKFILE:?}"
 exit 0
