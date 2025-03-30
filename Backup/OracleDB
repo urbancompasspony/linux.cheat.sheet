@@ -16,6 +16,7 @@ getpath="/home/administrador/Shared/"
 bacpath="/mnt/disk01/BKP_Oracle/"
 extpath="/mnt/externo/Oracle/"
 logs="/srv/containers/scripts/Logs_Backup"
+
 max_local_days=45
 max_ext_days=90
 min_space=10000000  # 5GB em KB
