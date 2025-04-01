@@ -1,0 +1,7 @@
+[WARNING]: Platform linux on host la_engenharia is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the
+meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+sudo nano /etc/ansible/ansible.cfg
+
+[defaults]
+interpreter_python = /usr/bin/python3
