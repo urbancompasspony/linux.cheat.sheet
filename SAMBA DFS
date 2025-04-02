@@ -1,0 +1,27 @@
+sudo nano /etc/samba/smb.conf
+
+[global]
+# Configurações globais do Samba
+workgroup = WORKGROUP
+server string = Samba Server
+security = user
+
+# Habilitar DFS
+host msdfs = yes
+
+[dfs]
+# Configuração do compartilhamento DFS
+comment = DFS Root Share
+path = /srv/samba/dfsroot
+msdfs root = yes
+
+sudo mkdir -p /srv/samba/dfsroot
+sudo chown -R root:samba /srv/samba/dfsroot
+sudo chmod -R 0770 /srv/samba/dfsroot
+
+cd /srv/samba/dfsroot
+ln -s msdfs:servidorA\compartilhamentoA compartilhamentoA
+ln -s msdfs:servidorB\compartilhamentoB compartilhamentoB
+
+sudo systemctl restart smbd
+sudo systemctl restart nmbd
