@@ -1,5 +1,55 @@
-# Modo Criativo
-/grant myuser creative
+/grant <player> all
+/grantme all
 
-# Fly Mode
+/grant myuser server
+/grant myuser creative
 /grant myuser fly
+
+ALL:
+interact—can build/mine/use blocks and drop/eat/craft/use items and punch things and interact with objects and players
+give—can use the /give and /giveme commands
+teleport—can use the /teleport command to teleport oneself to certain coordinates or to another player
+bring—in combination with teleport, can use the /teleport command to teleport any player to certain coordinates or to yet another player
+fast—allows the player to activate fast mode
+fly—allows the player to activate fly mode
+noclip—allows the player to activate “noclip” mode, which allows them to fly through walls
+shout—can chat with other people
+settime—can set time of day using /time
+privs—can set any privileges of players using /grant and /revoke
+basic_privs—can set the privileges set as basic_privs in the minetest.conf (default “interact” and “shout”) using /grant and /revoke
+kick—can kick players with /kick
+ban—can ban/unban IPs and names using /ban and /unban
+rollback—can use the rollback functionality
+protection_bypass—can bypass protection of blocks (e.g. can open locked chests or steel doors of everyone)
+server—can do server maintenance stuff such as /shutdown, /clearobjects, /set, …
+
+/privs myuser
+
+/last-login myuser
+
+/msg <player> <message>
+/me myuser
+
+/teleport x,y,z
+/teleport playerX
+/teleport <player> <x>,<y>,<z>—Teleports <player> to given coordinates. Also requires the “bring” privilege
+/teleport <player1> <player2>—Teleports <player1> to <player2>. Also requires the “bring” privilege
+
+/kill [<name>]: Kill player or yourself. Requires “server” privilege
+/clearinv myuser
+
+/kick <player name> [<reason>] – Kicks the player with the name <player name>. Optionally a <reason> can be provided in text-form. This text is also shown to the kicked player.
+/ban - show list of banned players
+/ban <player name>—Ban IP of player
+/unban <player name>—Remove ban of player with the specified name
+/unban <IP address>—Remove ban of player with the specified IP address
+
+/time <hours>:<minutes>
+Sets the time of day in the 24-hour format (0:00-23:59). Requires the “settime” privilege. Precede the time with a tilde for a relative time change.
+
+/sethome
+Sets your current position as your “home point”. Requires the “home” privilege
+/home
+Teleports yourself to your “home point”. This command does not work if you haven’t set your “home point” yet, set it with /sethome first. Requires the “home” privilege
+/killme
+
