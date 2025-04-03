@@ -53,3 +53,5 @@ Sets your current position as your “home point”. Requires the “home” pri
 Teleports yourself to your “home point”. This command does not work if you haven’t set your “home point” yet, set it with /sethome first. Requires the “home” privilege
 /killme
 
+MORE INFO
+https://docs.luanti.org/for-players/chat/
