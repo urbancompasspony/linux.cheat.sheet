@@ -1,7 +1,0 @@
-ERROR:
-
-erro: falha ao preparar a transação (não foi possível satisfazer as dependências)
-:: a instalação de pacman (6.1.0-3) quebra a dependência "libalpm.so=13-64" necessária por libpamac-aur
-:: a instalação de pacman (6.1.0-3) quebra a dependência "pacman<6.1" necessária por libpamac-aur
-
-sudo pacman -R libpamac-aur
