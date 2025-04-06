@@ -1,4 +1,0 @@
-
-$ lscpu
-
-sudo find /sys -name '*mitigation*'
