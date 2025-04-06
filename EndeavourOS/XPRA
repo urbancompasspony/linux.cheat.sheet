@@ -1,3 +1,0 @@
-sudo pacman -S xpra
-
-yay -S xpra-html5-git
