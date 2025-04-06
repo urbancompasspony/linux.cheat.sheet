@@ -1,3 +1,0 @@
-sudo crontab -e
-
-@reboot sleep 15; rfkill unblock bluetooth; systemctl restart bluetooth.service
