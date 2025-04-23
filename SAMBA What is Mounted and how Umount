@@ -1,0 +1,8 @@
+
+sudo fuser -vm /mnt/backupi/
+lsof /mnt/dir
+
+sudo umount -lf /mnt
+sudo fuser -k /mnt/pasta_mapeada
+sudo umount /mnt/pasta_mapeada
+sudo mount -o remount,ro /mnt/pasta_mapeada
