@@ -1,0 +1,6 @@
+winecfg set Windows 8.0
+
+WINEARCH=win32
+winetricks dotnet40 dotnet48 vcrun2019
+
+Install OpenIV!
