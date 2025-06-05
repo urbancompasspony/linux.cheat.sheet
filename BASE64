@@ -5,3 +5,19 @@ $ base64 input.jpg > text.txt
 
 Revert:
 $ cat text.txt | base64 -d > output.jpg
+
+# Função para pegar um valor em base64 do YAML e decodificar
+decode_base64_var() {
+  # Uso: decode_base64_var <caminho_no_yaml>
+  local caminho="$1"
+  local yaml_file="${2:-settings.yaml}"
+  valor_b64=$(yq -r "$caminho" "$yaml_file")
+  echo "$valor_b64" | base64 -d
+}
+
+# Exemplo de uso:
+# Supondo que settings.yaml tenha:
+# senha: c3VwZXJzZWNyZXQ=
+
+senha=$(decode_base64_var '.senha')
+echo "Senha decodificada: $senha"
