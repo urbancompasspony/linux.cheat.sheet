@@ -1,0 +1,17 @@
+
+Para inserir um dado novo:
+yq -i '.campo_novo = "valor"' arquivo.yaml
+yq -i '.objeto.campo_novo = "valor"' arquivo.yaml
+yq -i '.minha_lista += "novo_item"' arquivo.yaml
+yq -i '.usuarios += {"nome": "Carlos", "idade": 30}' arquivo.yaml
+yq -i '.campo1 = "valor1" | .campo2 = "valor2"' arquivo.yaml
+
+Para pegar um campo:
+yq '.usuario' arquivo.yaml
+yq '.dados.email' arquivo.yaml
+yq '.minha_lista[]' arquivo.yaml
+yq '.usuarios[] | select(.nome == "Carlos")' arquivo.yaml
+yq '.usuarios[] | select(.nome == "Carlos") | .idade' arquivo.yaml
+
+Buscas:
+yq '.. | select(has("usuario")) | .usuario' arquivo.yaml
