@@ -1,3 +1,10 @@
+    #no sudo
+    #(crontab -l 2>/dev/null; echo '@reboot sleep 60; bash /home/administrador/.beep.sh') | sort -u | crontab -
+
+    #sudo
+    (sudo crontab -l 2>/dev/null; echo '@reboot sleep 60; bash /home/administrador/.beep.sh') | sort -u | sudo crontab -
+
+DEPRECATED
 
 sudo crontab -l > /tmp/crontab
 echo "# AutoRenew and Nextcloud Maintenance" | tee -a /tmp/crontab
