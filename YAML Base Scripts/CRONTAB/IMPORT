@@ -1,0 +1,23 @@
+#!/bin/bash
+# Restaura o crontab do YAML para o usuário atual ou para o root
+
+YAML_FILE="crontab_export.yaml"
+
+# Checa dependência
+if ! command -v yq >/dev/null 2>&1; then
+    echo "Precisa do 'yq' instalado: https://github.com/mikefarah/yq"
+    exit 1
+fi
+
+# Extrai linhas do YAML
+LINES=$(yq -r '.crontab[]' "$YAML_FILE")
+
+if [ "$1" = "sudo" ]; then
+    # Para root
+    echo "$LINES" | sudo crontab -
+else
+    # Para usuário normal
+    echo "$LINES" | crontab -
+fi
+
+echo "Crontab restaurado do $YAML_FILE"
