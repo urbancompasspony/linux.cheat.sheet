@@ -1,0 +1,25 @@
+#!/bin/bash
+
+YAML="settings.yaml"
+CHECKSUM_FILE="/var/lib/recover"
+
+# Verifica se ambos arquivos existem
+if [ ! -f "$YAML" ] || [ ! -f "$CHECKSUM_FILE" ]; then
+    echo "Arquivo $YAML ou $CHECKSUM_FILE não encontrado!"
+    exit 1
+fi
+
+# Calcula o SHA256 do arquivo atual
+CURRENT_HASH=$(sha256sum "$YAML" | awk '{print $1}')
+
+# Lê o hash autorizado
+AUTHORIZED_HASH=$(cat "$CHECKSUM_FILE" | tr -d '[:space:]')
+
+# Compara
+if [ "$CURRENT_HASH" = "$AUTHORIZED_HASH" ]; then
+    echo "Checksum confere, script pode rodar."
+    # Coloque sua lógica principal aqui
+else
+    echo "Checksum NÃO confere, script NÃO será executado."
+    exit 2
+fi
