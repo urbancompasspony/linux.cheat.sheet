@@ -1,0 +1,49 @@
+#!/bin/bash
+
+XML_DIR="./backup_vms_xml"  # Diretório onde estão os XMLs das VMs
+TMP_DIR="./tmp_vm_restore"
+mkdir -p "$TMP_DIR"
+
+for xmlfile in "$XML_DIR"/*.xml; do
+    echo "Processando $xmlfile"
+    tmpxml="$TMP_DIR/$(basename "$xmlfile")"
+    cp "$xmlfile" "$tmpxml"
+
+    # --- Checa interfaces de rede ---
+    mapfile -t ifaces < <(xmllint --xpath "//interface/source/@dev | //interface/source/@bridge" "$tmpxml" 2>/dev/null | grep -oE 'dev="[^"]+"|bridge="[^"]+"' | cut -d'"' -f2)
+    for iface in "${ifaces[@]}"; do
+        if ! [ -e "/sys/class/net/$iface" ]; then
+            echo "Interface de rede '$iface' não encontrada no sistema."
+            echo "Interfaces disponíveis:"
+            ls /sys/class/net/
+            read -p "Digite o nome da interface para substituir '$iface': " newiface
+            sed -i "s/\(dev\|bridge\)=\"$iface\"/\1=\"$newiface\"/g" "$tmpxml"
+            echo "Substituído '$iface' por '$newiface' em $tmpxml."
+        else
+            echo "Interface '$iface' encontrada."
+        fi
+    done
+
+    # --- Checa arquivos de disco ---
+    # Pega todos os caminhos de disco (<source file='...'>)
+    mapfile -t disks < <(xmllint --xpath "//disk/source/@file" "$tmpxml" 2>/dev/null | grep -oE "file='[^']+'" | cut -d"'" -f2)
+    for diskfile in "${disks[@]}"; do
+        if [ ! -f "$diskfile" ]; then
+            echo "Arquivo de disco '$diskfile' não encontrado."
+            read -p "Digite o novo caminho do arquivo de disco para substituir '$diskfile': " newdisk
+            sed -i "s|file='$diskfile'|file='$newdisk'|g" "$tmpxml"
+            echo "Substituído '$diskfile' por '$newdisk' em $tmpxml."
+        else
+            echo "Disco '$diskfile' encontrado."
+        fi
+    done
+
+    # --- Importa a VM (define) com o XML corrigido ---
+    virsh define "$tmpxml"
+    if [ $? -eq 0 ]; then
+        echo "VM definida/importada com sucesso: $tmpxml"
+    else
+        echo "Falha ao importar VM: $tmpxml"
+    fi
+    echo
+done
