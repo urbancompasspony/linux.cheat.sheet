@@ -1,0 +1,23 @@
+#!/bin/bash
+
+YAML_FILE="settings.yaml"
+
+# Checa se yq está instalado
+if ! command -v yq &>/dev/null; then
+    echo "Precisa instalar o yq (https://github.com/mikefarah/yq)"
+    exit 1
+fi
+
+# Verifica se existe o campo 'containers'
+containers_exist=$(yq eval '.containers // empty' "$YAML_FILE")
+
+if [ -z "$containers_exist" ]; then
+    echo "O campo 'containers' não existe em $YAML_FILE."
+    exit 0
+fi
+
+echo "O campo 'containers' existe em $YAML_FILE."
+
+# Lista as chaves/entradas dentro de 'containers' (se for objeto/mapeamento)
+echo "Entradas encontradas em 'containers':"
+yq eval '.containers | keys | .[]' "$YAML_FILE"
