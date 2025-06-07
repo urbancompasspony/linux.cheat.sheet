@@ -1,0 +1,21 @@
+#!/bin/bash
+# Exporta o crontab do usuário atual ou do root para um arquivo YAML
+
+YAML_FILE="crontab_export.yaml"
+
+if [ "$1" = "sudo" ]; then
+    # Para root
+    CRONTAB_CONTENT=$(sudo crontab -l 2>/dev/null)
+else
+    # Para usuário normal
+    CRONTAB_CONTENT=$(crontab -l 2>/dev/null)
+fi
+
+echo "crontab:" > "$YAML_FILE"
+echo "$CRONTAB_CONTENT" | while IFS= read -r line; do
+    # Escape aspas e YAML reserved chars
+    esc_line=$(printf "%s" "$line" | sed 's/"/\\"/g')
+    echo "  - \"$esc_line\"" >> "$YAML_FILE"
+done
+
+echo "Exportado para $YAML_FILE"
