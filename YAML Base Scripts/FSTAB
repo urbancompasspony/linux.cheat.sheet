@@ -1,0 +1,58 @@
+Estrutura exemplo:
+
+discos:
+  - uuid: "123e4567-e89b-12d3-a456-426614174000"
+    mountpoint: "/mnt/disk01"
+    options: "noauto"
+  - uuid: "223e4567-e89b-12d3-a456-426614174001"
+    mountpoint: "/mnt/disk02"
+    options: "defaults"
+
+Script:
+
+#!/bin/bash
+
+YAML_FILE="discos.yaml"
+
+# Checa se yq está instalado
+if ! command -v yq &>/dev/null; then
+    echo "Precisa instalar o yq para processar YAML (https://github.com/mikefarah/yq)"
+    exit 1
+fi
+
+# Lê todos os discos do YAML
+num_discos=$(yq eval '.discos | length' "$YAML_FILE")
+
+for idx in $(seq 0 $((num_discos-1))); do
+    uuid=$(yq eval ".discos[$idx].uuid" "$YAML_FILE")
+    mountpoint=$(yq eval ".discos[$idx].mountpoint" "$YAML_FILE")
+    options=$(yq eval ".discos[$idx].options" "$YAML_FILE")
+
+    # Verifica se o dispositivo existe
+    dev_path="/dev/disk/by-uuid/$uuid"
+    if [ ! -e "$dev_path" ]; then
+        echo "Dispositivo com UUID $uuid não encontrado em $dev_path, pulando..."
+        continue
+    fi
+
+    # Cria o diretório de montagem se não existir
+    if [ ! -d "$mountpoint" ]; then
+        echo "Criando diretório $mountpoint"
+        mkdir -p "$mountpoint"
+    fi
+
+    # Verifica se já está montado
+    if grep -qs "$mountpoint " /etc/mtab; then
+        echo "$mountpoint já está montado."
+        continue
+    fi
+
+    # Monta o disco
+    echo "Montando $dev_path em $mountpoint com opções: $options"
+    mount -o "$options" "$dev_path" "$mountpoint"
+    if [ $? -eq 0 ]; then
+        echo "Montado com sucesso: $mountpoint"
+    else
+        echo "Falha ao montar $mountpoint"
+    fi
+done
