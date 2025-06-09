@@ -1,20 +1,18 @@
 #!/bin/bash
 
-# Dependências: yq (Go version), dialog, docker
-
 export NOMECONTAINER="A-CUSTOM-A"
 configfile="/srv/containers/$NOMECONTAINER/config.yaml"
 docker_repo="CUSTOM/DOCKER:LATEST"
-
-function makedir {
-  mkdir -p "/srv/containers/$NOMECONTAINER"
-}
 
 function check_root {
   [ "$EUID" -ne 0 ] && {
     echo "Execute esse script como Root! Saindo..."
     exit 1
   }
+}
+
+function makedir {
+  mkdir -p "/srv/containers/$NOMECONTAINER"
 }
 
 function save_config {
