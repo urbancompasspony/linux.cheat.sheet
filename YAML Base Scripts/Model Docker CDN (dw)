@@ -24,9 +24,19 @@ export masterfile="/srv/settings.yaml"
 
 function check_root {
   [ "$EUID" -ne 0 ] && {
-    echo "Execute esse script como Root! Saindo..."
+    clear; echo "Execute esse script como Root! Saindo..."
     exit 1
   }
+}
+
+function check_macvlan {
+  macvlanr=$(docker inspect macvlan 1>/dev/null 2>/dev/null && echo yes || echo no)
+  if [ "$macvlanr" = "no" ];then
+    clear; echo "A macvlan não existe! Saindo..."; sleep 3
+    exit 0
+  else
+    echo . >/dev/null
+  fi
 }
 
 function menu_principal {
@@ -36,7 +46,6 @@ function menu_principal {
   form=$(dialog --ok-label "Criar" --title "Novo Container" --form "$NOMECONTAINER" 9 40 0 \
     "Container:" 1 1 "$var1" 1 11 30 0 \
     3>&1 1>&2 2>&3 3>&- > /dev/tty)
-
   [ $? -ne 0 ] && exit
 
   var1=$(echo "$form" | sed -n 1p)
@@ -52,9 +61,9 @@ function load_config {
 }
 
 function check_IP {
+  [ -f "$masterfile" ]
   myip0=$(yq -r '.Informacoes.IP_LAN_Install' "$masterfile")
-
-  if [ "null" = "$myip0" ]; then
+  if [ "$myip0" = "null" ]; then
     dialog --title "ERRO" --msgbox "Conflito de IP detectado! \nMude para outro IP." 6 40
     return
   else
@@ -100,6 +109,7 @@ function create {
 }
 
 check_root
+check_macvlan
 menu_principal
 
 exit 0
