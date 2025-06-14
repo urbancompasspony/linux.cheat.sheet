@@ -32,3 +32,43 @@ for XML in "$IMPORT_DIR"/*.xml; do
 done
 
 echo "Importação e inicialização concluídas."
+
+##############################################################################
+
+#!/bin/bash
+
+# Diretório de backup (altere se quiser)
+BACKUP_DIR="/var/lib/libvirt/images/backup_$(date +%Y%m%d_%H%M%S)"
+mkdir -p "$BACKUP_DIR"
+
+echo "Parando todas as VMs..."
+for VM in $(virsh list --name); do
+    echo "Parando $VM..."
+    virsh shutdown "$VM"
+done
+
+# Aguarda as VMs desligarem (timeout 60s)
+for i in {1..12}; do
+    SLEEPING=$(virsh list --name)
+    if [[ -z "$SLEEPING" ]]; then
+        break
+    fi
+    echo "Aguardando VMs desligarem..."
+    sleep 5
+done
+
+echo "Iniciando backup dos discos em /var/lib/libvirt/images/"
+for DISK in /var/lib/libvirt/images/*; do
+    if [[ -f "$DISK" ]]; then
+        echo "Copiando $DISK para $BACKUP_DIR/"
+        cp --sparse=always -v "$DISK" "$BACKUP_DIR/"
+    fi
+done
+
+echo "Iniciando todas as VMs novamente..."
+for VM in $(virsh list --all --name | grep -v "^$"); do
+    # Inicia apenas se estava rodando antes (opcional: pode manter lista antes do shutdown)
+    virsh start "$VM"
+done
+
+echo "Backup concluído em $BACKUP_DIR e VMs reiniciadas."
