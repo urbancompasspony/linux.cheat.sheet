@@ -1,0 +1,9 @@
+
+sudo cp /etc/netplan/01-netcfg.yaml ~/01-netcfg.yaml.backup
+
+sudo cp ~/01-netcfg.yaml.backup /etc/netplan/01-netcfg.yaml
+
+sudo chmod 644 /etc/netplan/01-netcfg.yaml
+sudo chown root:root /etc/netplan/01-netcfg.yaml
+
+sudo netplan apply
