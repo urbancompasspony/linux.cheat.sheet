@@ -1,0 +1,34 @@
+XML em /etc/libvirt/qemu/W11Pro.xml
+
+##############################################################################
+EXPORTAR:
+
+# Exporta o XML de todas as VMs existentes no libvirt (QEMU/KVM)
+
+EXPORT_DIR="./vms_export"
+mkdir -p "$EXPORT_DIR"
+
+for VM in $(virsh list --all --name | grep -v "^$"); do
+    echo "Exportando $VM..."
+    virsh dumpxml "$VM" > "$EXPORT_DIR/$VM.xml"
+done
+
+echo "Exportação concluída. Arquivos salvos em $EXPORT_DIR"
+
+##############################################################################
+IMPORTAR:
+
+#!/bin/bash
+# Importa todos os XMLs de VMs e inicia cada VM
+
+IMPORT_DIR="./vms_export"
+
+for XML in "$IMPORT_DIR"/*.xml; do
+    VM_NAME=$(basename "$XML" .xml)
+    echo "Importando $VM_NAME..."
+    virsh define "$XML"
+    echo "Iniciando $VM_NAME..."
+    virsh start "$VM_NAME"
+done
+
+echo "Importação e inicialização concluídas."
