@@ -1,0 +1,404 @@
+#!/bin/bash
+
+# =============================================================================
+# SCRIPT PARA AUTO-APLICAÇÃO DE HOSTNAME DO SYSTEM.YAML
+# =============================================================================
+# Este script pode ser usado para aplicar automaticamente o hostname
+# salvo no system.yaml em sistemas recém-instalados ou restaurados
+
+YAML_FILE="/srv/system.yaml"
+
+# Função para obter hostname do system.yaml
+function get_hostname_from_yaml {
+  if [ ! -f "$YAML_FILE" ]; then
+    return 1
+  fi
+  
+  # Verifica se yq está disponível
+  if ! command -v yq >/dev/null 2>&1; then
+    echo "ERRO: yq não está instalado. Instale com: sudo apt install yq" >&2
+    return 1
+  fi
+  
+  hostname_from_yaml=$(yq -r '.Sistema.Hostname // empty' "$YAML_FILE" 2>/dev/null)
+  echo "$hostname_from_yaml"
+}
+
+# Função principal para aplicação automática
+function auto_apply_hostname {
+  local current_hostname=$(hostname)
+  local yaml_hostname=$(get_hostname_from_yaml)
+  
+  echo "🔍 Verificando configuração de hostname..."
+  echo "   Hostname atual: $current_hostname"
+  
+  # Se não há hostname definido no YAML, não faz nada
+  if [ -z "$yaml_hostname" ]; then
+    echo "ℹ️  Hostname não definido no system.yaml"
+    echo "   Nenhuma ação necessária"
+    return 0
+  fi
+  
+  echo "   Hostname no YAML: $yaml_hostname"
+  
+  # Se já está sincronizado, não faz nada
+  if [ "$current_hostname" = "$yaml_hostname" ]; then
+    echo "✅ Hostname já está sincronizado"
+    return 0
+  fi
+  
+  echo "⚠️  Hostname do sistema difere do configurado no YAML"
+  
+  # Verifica se deve aplicar automaticamente
+  local auto_apply=false
+  
+  # Aplica automaticamente se hostname atual é um dos padrões
+  if [[ "$current_hostname" =~ ^(ubuntu|debian|localhost|server)$ ]]; then
+    auto_apply=true
+    echo "🔄 Hostname padrão detectado - aplicando automaticamente..."
+  fi
+  
+  # Se não é padrão, pergunta ao usuário (se está em terminal interativo)
+  if [ "$auto_apply" = false ]; then
+    if [ -t 0 ]; then  # Se está em terminal interativo
+      echo ""
+      echo "❓ Deseja aplicar o hostname do system.yaml?"
+      echo "   De: $current_hostname"
+      echo "   Para: $yaml_hostname"
+      read -p "   Aplicar? (y/N): " response
+      
+      if [[ "$response" =~ ^[Yy]$ ]]; then
+        auto_apply=true
+      else
+        echo "❌ Aplicação cancelada pelo usuário"
+        return 0
+      fi
+    else
+      echo "⚠️  Terminal não interativo - aplicação automática cancelada"
+      echo "   Execute manualmente: sudo hostnamectl set-hostname $yaml_hostname"
+      return 1
+    fi
+  fi
+  
+  if [ "$auto_apply" = true ]; then
+    apply_hostname_from_yaml "$yaml_hostname" "$current_hostname"
+  fi
+}
+
+# Função para aplicar hostname do YAML
+function apply_hostname_from_yaml {
+  local new_hostname="$1"
+  local current_hostname="$2"
+  local datetime=$(date +"%d/%m/%Y - %H:%M:%S")
+  
+  echo "🚀 Aplicando hostname '$new_hostname'..."
+  
+  # Verifica se script está rodando como root
+  if [ "$EUID" -ne 0 ]; then
+    echo "❌ Este script precisa ser executado como root"
+    echo "   Execute: sudo $0"
+    return 1
+  fi
+  
+  # Backup do /etc/hosts
+  local backup_file="/tmp/hosts_backup_$(date +%s)"
+  if ! cp /etc/hosts "$backup_file"; then
+    echo "❌ Falha ao criar backup do /etc/hosts"
+    return 1
+  fi
+  
+  echo "📋 Backup do /etc/hosts salvo em: $backup_file"
+  
+  # 1. Altera via hostnamectl
+  echo "🔧 Configurando hostname via hostnamectl..."
+  if ! hostnamectl set-hostname "$new_hostname"; then
+    echo "❌ Falha ao definir hostname via hostnamectl"
+    return 1
+  fi
+  
+  # 2. Atualiza /etc/hosts
+  echo "🔧 Atualizando /etc/hosts..."
+  
+  # Remove entradas antigas do hostname
+  sed -i "/$current_hostname/d" /etc/hosts
+  
+  # Adiciona novas entradas
+  if ! grep -q "127.0.0.1.*$new_hostname" /etc/hosts; then
+    sed -i "1a\\127.0.0.1\t$new_hostname" /etc/hosts
+  fi
+  
+  if ! grep -q "127.0.1.1.*$new_hostname" /etc/hosts; then
+    sed -i "/127.0.0.1.*$new_hostname/a\\127.0.1.1\t$new_hostname" /etc/hosts
+  fi
+  
+  # 3. Atualiza /etc/hostname
+  echo "🔧 Atualizando /etc/hostname..."
+  echo "$new_hostname" | tee /etc/hostname > /dev/null
+  
+  # 4. Atualiza data de aplicação no YAML
+  if [ -f "$YAML_FILE" ] && command -v yq >/dev/null 2>&1; then
+    echo "📝 Atualizando data de aplicação no system.yaml..."
+    yq -i ".Sistema.Data_Aplicacao = \"$datetime\"" "$YAML_FILE"
+  fi
+  
+  # 5. Verifica se a alteração foi bem-sucedida
+  sleep 1
+  local verification_hostname=$(hostnamectl --static)
+  
+  if [ "$verification_hostname" = "$new_hostname" ]; then
+    echo ""
+    echo "✅ HOSTNAME APLICADO COM SUCESSO!"
+    echo "   Anterior: $current_hostname"
+    echo "   Novo: $new_hostname"
+    echo "   Data: $datetime"
+    echo ""
+    echo "💡 Recomendação: Reinicie o sistema para garantir que todas"
+    echo "   as aplicações reconheçam a mudança."
+    echo "   Comando: sudo reboot"
+    echo ""
+    return 0
+  else
+    echo "❌ ERRO: Falha na verificação do hostname"
+    echo "   Restaurando backup..."
+    cp "$backup_file" /etc/hosts
+    echo "   Backup restaurado"
+    return 1
+  fi
+}
+
+# Função para exibir informações detalhadas
+function show_hostname_status {
+  local current_hostname=$(hostname)
+  local yaml_hostname=$(get_hostname_from_yaml)
+  
+  echo "🖥️  INFORMAÇÕES DO HOSTNAME"
+  echo "================================"
+  echo "Hostname atual do sistema: $current_hostname"
+  echo "Hostname estático: $(hostnamectl --static)"
+  echo "Hostname transiente: $(hostnamectl --transient)"
+  echo "FQDN: $(hostname -f 2>/dev/null || echo 'Não disponível')"
+  echo ""
+  
+  if [ -n "$yaml_hostname" ]; then
+    echo "📄 CONFIGURAÇÃO NO SYSTEM.YAML:"
+    echo "Hostname definido: $yaml_hostname"
+    
+    if [ -f "$YAML_FILE" ] && command -v yq >/dev/null 2>&1; then
+      local yaml_date=$(yq -r '.Sistema.Data_Hostname // "Não disponível"' "$YAML_FILE" 2>/dev/null)
+      local yaml_applied=$(yq -r '.Sistema.Data_Aplicacao // "Nunca aplicado"' "$YAML_FILE" 2>/dev/null)
+      echo "Data de definição: $yaml_date"
+      echo "Última aplicação: $yaml_applied"
+    fi
+    
+    echo ""
+    if [ "$current_hostname" = "$yaml_hostname" ]; then
+      echo "✅ STATUS: Hostname sincronizado"
+    else
+      echo "⚠️  STATUS: Hostname desatualizado"
+      echo "   Use: sudo $0 --apply para sincronizar"
+    fi
+  else
+    echo "❌ CONFIGURAÇÃO NO SYSTEM.YAML:"
+    echo "Hostname não definido no arquivo"
+  fi
+  
+  echo ""
+  echo "📋 ARQUIVO /etc/hosts (entradas relevantes):"
+  grep -E "(127\.0\.0\.1|127\.0\.1\.1)" /etc/hosts | head -5
+}
+
+# Função para mostrar ajuda
+function show_help {
+  echo "🔧 GERENCIADOR DE HOSTNAME DO SYSTEM.YAML"
+  echo "=========================================="
+  echo ""
+  echo "USAGE: $0 [OPÇÃO]"
+  echo ""
+  echo "OPÇÕES:"
+  echo "  --apply, -a       Aplica hostname do system.yaml (interativo se necessário)"
+  echo "  --force, -f       Força aplicação sem perguntar"
+  echo "  --status, -s      Mostra status atual do hostname"
+  echo "  --help, -h        Mostra esta ajuda"
+  echo ""
+  echo "EXEMPLOS:"
+  echo "  $0                    # Execução padrão (aplica se hostname for padrão)"
+  echo "  $0 --apply           # Aplica hostname do YAML (pergunta se necessário)"
+  echo "  $0 --force           # Força aplicação sem perguntar"
+  echo "  $0 --status          # Apenas mostra informações"
+  echo ""
+  echo "ARQUIVOS:"
+  echo "  $YAML_FILE    # Arquivo de configuração"
+  echo "  /etc/hostname         # Arquivo de hostname do sistema"
+  echo "  /etc/hosts            # Arquivo de resolução local"
+  echo ""
+  echo "DEPENDÊNCIAS:"
+  echo "  - yq (sudo apt install yq)"
+  echo "  - hostnamectl (systemd)"
+  echo ""
+}
+
+# Função para instalar dependências
+function install_dependencies {
+  echo "📦 Verificando dependências..."
+  
+  local missing_deps=()
+  
+  # Verifica yq
+  if ! command -v yq >/dev/null 2>&1; then
+    missing_deps+=("yq")
+  fi
+  
+  # Verifica hostnamectl (parte do systemd)
+  if ! command -v hostnamectl >/dev/null 2>&1; then
+    missing_deps+=("systemd")
+  fi
+  
+  if [ ${#missing_deps[@]} -gt 0 ]; then
+    echo "❌ Dependências faltando: ${missing_deps[*]}"
+    echo ""
+    echo "Para instalar:"
+    
+    for dep in "${missing_deps[@]}"; do
+      case "$dep" in
+        "yq")
+          echo "  sudo apt update && sudo apt install yq -y"
+          ;;
+        "systemd")
+          echo "  sudo apt update && sudo apt install systemd -y"
+          ;;
+      esac
+    done
+    
+    echo ""
+    read -p "Instalar dependências automaticamente? (y/N): " install_deps
+    
+    if [[ "$install_deps" =~ ^[Yy]$ ]]; then
+      echo "🚀 Instalando dependências..."
+      
+      if [ "$EUID" -ne 0 ]; then
+        echo "❌ Precisa de privilégios de root para instalar dependências"
+        echo "   Execute: sudo $0"
+        return 1
+      fi
+      
+      apt update
+      for dep in "${missing_deps[@]}"; do
+        case "$dep" in
+          "yq") apt install yq -y ;;
+          "systemd") apt install systemd -y ;;
+        esac
+      done
+      
+      echo "✅ Dependências instaladas com sucesso!"
+      return 0
+    else
+      echo "❌ Instalação cancelada"
+      return 1
+    fi
+  else
+    echo "✅ Todas as dependências estão instaladas"
+    return 0
+  fi
+}
+
+# Função para validar arquivo YAML
+function validate_yaml_file {
+  if [ ! -f "$YAML_FILE" ]; then
+    echo "❌ Arquivo system.yaml não encontrado em: $YAML_FILE"
+    echo ""
+    echo "💡 O arquivo system.yaml deve conter uma seção como esta:"
+    echo ""
+    echo "Sistema:"
+    echo "  Hostname: \"meu-servidor\""
+    echo "  Data_Hostname: \"$(date +'%d/%m/%Y - %H:%M:%S')\""
+    echo ""
+    return 1
+  fi
+  
+  if ! command -v yq >/dev/null 2>&1; then
+    echo "❌ yq não está instalado"
+    return 1
+  fi
+  
+  # Verifica se o arquivo é um YAML válido
+  if ! yq -e '.' "$YAML_FILE" >/dev/null 2>&1; then
+    echo "❌ Arquivo system.yaml contém YAML inválido"
+    return 1
+  fi
+  
+  return 0
+}
+
+# =============================================================================
+# MAIN - PROCESSAMENTO DE ARGUMENTOS E EXECUÇÃO
+# =============================================================================
+
+# Verifica argumentos de linha de comando
+case "${1:-}" in
+  --help|-h)
+    show_help
+    exit 0
+    ;;
+  --status|-s)
+    validate_yaml_file || exit 1
+    show_hostname_status
+    exit 0
+    ;;
+  --apply|-a)
+    validate_yaml_file || exit 1
+    install_dependencies || exit 1
+    
+    # Força modo interativo
+    export FORCE_INTERACTIVE=true
+    auto_apply_hostname
+    exit $?
+    ;;
+  --force|-f)
+    validate_yaml_file || exit 1
+    install_dependencies || exit 1
+    
+    # Força aplicação sem perguntar
+    current_hostname=$(hostname)
+    yaml_hostname=$(get_hostname_from_yaml)
+    
+    if [ -z "$yaml_hostname" ]; then
+      echo "❌ Hostname não definido no system.yaml"
+      exit 1
+    fi
+    
+    if [ "$current_hostname" = "$yaml_hostname" ]; then
+      echo "✅ Hostname já está sincronizado: $current_hostname"
+      exit 0
+    fi
+    
+    echo "🔄 Forçando aplicação do hostname..."
+    echo "   De: $current_hostname"
+    echo "   Para: $yaml_hostname"
+    
+    if [ "$EUID" -ne 0 ]; then
+      echo "❌ Este script precisa ser executado como root para --force"
+      echo "   Execute: sudo $0 --force"
+      exit 1
+    fi
+    
+    apply_hostname_from_yaml "$yaml_hostname" "$current_hostname"
+    exit $?
+    ;;
+  --install-deps)
+    install_dependencies
+    exit $?
+    ;;
+  "")
+    # Execução padrão - aplicação automática inteligente
+    validate_yaml_file || exit 1
+    install_dependencies || exit 1
+    auto_apply_hostname
+    exit $?
+    ;;
+  *)
+    echo "❌ Opção inválida: $1"
+    echo ""
+    show_help
+    exit 1
+    ;;
+esac
