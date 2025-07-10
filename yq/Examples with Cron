@@ -1,2 +1,25 @@
 
 sudo yq -i '.rsnapshots += ["#00 7,10,13,16,19,22 * * 1-5 /usr/bin/rsnapshot -c /srv/scripts/rsnapshot alpha", "#00 23 * * 1-5 /usr/bin/rsnapshot -c /srv/scripts/rsnapshot beta", "#00 7 * * 6 /usr/bin/rsnapshot -c /srv/scripts/rsnapshot gamma"]' myfile.yaml
+
+Read from:
+
+function cron_rsnap {
+TMP_CRON=$(mktemp)
+
+# Pega o crontab atual do root (ou vazio se não existir)
+sudo crontab -l 2>/dev/null | sudo tee "$TMP_CRON"
+
+# Para cada job no YAML
+yq -r '.rsnapshots[]' "$yamlbase" | while read -r CRON_LINE; do
+  if grep -Fxq "$CRON_LINE" "$TMP_CRON"; then
+      echo "Job já existe no crontab: $CRON_LINE"
+  else
+      echo "$CRON_LINE" >> "$TMP_CRON"
+      echo "Adicionado job: $CRON_LINE"
+  fi
+done
+
+# Aplica o novo crontab ao root
+sudo crontab "$TMP_CRON"
+rm -f "$TMP_CRON"
+}
