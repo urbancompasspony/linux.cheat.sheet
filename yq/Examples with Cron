@@ -1,4 +1,6 @@
 
+PREFIRA O BACKUP DO CRON DIRETO COM CRONTAB -L!
+
 sudo yq -i '.rsnapshots += ["#00 7,10,13,16,19,22 * * 1-5 /usr/bin/rsnapshot -c /srv/scripts/rsnapshot alpha", "#00 23 * * 1-5 /usr/bin/rsnapshot -c /srv/scripts/rsnapshot beta", "#00 7 * * 6 /usr/bin/rsnapshot -c /srv/scripts/rsnapshot gamma"]' myfile.yaml
 
 Read from:
