@@ -1,6 +1,11 @@
 SUDO
-    (sudo crontab -l 2>/dev/null; echo "# Nextcloud") | sudo crontab -
-    (sudo crontab -l 2>/dev/null; echo "*/5 * * * * docker exec -t -u www-data $NOMECONTAINER php -f /var/www/html/cron.php") | sudo crontab -
+  CRONMENTARIO="# Pentest!"
+  CRONLINE="0 7 * * * docker exec \$NOMECONTAINER /pandora.sh"
+  (sudo crontab -l 2>/dev/null | grep -Fv "$CRONMENTARIO"; echo "$CRONMENTARIO") | sudo crontab -
+  (sudo crontab -l 2>/dev/null | grep -Fv "$CRONLINE"; echo "$CRONLINE") | sudo crontab -
 
-NON SUDO
-    (crontab -l 2>/dev/null; echo "#*/15 * * * * docker exec -t -u www-data $NOMECONTAINER ./occ files:scan --unscanned --all") | crontab -
+NOSUDO
+  CRONMENTARIO="# Pentest!"
+  CRONLINE="0 7 * * * docker exec \$NOMECONTAINER /pandora.sh"
+  (crontab -l 2>/dev/null | grep -Fv "$CRONMENTARIO"; echo "$CRONMENTARIO") | crontab -
+  (crontab -l 2>/dev/null | grep -Fv "$CRONLINE"; echo "$CRONLINE") | crontab -
