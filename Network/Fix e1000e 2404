@@ -1,3 +1,5 @@
+Para: Jul 20 15:08:23 dhtech kernel: e1000e 0000:01:00.0 enp1s0f0: Detected Hardware Unit Hang
+
 sudo tee /etc/systemd/system/fix-e1000e.service << 'EOF'
 [Unit]
 Description=Fix e1000e Hardware Unit Hang Prevention
@@ -17,3 +19,30 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable fix-e1000e.service
 sudo systemctl start fix-e1000e.service
+
+Se o erro se tornar:
+Jul 20 15:08:28 dhtech kernel: e1000e 0000:01:00.0 enp1s0f0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 5001 ms
+Jul 20 15:08:28 dhtech kernel: e1000e 0000:01:00.0 enp1s0f0: Reset adapter unexpectedly
+Jul 20 15:08:30 dhtech kernel: e1000e 0000:01:00.0 enp1s0f0: NIC Link is Up 1000 Mbps Full Duplex, Flow Control: None
+
+sudo tee /etc/modprobe.d/e1000e.conf << 'EOF'
+options e1000e InterruptThrottleRate=3000,3000
+options e1000e TxIntDelay=8
+options e1000e TxAbsIntDelay=32
+options e1000e RxIntDelay=0
+options e1000e RxAbsIntDelay=8
+EOF
+
+# Adicione ao kernel command line
+sudo nano /etc/default/grub
+# Adicione: e1000e.eee=0
+GRUB_CMDLINE_LINUX="e1000e.eee=0"
+sudo update-grub2
+
+E por fim:
+sudo nano /etc/systemd/system/fix-e1000e.service
+add bellow [Service] and above RemainAfterExit=yes
+ExecStart=/usr/sbin/ethtool -K enp1s0f0 rx-checksumming off tx-checksumming off
+ExecStart=/usr/sbin/ethtool -K enp1s0f1 rx-checksumming off tx-checksumming off
+ExecStart=/usr/sbin/ethtool -G enp1s0f0 rx 512 tx 512
+ExecStart=/usr/sbin/ethtool -G enp1s0f1 rx 512 tx 512
