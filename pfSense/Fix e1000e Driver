@@ -1,0 +1,19 @@
+System → Advanced → Networking:
+
+✅ Hardware Checksum Offloading
+✅ Hardware TCP Segmentation Offloading  
+✅ Hardware Large Receive Offloading
+✅ Suppress ARP messages
+
+System → Advanced → System Tunables:
+
+# Buffer tuning 
+net.inet.tcp.recvspace=65536
+net.inet.tcp.sendspace=65536
+ORIGINAL: both 65228
+
+# Para virtio-net, CREATE:
+hw.vtnet.csum_disable
+hw.vtnet.tso_disable
+hw.vtnet.lro_disable
+All Values: 0
