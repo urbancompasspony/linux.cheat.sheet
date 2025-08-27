@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker run -dit --restart=always --name bash-workspace -v $PWD:$PWD -w $PWD --entrypoint bash debian:12 -xc "sleep infinity"
+
+docker exec -it bash-workspace bash
+
+exit 0
