@@ -1,0 +1,101 @@
+#!/bin/bash
+
+#####################################################################################################
+
+# Servidor Linux
+servidor1_user="administrador"
+password_servidor1="SENHA_AQUI"
+servidor1_host="HOSTNAME_TAILSCALE"
+
+# Servidor pfSense
+servidor2_user="admin"
+password_servidor2="SENHA_AQUI"
+servidor2_ip="192.168.x.1"
+
+# Servidor Alvo Final
+target_rdp_ip="192.168.x.y"
+# Portas locais (você pode alterar se necessário)
+porta_local_tunel1=2221   # Porta local para conectar ao segundo servidor
+porta_local_rdp=3389      # Porta local para acessar o RDP
+
+# More Settings
+scpoptions="-o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null -o ServerAliveInterval=60 -o ServerAliveCountMax=5"
+
+#####################################################################################################
+
+echo "=== Sistema de Túneis SSH para RDP ==="
+echo ""
+
+# Função para cleanup ao sair
+cleanup() {
+    echo ""
+    echo "Encerrando túneis..."
+    jobs -p | xargs -r kill
+    exit 0
+}
+trap cleanup SIGINT SIGTERM
+
+echo "1. Criando primeiro túnel: $servidor1_user@$servidor1_host"
+echo "   Mapeando porta local $porta_local_tunel1 para $servidor2_ip:22"
+
+sshpass -p "$password_servidor1" ssh $scpoptions "$servidor1_user@$servidor1_host" -N -L "$porta_local_tunel1:$servidor2_ip:22" &
+
+tunel1_pid=$!
+sleep 3
+
+if ! kill -0 $tunel1_pid 2>/dev/null; then
+    echo "ERRO: Primeiro túnel falhou!"
+    exit 1
+fi
+echo "   ✓ Primeiro túnel estabelecido (PID: $tunel1_pid)"
+
+echo ""
+echo "2. Criando segundo túnel através do primeiro:"
+echo ""
+
+sshpass -p "$password_servidor2" ssh $scpoptions "$servidor2_user@localhost" -p "$porta_local_tunel1" -N -L "$porta_local_rdp:$target_rdp_ip:3389" &
+
+tunel2_pid=$!
+sleep 3
+
+if ! kill -0 $tunel2_pid 2>/dev/null; then
+    echo "ERRO: Segundo túnel falhou!"
+    kill $tunel1_pid 2>/dev/null
+    exit 1
+fi
+echo "   ✓ Segundo túnel estabelecido (PID: $tunel2_pid)"
+
+echo ""
+echo "=== TÚNEIS ESTABELECIDOS COM SUCESSO ==="
+echo ""
+echo "🎯 Para acessar o RDP do Windows Server:"
+echo "   Servidor: localhost"
+echo "   Porta: $porta_local_rdp"
+echo ""
+echo "💡 No seu cliente RDP, conecte em: localhost:$porta_local_rdp"
+echo ""
+echo "⚠️  Mantenha este terminal aberto enquanto usar o RDP!"
+echo "   Pressione Ctrl+C para encerrar os túneis"
+echo ""
+
+# Monitora os túneis
+while true; do
+    if ! kill -0 $tunel1_pid 2>/dev/null; then
+        echo "❌ Túnel 1 perdido! Reconectando..."
+        sshpass -p "$password_servidor1" ssh $scpoptions "$servidor1_user@$servidor1_host" \
+            -N -L "$porta_local_tunel1:$servidor2_ip:22" &
+        tunel1_pid=$!
+        sleep 3
+    fi
+
+    if ! kill -0 $tunel2_pid 2>/dev/null; then
+        echo "❌ Túnel 2 perdido! Reconectando..."
+        sshpass -p "$password_servidor2" ssh $scpoptions "$servidor2_user@localhost" \
+            -p "$porta_local_tunel1" \
+            -N -L "$porta_local_rdp:$target_rdp_ip:3389" &
+        tunel2_pid=$!
+        sleep 3
+    fi
+
+    sleep 10
+done
