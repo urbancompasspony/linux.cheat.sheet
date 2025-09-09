@@ -1,1 +1,4 @@
+inxi -m
+
+deprecated
 sudo lshw -short -C memory
