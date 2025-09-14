@@ -1,0 +1,57 @@
+###########################################################################################################################
+
+Kubuntu 25.04 (apt)
+
+curl -s https://repo.waydro.id | sudo bash
+sudo apt modernize-sources
+sudo apt install waydroid -y
+waydroid init
+waydroid show-full-ui
+
+Uninstall:
+waydroid session stop
+sudo waydroid container stop
+sudo apt purge waydroid
+sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
+
+###########################################################################################################################
+
+Kubuntu 25.04 (distrobox)
+
+sudo apt install distrobox
+
+distrobox create --root --image ghcr.io/vanilla-os/waydroid:main --init --unshare-all --name waydroid
+distrobox enter --root waydroid
+
+Inside container:
+sudo waydroid init
+ewaydroid show-full-ui
+
+###########################################################################################################################
+
+EndeavourOS NOT WORKING!
+
+yay -S binder_linux-dkms
+
+# Criar binderfs
+sudo mkdir -p /dev/binderfs
+sudo mount -t binder binder /dev/binderfs
+
+# Verificar se criou os dispositivos
+ls -la /dev/binderfs/
+
+distrobox create --root --image ghcr.io/vanilla-os/waydroid:main --init --unshare-all --name waydroid
+distrobox enter --root waydroid
+
+Inside container:
+sudo waydroid init
+ewaydroid show-full-ui
+ERROR?
+
+sudo waydroid init --force
+ls -la /var/lib/waydroid/images/
+
+sudo systemctl start waydroid-container
+systemctl status waydroid-init
+sudo ln -s /usr/bin/distrobox-host-exec /usr/local/bin/docker
+
