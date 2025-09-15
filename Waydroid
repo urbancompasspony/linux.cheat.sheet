@@ -40,15 +40,9 @@ yay -S binder_linux-dkms
 
 (de agora em diante copia e cola tudo de uma vez! rode em uma sequencia só que dá certo, exceto Inside container:)
 
-# Criar binderfs
 sudo mkdir -p /dev/binderfs
 sudo mount -t binder binder /dev/binderfs
-
-# Verificar se criou os dispositivos
 ls -la /dev/binderfs/
-
-sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
-
 distrobox create --root --image ghcr.io/vanilla-os/waydroid:main --init --unshare-all --name waydroid
 distrobox enter --root waydroid
 
