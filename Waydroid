@@ -32,7 +32,7 @@ docker rm -f wayland
 sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
 
 ###########################################################################################################################
-EndeavourOS
+EndeavourOS (copia e cola tudo de uma vez! rode em uma sequencia só que dá certo, exceto uninstall)
 
 yay -S binder_linux-dkms
 
