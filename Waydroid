@@ -4,7 +4,7 @@ Kubuntu 25.04 (apt)
 curl -s https://repo.waydro.id | sudo bash
 sudo apt modernize-sources
 sudo apt install waydroid -y
-waydroid init
+sudo waydroid init -s GAPPS
 waydroid show-full-ui
 
 ###########################
@@ -23,7 +23,7 @@ distrobox create --root --image ghcr.io/vanilla-os/waydroid:main --init --unshar
 distrobox enter --root waydroid
 
 Inside container:
-sudo waydroid init
+sudo waydroid init -s GAPPS
 ewaydroid show-full-ui
 
 ###########################
@@ -53,7 +53,7 @@ distrobox create --root --image ghcr.io/vanilla-os/waydroid:main --init --unshar
 distrobox enter --root waydroid
 
 Inside container:
-sudo waydroid init
+sudo waydroid init -s GAPPS
 ewaydroid show-full-ui
 
 ###########################
