@@ -7,6 +7,7 @@ sudo apt install waydroid -y
 waydroid init
 waydroid show-full-ui
 
+###########################
 Uninstall:
 waydroid session stop
 sudo waydroid container stop
@@ -25,6 +26,7 @@ Inside container:
 sudo waydroid init
 ewaydroid show-full-ui
 
+###########################
 Uninstall:
 waydroid session stop
 sudo waydroid container stop
@@ -52,8 +54,9 @@ Inside container:
 sudo waydroid init
 ewaydroid show-full-ui
 
+###########################
 Uninstall:
 waydroid session stop
 sudo waydroid container stop
-docker rm -f wayland
+docker rm -f waydroid
 sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
