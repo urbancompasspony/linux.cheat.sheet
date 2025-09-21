@@ -1,0 +1,206 @@
+#!/bin/bash
+
+# Setup Waydroid com Distrobox no Ubuntu Server + Wayland
+
+echo "🤖 Configurando Waydroid com Distrobox..."
+
+# 1. PREPARAR O HOST (Ubuntu Server)
+echo "📋 Verificando módulos do kernel..."
+
+# Verificar se os módulos necessários estão disponíveis
+if ! lsmod | grep -q binder; then
+    echo "⚠️  Módulo binder não encontrado. Tentando carregar..."
+    
+    # Para Ubuntu Server, pode precisar instalar kernel modules extras
+    sudo apt update
+    sudo apt install -y linux-modules-extra-$(uname -r) dkms
+    
+    # Tentar carregar módulos
+    sudo modprobe binder_linux || echo "❌ Módulo binder não disponível"
+    sudo modprobe ashmem_linux || echo "❌ Módulo ashmem não disponível"
+fi
+
+# 2. CRIAR CONTAINER DISTROBOX ESPECÍFICO PARA WAYDROID
+echo "📦 Criando container Distrobox para Waydroid..."
+
+# Usar Arch Linux que tem melhor suporte ao Waydroid
+distrobox create \
+    --name waydroid-container \
+    --image archlinux:latest \
+    --additional-flags "--privileged --device /dev/kvm --device /dev/dri" \
+    --home ~/waydroid-home
+
+echo "🔧 Entrando no container para configurar..."
+
+# 3. SCRIPT PARA EXECUTAR DENTRO DO CONTAINER
+cat > ~/setup-waydroid-inside-container.sh << 'EOF'
+#!/bin/bash
+
+echo "🏗️  Configurando Waydroid dentro do container Arch..."
+
+# Atualizar sistema
+sudo pacman -Syu --noconfirm
+
+# Instalar Waydroid
+sudo pacman -S --noconfirm waydroid python-pyclip
+
+# Instalar AUR helper (yay)
+sudo pacman -S --noconfirm base-devel git
+cd /tmp
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si --noconfirm
+cd ~
+
+# Instalar dependências adicionais do AUR se necessário
+# yay -S --noconfirm waydroid-script-git
+
+# Configurar grupos de usuário
+sudo usermod -a -G wheel $USER
+
+# Verificar se podemos acessar dispositivos necessários
+echo "🔍 Verificando acesso a dispositivos..."
+ls -la /dev/kvm /dev/dri/ 2>/dev/null || echo "⚠️  Alguns dispositivos podem não estar disponíveis"
+
+# Configurar Waydroid
+echo "⚙️  Configurando Waydroid..."
+
+# Inicializar Waydroid (pode falhar se módulos não estiverem disponíveis)
+if sudo waydroid init; then
+    echo "✅ Waydroid inicializado com sucesso!"
+    
+    # Configurações básicas
+    waydroid prop set persist.waydroid.multi_windows true
+    waydroid prop set persist.waydroid.cursor_on_subsurface true
+    
+    echo "🚀 Para iniciar o Waydroid:"
+    echo "  sudo waydroid container start"
+    echo "  waydroid session start &"
+    echo "  waydroid show-full-ui"
+    
+else
+    echo "❌ Falha na inicialização do Waydroid"
+    echo "Possíveis problemas:"
+    echo "1. Módulos kernel não disponíveis"
+    echo "2. Permissões insuficientes"
+    echo "3. Kernel não suportado"
+fi
+
+EOF
+
+chmod +x ~/setup-waydroid-inside-container.sh
+
+# 4. SCRIPT ALTERNATIVO - WAYDROID NO HOST
+cat > ~/setup-waydroid-host.sh << 'EOF'
+#!/bin/bash
+
+echo "🏠 Alternativa: Instalando Waydroid diretamente no host..."
+
+# Adicionar repositório oficial do Waydroid
+sudo apt install -y curl ca-certificates
+curl https://repo.waydro.id | sudo bash
+
+# Instalar Waydroid
+sudo apt update
+sudo apt install -y waydroid
+
+# Verificar módulos do kernel
+echo "🔍 Verificando módulos do kernel..."
+if sudo modprobe binder_linux && sudo modprobe ashmem_linux; then
+    echo "✅ Módulos carregados com sucesso!"
+    
+    # Inicializar Waydroid
+    sudo waydroid init
+    
+    # Configurações
+    waydroid prop set persist.waydroid.multi_windows true
+    waydroid prop set persist.waydroid.cursor_on_subsurface true
+    
+    echo "🚀 Para usar:"
+    echo "  sudo waydroid container start"
+    echo "  waydroid session start &"
+    echo "  waydroid show-full-ui"
+    
+else
+    echo "❌ Módulos do kernel não disponíveis"
+    echo "Ubuntu Server pode não ter suporte completo"
+fi
+
+EOF
+
+chmod +x ~/setup-waydroid-host.sh
+
+# 5. SCRIPT DE USO DIÁRIO
+cat > ~/.local/bin/waydroid-launcher << 'EOF'
+#!/bin/bash
+
+echo "🤖 Waydroid Launcher"
+echo "===================="
+echo "1) Usar Waydroid no host"
+echo "2) Usar Waydroid no Distrobox"
+echo "3) Verificar status"
+
+read -p "Escolha uma opção [1-3]: " choice
+
+case $choice in
+    1)
+        echo "🏠 Iniciando Waydroid no host..."
+        sudo waydroid container start
+        waydroid session start &
+        sleep 3
+        waydroid show-full-ui
+        ;;
+    2)
+        echo "📦 Entrando no container Waydroid..."
+        distrobox enter waydroid-container
+        ;;
+    3)
+        echo "📊 Status do Waydroid:"
+        waydroid status 2>/dev/null || echo "Waydroid não está rodando"
+        echo ""
+        echo "📊 Status do container:"
+        distrobox list | grep waydroid || echo "Container waydroid não encontrado"
+        ;;
+    *)
+        echo "❌ Opção inválida"
+        ;;
+esac
+
+EOF
+
+chmod +x ~/.local/bin/waydroid-launcher
+
+# 6. INSTRUÇÕES FINAIS
+cat << 'EOF'
+
+🎯 PRÓXIMOS PASSOS:
+
+1️⃣  MÉTODO RECOMENDADO - Host direto:
+   ./setup-waydroid-host.sh
+
+2️⃣  MÉTODO ALTERNATIVO - Distrobox:
+   distrobox enter waydroid-container
+   ./setup-waydroid-inside-container.sh
+
+3️⃣  Para usar diariamente:
+   waydroid-launcher
+
+⚠️  ATENÇÃO:
+- Ubuntu Server pode não ter todos os módulos necessários
+- Se módulos falharem, considere usar um kernel mainline
+- Waydroid funciona melhor em distribuições com kernel mais recente
+
+🔍 VERIFICAR COMPATIBILIDADE:
+   lsmod | grep binder
+   lsmod | grep ashmem
+   uname -r
+
+📱 APPS RECOMENDADOS PARA TESTAR:
+- F-Droid (loja alternativa)
+- Aurora Store (Google Play sem conta)
+- Apps simples como calculadora
+
+EOF
+
+echo "✅ Scripts criados!"
+echo "Execute um dos métodos acima para continuar."
