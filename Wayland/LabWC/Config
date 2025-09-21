@@ -1,5 +1,0 @@
-
-sudo apt install openbox wayland labwc obconf -y
-
-cp /etc/xdg/openbox/menu.xml ~/.config/labwc/menu.xml
-
