@@ -1,0 +1,681 @@
+#!/bin/bash
+
+# Menu Simples de Configuração de Rede
+
+NETPLAN_FILE="/etc/netplan/50-cloud-init.yaml"
+
+echo "🌐 CONFIGURADOR SIMPLES DE REDE"
+echo "================================"
+
+# Função 1: Mostrar status das interfaces
+function show_interface_status() {
+    echo ""
+    echo "📋 STATUS DAS INTERFACES:"
+    echo "┌────────────┬─────────────────────────────────────────┬─────────┐"
+    echo "│ Interface  │ Descrição                               │ Status  │"
+    echo "├────────────┼─────────────────────────────────────────┼─────────┤"
+    
+    for interface in $(ls /sys/class/net/ | grep -E '^en' | sort); do
+        # Status da interface
+        status=$(cat /sys/class/net/$interface/operstate 2>/dev/null || echo "unknown")
+        
+        # Driver/Descrição
+        driver=$(basename $(readlink /sys/class/net/$interface/device/driver) 2>/dev/null || echo "unknown")
+        
+        # Ícone do status
+        case $status in
+            "up") status_icon="🟢 UP  " ;;
+            "down") status_icon="🔴 DOWN" ;;
+            *) status_icon="⚪ $status" ;;
+        esac
+        
+        printf "│ %-10s │ %-39s │ %-7s │\n" "$interface" "$driver" "$status_icon"
+    done
+    
+    echo "└────────────┴─────────────────────────────────────────┴─────────┘"
+    echo ""
+}
+
+# Função 2: Monitorar status em tempo real
+function watch_interface_status() {
+    echo ""
+    echo "⏱️  MONITORAMENTO EM TEMPO REAL"
+    echo "==============================="
+    echo ""
+    echo "💡 Conecte/desconecte cabos para ver mudanças instantâneas!"
+    echo "   Pressione Ctrl+C para parar o monitoramento"
+    echo ""
+    echo "🔄 Iniciando monitoramento..."
+    sleep 2
+    
+    # Loop de monitoramento
+    while true; do
+        # Limpa a tela
+        clear
+        
+        # Cabeçalho
+        echo "⏱️  MONITORAMENTO EM TEMPO REAL - $(date '+%H:%M:%S')"
+        echo "=================================================="
+        echo ""
+        echo "💡 Pressione Ctrl+C para parar"
+        echo ""
+        
+        # Tabela de status
+        echo "📋 STATUS ATUAL DAS INTERFACES:"
+        echo "┌────────────┬─────────────────────────┬─────────┬──────────┬──────────┐"
+        echo "│ Interface  │ Descrição               │ Status  │ Cabo     │Velocidade│"
+        echo "├────────────┼─────────────────────────┼─────────┼──────────┼──────────┤"
+        
+        for interface in $(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | sort); do
+            # Status da interface
+            status=$(cat /sys/class/net/$interface/operstate 2>/dev/null || echo "unknown")
+            
+            # Driver/Descrição (nome mais curto para caber na tela)
+            driver=$(basename $(readlink /sys/class/net/$interface/device/driver) 2>/dev/null || echo "unknown")
+            driver=$(echo "$driver" | cut -c1-23)  # Limita a 23 caracteres
+            
+            # Status do cabo (carrier)
+            carrier=$(cat /sys/class/net/$interface/carrier 2>/dev/null || echo "0")
+            
+            # Velocidade da conexão
+            speed=""
+            if [ "$carrier" = "1" ] && [ "$status" = "up" ]; then
+                speed_val=$(cat /sys/class/net/$interface/speed 2>/dev/null || echo "-1")
+                if [ "$speed_val" != "-1" ] && [ "$speed_val" != "" ]; then
+                    speed="${speed_val}M"
+                else
+                    speed="N/A"
+                fi
+            else
+                speed="-"
+            fi
+            
+            # Ícones do status
+            case $status in
+                "up") status_icon="🟢 UP  " ;;
+                "down") status_icon="🔴 DOWN" ;;
+                *) status_icon="⚪ $status" ;;
+            esac
+            
+            # Ícones do cabo
+            case $carrier in
+                "1") cable_icon="🔗 SIM  " ;;
+                "0") cable_icon="❌ NÃO  " ;;
+                *) cable_icon="❓ N/A" ;;
+            esac
+            
+            printf "│ %-10s │ %-23s │ %-7s │ %-8s │ %-9s \n" "$interface" "$driver" "$status_icon" "$cable_icon" "$speed"
+        done
+        
+        echo "└────────────┴─────────────────────────┴─────────┴──────────┴───────────┘"
+        
+        # Estatísticas resumidas
+        echo ""
+        echo "📊 RESUMO:"
+        
+        total_interfaces=$(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | wc -l)
+        up_interfaces=$(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | while read iface; do cat /sys/class/net/$iface/operstate 2>/dev/null; done | grep -c "up")
+        connected_cables=$(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | while read iface; do cat /sys/class/net/$iface/carrier 2>/dev/null; done | grep -c "1")
+        
+        echo "   📈 Total de interfaces: $total_interfaces"
+        echo "   🟢 Interfaces UP: $up_interfaces"
+        echo "   🔗 Cabos conectados: $connected_cables"
+        
+        # Aguarda 1 segundo antes da próxima atualização
+        sleep 1
+    done
+}
+
+# Função 2: Monitorar status em tempo real
+function watch_interface_status() {
+    echo ""
+    echo "⏱️  MONITORAMENTO EM TEMPO REAL"
+    echo "==============================="
+    echo ""
+    echo "💡 Conecte/desconecte cabos para ver mudanças instantâneas!"
+    echo "   Pressione Ctrl+C para parar o monitoramento"
+    echo ""
+    echo "🔄 Iniciando monitoramento..."
+    sleep 2
+    
+    # Loop de monitoramento
+    while true; do
+        # Limpa a tela
+        clear
+        
+        # Cabeçalho
+        echo "⏱️  MONITORAMENTO EM TEMPO REAL - $(date '+%H:%M:%S')"
+        echo "=================================================="
+        echo ""
+        echo "💡 Pressione Ctrl+C para parar"
+        echo ""
+        
+        # Tabela de status
+        echo "📋 STATUS ATUAL DAS INTERFACES:"
+        echo "┌────────────┬─────────────────────────┬─────────┬──────────┬──────────┐"
+        echo "│ Interface  │ Descrição               │ Status  │ Cabo     │Velocidade│"
+        echo "├────────────┼─────────────────────────┼─────────┼──────────┼──────────┤"
+        
+        for interface in $(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | sort); do
+            # Status da interface
+            status=$(cat /sys/class/net/$interface/operstate 2>/dev/null || echo "unknown")
+            
+            # Driver/Descrição (nome mais curto para caber na tela)
+            driver=$(basename $(readlink /sys/class/net/$interface/device/driver) 2>/dev/null || echo "unknown")
+            driver=$(echo "$driver" | cut -c1-23)  # Limita a 23 caracteres
+            
+            # Status do cabo (carrier)
+            carrier=$(cat /sys/class/net/$interface/carrier 2>/dev/null || echo "0")
+            
+            # Velocidade da conexão
+            speed=""
+            if [ "$carrier" = "1" ] && [ "$status" = "up" ]; then
+                speed_val=$(cat /sys/class/net/$interface/speed 2>/dev/null || echo "-1")
+                if [ "$speed_val" != "-1" ] && [ "$speed_val" != "" ]; then
+                    speed="${speed_val}M"
+                else
+                    speed="N/A"
+                fi
+            else
+                speed="-"
+            fi
+            
+            # Ícones do status
+            case $status in
+                "up") status_icon="🟢 UP  " ;;
+                "down") status_icon="🔴 DOWN" ;;
+                *) status_icon="⚪ $status" ;;
+            esac
+            
+            # Ícones do cabo
+            case $carrier in
+                "1") cable_icon="🔗 SIM  " ;;
+                "0") cable_icon="❌ NÃO  " ;;
+                *) cable_icon="❓ N/A" ;;
+            esac
+            
+            printf "│ %-10s │ %-23s │ %-7s │ %-8s │ %-9s \n" "$interface" "$driver" "$status_icon" "$cable_icon" "$speed"
+        done
+        
+        echo "└────────────┴─────────────────────────┴─────────┴──────────┴──────────┘"
+        
+        # Estatísticas resumidas
+        echo ""
+        echo "📊 RESUMO:"
+        
+        total_interfaces=$(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | wc -l)
+        up_interfaces=$(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | while read iface; do cat /sys/class/net/$iface/operstate 2>/dev/null; done | grep -c "up")
+        connected_cables=$(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | while read iface; do cat /sys/class/net/$iface/carrier 2>/dev/null; done | grep -c "1")
+        
+        echo "   📈 Total de interfaces: $total_interfaces"
+        echo "   🟢 Interfaces UP: $up_interfaces"
+        echo "   🔗 Cabos conectados: $connected_cables"
+        
+        # Aguarda 1 segundo antes da próxima atualização
+        sleep 1
+    done
+}
+
+# Função 3: Auto-configurar netplan (adiciona todas DOWN + mantém UP)
+function auto_configure_netplan() {
+    echo ""
+    echo "🔧 AUTO-CONFIGURAÇÃO DO NETPLAN"
+    echo "==============================="
+    
+    # Backup
+    backup_file="/tmp/netplan_backup_$(date +%s).yaml"
+    sudo cp "$NETPLAN_FILE" "$backup_file" 2>/dev/null
+    echo "📋 Backup salvo em: $backup_file"
+    
+    # Detecta interfaces
+    up_interfaces=()
+    down_interfaces=()
+    
+    for interface in $(ls /sys/class/net/ | grep -E '^en'); do
+        status=$(cat /sys/class/net/$interface/operstate 2>/dev/null || echo "unknown")
+        if [ "$status" = "up" ]; then
+            up_interfaces+=("$interface")
+        elif [ "$status" = "down" ]; then
+            down_interfaces+=("$interface")
+        fi
+    done
+    
+    echo "🟢 Interfaces UP encontradas: ${up_interfaces[*]:-nenhuma}"
+    echo "🔴 Interfaces DOWN encontradas: ${down_interfaces[*]:-nenhuma}"
+    echo ""
+    
+    # Gera nova configuração
+    echo "⚙️  Gerando nova configuração..."
+    
+    cat << EOF | sudo tee "$NETPLAN_FILE" > /dev/null
+network:
+  version: 2
+  ethernets:
+EOF
+    
+    # Adiciona interfaces UP (mantém configuração)
+    for interface in "${up_interfaces[@]}"; do
+        echo "    $interface:" | sudo tee -a "$NETPLAN_FILE" > /dev/null
+        echo "      dhcp4: true" | sudo tee -a "$NETPLAN_FILE" > /dev/null
+        echo "   ✅ Mantida UP: $interface"
+    done
+    
+    # Adiciona interfaces DOWN
+    for interface in "${down_interfaces[@]}"; do
+        echo "    $interface:" | sudo tee -a "$NETPLAN_FILE" > /dev/null
+        echo "      dhcp4: true" | sudo tee -a "$NETPLAN_FILE" > /dev/null
+        echo "   ➕ Adicionada DOWN: $interface"
+    done
+    
+    echo ""
+    echo "📖 NOVA CONFIGURAÇÃO GERADA:"
+    echo "─────────────────────────────"
+    cat "$NETPLAN_FILE"
+    echo "─────────────────────────────"
+    echo ""
+    
+    # Confirma aplicação
+    read -p "Aplicar configuração? (y/n): " confirm
+    if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]; then
+        echo "🚀 Aplicando configuração..."
+        if sudo netplan try --timeout=10; then
+            echo "✅ Configuração aplicada com sucesso!"
+        else
+            echo "❌ Erro! Restaurando backup..."
+            sudo cp "$backup_file" "$NETPLAN_FILE"
+            sudo netplan apply
+            echo "✅ Backup restaurado."
+        fi
+    else
+        echo "❌ Aplicação cancelada."
+    fi
+    echo ""
+}
+
+# Função 4: Renomear interfaces
+function rename_interfaces() {
+    echo ""
+    echo "✏️  RENOMEAR INTERFACES"
+    echo "======================"
+    echo ""
+    
+    # Lista interfaces disponíveis
+    interfaces=($(ls /sys/class/net/ | grep -E '^en' | sort))
+    
+    if [ ${#interfaces[@]} -eq 0 ]; then
+        echo "❌ Nenhuma interface ethernet encontrada!"
+        return
+    fi
+    
+    echo "📋 INTERFACES DISPONÍVEIS:"
+    echo "┌─────┬────────────┬───────────────────┬─────────┐"
+    echo "│ Nº  │ Interface  │ MAC Address       │ Status  │"
+    echo "├─────┼────────────┼───────────────────┼─────────┤"
+    
+    for i in "${!interfaces[@]}"; do
+        interface="${interfaces[$i]}"
+        mac=$(cat /sys/class/net/$interface/address 2>/dev/null || echo "unknown")
+        status=$(cat /sys/class/net/$interface/operstate 2>/dev/null || echo "unknown")
+        
+        case $status in
+            "up") status_icon="🟢 UP" ;;
+            "down") status_icon="🔴 DOWN" ;;
+            *) status_icon="⚪ $status" ;;
+        esac
+        
+        printf "│ %-3s │ %-10s │ %-17s │ %-7s │\n" "$((i+1))" "$interface" "$mac" "$status_icon"
+    done
+    
+    echo "└─────┴────────────┴───────────────────┴─────────┘"
+    echo ""
+    echo "0) Voltar ao menu principal"
+    echo ""
+    
+    read -p "Escolha o número da interface para renomear: " choice
+    
+    if [ "$choice" = "0" ]; then
+        return
+    fi
+    
+    if [ "$choice" -ge 1 ] && [ "$choice" -le "${#interfaces[@]}" ]; then
+        selected_interface="${interfaces[$((choice-1))]}"
+        current_mac=$(cat /sys/class/net/$selected_interface/address)
+        
+        echo ""
+        echo "🎯 Interface selecionada: $selected_interface"
+        echo "🏷️  MAC Address: $current_mac"
+        echo ""
+        echo "💡 Sugestões de nomes:"
+        echo "   • lan0, lan1, lan2 (rede local)"
+        echo "   • wan0, wan1 (internet)"
+        echo "   • dmz0, dmz1 (DMZ)"
+        echo "   • mgmt0 (gerenciamento)"
+        echo ""
+        
+        read -p "Digite o novo nome: " new_name
+        
+        if [ -z "$new_name" ]; then
+            echo "❌ Nome não pode estar vazio!"
+            return
+        fi
+        
+        # Valida nome
+        if ! echo "$new_name" | grep -q '^[a-zA-Z][a-zA-Z0-9]*$'; then
+            echo "❌ Nome inválido! Use apenas letras e números, começando com letra."
+            return
+        fi
+        
+        # Cria/atualiza regra udev
+        rule_file="/etc/udev/rules.d/70-persistent-net.rules"
+        
+        # Remove regra antiga para este MAC (se existir)
+        sudo sed -i "/ATTR{address}==\"$current_mac\"/d" "$rule_file" 2>/dev/null
+        
+        # Adiciona nova regra
+        echo "SUBSYSTEM==\"net\", ACTION==\"add\", ATTR{address}==\"$current_mac\", NAME=\"$new_name\"" | sudo tee -a "$rule_file" > /dev/null
+        
+        echo ""
+        echo "✅ Regra criada com sucesso!"
+        echo "   $selected_interface será renomeada para '$new_name' após reinicialização."
+        echo ""
+        echo "🔄 Para aplicar agora (sem reiniciar):"
+        echo "   sudo udevadm control --reload-rules"
+        echo "   sudo udevadm trigger"
+        echo ""
+        
+        read -p "Aplicar regra agora? (y/n): " apply_now
+        if [ "$apply_now" = "y" ] || [ "$apply_now" = "Y" ]; then
+            sudo udevadm control --reload-rules
+            sudo udevadm trigger
+            echo "✅ Regras aplicadas! A interface pode demorar alguns segundos para aparecer com o novo nome."
+        fi
+        
+    else
+        echo "❌ Opção inválida!"
+    fi
+    echo ""
+}
+
+# Função 5: Fazer interface piscar (identificação física)
+function blink_interface() {
+    echo ""
+    echo "💡 IDENTIFICAÇÃO FÍSICA - PISCAR LED"
+    echo "===================================="
+    echo ""
+    
+    # Lista interfaces disponíveis
+    interfaces=($(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | sort))
+    
+    if [ ${#interfaces[@]} -eq 0 ]; then
+        echo "❌ Nenhuma interface encontrada!"
+        return
+    fi
+    
+    echo "📋 ESCOLHA UMA INTERFACE PARA PISCAR:"
+    echo "┌─────┬────────────┬───────────────────┬─────────┐"
+    echo "│ Nº  │ Interface  │ MAC Address       │ Status  │"
+    echo "├─────┼────────────┼───────────────────┼─────────┤"
+    
+    for i in "${!interfaces[@]}"; do
+        interface="${interfaces[$i]}"
+        mac=$(cat /sys/class/net/$interface/address 2>/dev/null || echo "unknown")
+        status=$(cat /sys/class/net/$interface/operstate 2>/dev/null || echo "unknown")
+        
+        case $status in
+            "up") status_icon="🟢 UP" ;;
+            "down") status_icon="🔴 DOWN" ;;
+            *) status_icon="⚪ $status" ;;
+        esac
+        
+        printf "│ %-3s │ %-10s │ %-17s │ %-7s │\n" "$((i+1))" "$interface" "$mac" "$status_icon"
+    done
+    
+    echo "└─────┴────────────┴───────────────────┴─────────┘"
+    echo ""
+    echo "0) Voltar ao menu principal"
+    echo ""
+    
+    read -p "Digite o número da interface: " choice
+    
+    if [ "$choice" = "0" ]; then
+        return
+    fi
+    
+    if [ "$choice" -ge 1 ] && [ "$choice" -le "${#interfaces[@]}" ]; then
+        selected_interface="${interfaces[$((choice-1))]}"
+        
+        echo ""
+        echo "🎯 Interface selecionada: $selected_interface"
+        echo ""
+        echo "💡 ATENÇÃO: Observe o LED da porta no servidor!"
+        echo "    O LED vai piscar por 5 segundos..."
+        echo ""
+        echo "🔄 Iniciando piscar..."
+        
+        if sudo ethtool -p "$selected_interface" 5 2>/dev/null; then
+            echo "✅ LED piscou com sucesso!"
+            echo "   Se você viu qual porta piscou, agora sabe onde fica a $selected_interface"
+        else
+            echo "❌ Erro: Não foi possível fazer o LED piscar."
+            echo "   Possíveis causas:"
+            echo "   • Esta placa não suporta piscar LED"
+            echo "   • Driver não suporta esta função"
+            echo "   • Interface está com problema"
+        fi
+        
+        echo ""
+        read -p "Testar outra interface? (y/n): " test_another
+        if [ "$test_another" = "y" ] || [ "$test_another" = "Y" ]; then
+            blink_interface
+        fi
+        
+    else
+        echo "❌ Opção inválida!"
+    fi
+    echo ""
+}
+
+# Função 6: Atualizar netplan após renomeação
+function update_netplan_after_rename() {
+    echo ""
+    echo "🔄 ATUALIZAR NETPLAN APÓS RENOMEAÇÃO"
+    echo "==================================="
+    echo ""
+    
+    # Mostra netplan atual
+    echo "📖 CONFIGURAÇÃO ATUAL DO NETPLAN:"
+    echo "─────────────────────────────────"
+    cat "$NETPLAN_FILE"
+    echo "─────────────────────────────────"
+    echo ""
+    
+    # Mostra interfaces reais no sistema
+    echo "🔍 INTERFACES REAIS NO SISTEMA:"
+    show_interface_status
+    
+    # Detecta interfaces que existem no netplan mas não no sistema
+    echo "🔍 Verificando inconsistências..."
+    
+    # Extrai interfaces do netplan
+    netplan_interfaces=($(grep -E '^\s+[a-zA-Z][^:]*:' "$NETPLAN_FILE" | sed 's/://g' | sed 's/^ *//' | sort))
+    
+    # Extrai interfaces reais do sistema
+    real_interfaces=($(ls /sys/class/net/ | grep -E '^(en|lan|wan|dmz|mgmt)' | sort))
+    
+    echo ""
+    echo "📋 INTERFACES NO NETPLAN: ${netplan_interfaces[*]:-nenhuma}"
+    echo "📋 INTERFACES NO SISTEMA: ${real_interfaces[*]:-nenhuma}"
+    echo ""
+    
+    # Verifica se há diferenças
+    missing_in_system=()
+    missing_in_netplan=()
+    
+    # Interfaces no netplan mas não no sistema (possivelmente renomeadas)
+    for np_iface in "${netplan_interfaces[@]}"; do
+        found=false
+        for real_iface in "${real_interfaces[@]}"; do
+            if [ "$np_iface" = "$real_iface" ]; then
+                found=true
+                break
+            fi
+        done
+        if [ "$found" = false ]; then
+            missing_in_system+=("$np_iface")
+        fi
+    done
+    
+    # Interfaces no sistema mas não no netplan
+    for real_iface in "${real_interfaces[@]}"; do
+        found=false
+        for np_iface in "${netplan_interfaces[@]}"; do
+            if [ "$real_iface" = "$np_iface" ]; then
+                found=true
+                break
+            fi
+        done
+        if [ "$found" = false ]; then
+            missing_in_netplan+=("$real_iface")
+        fi
+    done
+    
+    if [ ${#missing_in_system[@]} -eq 0 ] && [ ${#missing_in_netplan[@]} -eq 0 ]; then
+        echo "✅ Netplan está sincronizado com o sistema!"
+        echo "   Nenhuma atualização necessária."
+        return
+    fi
+    
+    echo "🔄 INCONSISTÊNCIAS ENCONTRADAS:"
+    if [ ${#missing_in_system[@]} -gt 0 ]; then
+        echo "   ❌ No netplan mas não existem no sistema: ${missing_in_system[*]}"
+        echo "       (Possivelmente foram renomeadas)"
+    fi
+    if [ ${#missing_in_netplan[@]} -gt 0 ]; then
+        echo "   ➕ No sistema mas não estão no netplan: ${missing_in_netplan[*]}"
+        echo "       (Precisam ser adicionadas)"
+    fi
+    echo ""
+    
+    read -p "Sincronizar netplan com o sistema atual? (y/n): " confirm
+    if [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; then
+        echo "❌ Sincronização cancelada."
+        return
+    fi
+    
+    # Backup
+    backup_file="/tmp/netplan_backup_$(date +%s).yaml"
+    sudo cp "$NETPLAN_FILE" "$backup_file"
+    echo "📋 Backup salvo em: $backup_file"
+    
+    # Gera nova configuração baseada nas interfaces reais
+    echo "⚙️  Gerando nova configuração baseada no sistema atual..."
+    
+    cat << EOF | sudo tee "$NETPLAN_FILE" > /dev/null
+network:
+  version: 2
+  ethernets:
+EOF
+    
+    # Adiciona todas as interfaces reais com DHCP
+    for interface in "${real_interfaces[@]}"; do
+        echo "    $interface:" | sudo tee -a "$NETPLAN_FILE" > /dev/null
+        echo "      dhcp4: true" | sudo tee -a "$NETPLAN_FILE" > /dev/null
+        echo "   ✅ Adicionada: $interface"
+    done
+    
+    echo ""
+    echo "📖 NOVA CONFIGURAÇÃO SINCRONIZADA:"
+    echo "─────────────────────────────────"
+    cat "$NETPLAN_FILE"
+    echo "─────────────────────────────────"
+    echo ""
+    
+    # Confirma aplicação
+    read -p "Aplicar nova configuração? (y/n): " apply_confirm
+    if [ "$apply_confirm" = "y" ] || [ "$apply_confirm" = "Y" ]; then
+        echo "🚀 Aplicando configuração..."
+        if sudo netplan try --timeout=10; then
+            echo "✅ Netplan sincronizado e aplicado com sucesso!"
+        else
+            echo "❌ Erro! Restaurando backup..."
+            sudo cp "$backup_file" "$NETPLAN_FILE"
+            sudo netplan apply
+            echo "✅ Backup restaurado."
+        fi
+    else
+        echo "❌ Aplicação cancelada."
+    fi
+    echo ""
+}
+
+function gerar_backup {
+  sudo mkdir -p /srv/scripts/netplan
+  sudo cp /etc/udev/rules.d/70-persistent-net.rules /srv/scripts/netplan/70-persistent-net.rules
+  sudo cp "$NETPLAN_FILE" /srv/scripts/netplan/50-cloud-init.yaml
+  sudo udevadm control --reload-rules
+  sudo udevadm trigger
+}
+
+# Menu principal
+# Menu principal
+function main_menu() {
+    while true; do
+        echo ""
+        echo "🌐 MENU PRINCIPAL"
+        echo "================"
+        echo "1) Mostrar status das interfaces"
+        echo "2) Monitorar interfaces em tempo real"
+        echo "3) Auto-configurar netplan (adicionar todas DOWN)"
+        echo "4) Renomear interfaces"
+        echo "5) Piscar LED para identificar porta física"
+        echo "6) Sincronizar netplan após renomeação"
+	echo "7) Gerar Backup do Netplan"
+        echo "0) Sair"
+        echo ""
+        read -p "Escolha uma opção: " option
+        
+        case "$option" in
+            1) show_interface_status ;;
+            2) watch_interface_status ;;
+            3) auto_configure_netplan ;;
+            4) rename_interfaces ;;
+            5) blink_interface ;;
+            6) update_netplan_after_rename ;;
+	    7) gerar_backup ;;
+            0) 
+                echo "👋 Saindo..."
+                break 
+                ;;
+            *) 
+                echo "❌ Opção inválida!" 
+                ;;
+        esac
+        
+        if [ "$option" != "0" ]; then
+            read -p "Pressione ENTER para continuar..."
+            clear
+        fi
+    done
+}
+
+# Verificações iniciais
+if [ "$EUID" -ne 0 ]; then
+    echo "❌ Este script precisa ser executado como root ou com sudo!"
+    echo "   Execute: sudo $0"
+    exit 1
+fi
+
+# Cria arquivo netplan se não existir
+if [ ! -f "$NETPLAN_FILE" ]; then
+    echo "ℹ️  Criando arquivo netplan básico..."
+    mkdir -p "$(dirname "$NETPLAN_FILE")"
+    cat << EOF > "$NETPLAN_FILE"
+network:
+  version: 2
+  ethernets:
+EOF
+fi
+
+# Execução
+clear
+main_menu
