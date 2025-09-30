@@ -1,3 +1,8 @@
 
-# ssh-keygen
-# ssh-copy-id remote@remote
+Set SSH Keys to non-password access:
+
+On Client:
+ssh-keygen -t rsa
+
+To copy access to server:
+ssh-copy-id user@somedomain
