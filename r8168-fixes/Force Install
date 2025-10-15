@@ -1,0 +1,6 @@
+sudo apt install r8168-dkms
+
+echo "blacklist r8169" | sudo tee /etc/modprobe.d/blacklist-r8169.conf
+
+# reinicie o servidor para aplicar
+sudo reboot
