@@ -2,7 +2,7 @@ sudo apt install motion v4l2-ctl
 
 sudo nano /etc/motion/motion.conf
 # Run in background as daemon
-daemon on
+daemon off
 # User to run motion as (optional, default is motion)
 # process_id_file /var/run/motion/motion.pid
 # Start in setup mode (useful for initial setup)
@@ -101,18 +101,22 @@ v4l2-ctl --list-devices
 
 This will show you which webcam is /dev/video0 and which is /dev/video1.
 
-# Enable motion daemon in /etc/default/motion
-sudo nano /etc/default/motion
-Change
-start_motion_daemon=no
-to
-start_motion_daemon=yes
+Create a systemd service override:
 
-# Enable and start the service
+sudo systemctl edit motion
+
+ini[Service]
+Type=simple
+Restart=always
+RestartSec=5
+KillMode=mixed
+TimeoutStopSec=5
+
+3. Reload and start the service
+
+sudo systemctl daemon-reload
 sudo systemctl enable motion
 sudo systemctl start motion
-
-# Check status
 sudo systemctl status motion
 
 Access Your Cameras
