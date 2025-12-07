@@ -1,0 +1,51 @@
+sudo apt install motion v4l2-ctl
+
+sudo mkdir -p /var/lib/motion/camera1
+sudo mkdir -p /var/lib/motion/camera2
+sudo chown -R motion:motion /var/lib/motion
+
+v4l2-ctl --list-devices
+
+This will show you which webcam is /dev/video0 and which is /dev/video1.
+Create a systemd service override:
+
+sudo systemctl edit motion
+
+ini[Service]
+Type=simple
+Restart=always
+RestartSec=5
+KillMode=mixed
+TimeoutStopSec=5
+
+3. Reload and start the service
+
+sudo systemctl daemon-reload
+sudo systemctl enable motion
+sudo systemctl start motion
+sudo systemctl status motion
+
+Access Your Cameras
+
+Web Control Interface: http://server-ip:8080
+Camera 1 Stream: http://server-ip:8081
+
+# View logs
+sudo journalctl -u motion -f
+
+# Restart motion
+sudo systemctl restart motion
+
+# Test configuration
+motion -c /etc/motion/motion.conf -n
+
+Troubleshooting
+If cameras don't work, check:
+
+Permissions:
+sudo usermod -a -G video motion
+Device access:
+ls -la /dev/video*
+
+Logs: 
+sudo tail -f /var/log/syslog | grep motion
